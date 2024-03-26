@@ -1,23 +1,44 @@
 import mongoose from "mongoose";
-
+//"R", "I", "A", "S", "E", "C", "IQ", "EQ"
 const ExamSchema = new mongoose.Schema(
   {
-    description: String,
-    background: String,
     type: {
       type: String,
       enum: ["R", "I", "A", "S", "E", "C", "IQ", "EQ"],
     },
     questions: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "QuestionModel",
+        questionTitle: {
+          type: String,
+          required: true,
+        },
+        image: String,
+        options: [
+          {
+            image: String,
+            content: {
+              type: String,
+              require: true,
+            },
+            isResult: {
+              type: Boolean,
+              default: false,
+            },
+          },
+        ],
       },
     ],
     results: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "ResultModel",
+        score: {
+          type: Number,
+          required: true,
+        },
+        content: {
+          type: String,
+          required: true,
+        },
+        image: String,
       },
     ],
   },
