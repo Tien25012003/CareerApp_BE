@@ -32,6 +32,6 @@ export const addNews = async (req: Request, res: Response) => {
       res.status(200).json(news);
     }
   } catch (error) {
-    res.send(error);
+    res.status(500).json(error);
   }
 };

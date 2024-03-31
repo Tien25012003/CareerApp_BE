@@ -7,6 +7,6 @@ export const getNews = async (req: Request, res: Response) => {
       .populate({ path: "listNews", model: NewsModel })
       .then((category) => res.status(200).json(category));
   } catch (e) {
-    console.log(e);
+    res.status(500).json(e);
   }
 };
