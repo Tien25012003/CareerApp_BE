@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-const NewCategorySchema = new mongoose.Schema(
+import { INewCategory } from "../utils/interfaces/NewCategories";
+const NewCategorySchema = new mongoose.Schema<INewCategory>(
   {
     categoryName: {
       type: String,

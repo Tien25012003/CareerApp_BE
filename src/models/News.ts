@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import { INews } from "../utils/interfaces/News";
 
-const NewsSchema = new mongoose.Schema(
+const NewsSchema = new mongoose.Schema<INews>(
   {
     createdAt: {
       type: Date,
