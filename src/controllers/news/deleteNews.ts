@@ -24,7 +24,7 @@ export const deleteNews = async (req: Request, res: Response) => {
         },
       }
     );
-    res.send(ErrorUtils.get("DELETE_SUCCESS"));
+    res.status(200);
   } catch (error) {
     res.send(ErrorUtils.get("SERVER_ERROR"));
   }
