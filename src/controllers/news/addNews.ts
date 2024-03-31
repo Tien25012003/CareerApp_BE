@@ -27,21 +27,15 @@ export const addNews = async (req: Request, res: Response) => {
     if (!!newsCategory) {
       newsCategory?.listNews.push(news.id);
       await newsCategory?.save();
-      res.send({
-        ...ErrorUtils.get("ADD_SUCCESS"),
-        data: news,
-      });
+      res.status(200).json(news);
     } else {
       await NewCategoryModel.create({
         categoryName: categoryName,
         listNews: [news.id],
       });
-      res.send({
-        ...ErrorUtils.get("ADD_SUCCESS"),
-        data: news,
-      });
+      res.status(200).json(news);
     }
   } catch (error) {
-    res.send(ErrorUtils.get("ADD_SUCCESS"));
+    res.send(ErrorUtils.get("SERVER_ERROR"));
   }
 };

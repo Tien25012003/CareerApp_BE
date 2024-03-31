@@ -5,13 +5,9 @@ interface IErrorData {
 }
 export type TErrorKey =
   | "ERROR_INVALID"
-  | "ADD_SUCCESS"
   | "ADD_FAIL"
   | "SERVER_ERROR"
-  | "NEW_EMPTY"
-  | "DELETE_SUCCESS"
-  | "GET_SUCCESS"
-  | "UPDATE_SUCCESS";
+  | "NEW_EMPTY";
 const ErrorUtils = new Map<TErrorKey, IErrorData>([
   [
     "ERROR_INVALID",
@@ -21,14 +17,7 @@ const ErrorUtils = new Map<TErrorKey, IErrorData>([
       data: {},
     },
   ],
-  [
-    "ADD_SUCCESS",
-    {
-      code: "ADD_SUCCESS",
-      message: "Thêm mới thành công",
-      data: {},
-    },
-  ],
+
   [
     "ADD_FAIL",
     {
@@ -50,30 +39,6 @@ const ErrorUtils = new Map<TErrorKey, IErrorData>([
     {
       code: "NEW_EMPTY",
       message: "Dữ liệu rộng",
-      data: {},
-    },
-  ],
-  [
-    "DELETE_SUCCESS",
-    {
-      code: "DELETE_SUCCESS",
-      message: "Xóa thành công",
-      data: {},
-    },
-  ],
-  [
-    "GET_SUCCESS",
-    {
-      code: "GET_SUCCESS",
-      message: "Lấy dữ liệu thành công",
-      data: {},
-    },
-  ],
-  [
-    "UPDATE_SUCCESS",
-    {
-      code: "UPDATE_SUCCESS",
-      message: "Cập nhật thành công",
       data: {},
     },
   ],

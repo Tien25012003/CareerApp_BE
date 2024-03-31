@@ -9,10 +9,7 @@ export const updateNews = async (req: Request, res: Response) => {
     const news = await NewsModel.findByIdAndUpdate(id, {
       ...data,
     });
-    res.send({
-      ...ErrorUtils.get("UPDATE_SUCCESS"),
-      data: news,
-    });
+    res.status(200).json(news);
   } catch (error) {
     res.send(ErrorUtils.get("SERVER_ERROR"));
   }
