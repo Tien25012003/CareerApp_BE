@@ -1,5 +1,11 @@
 import { Router } from "express";
 import { getExams } from "../controllers/exams/getExams";
+import { addExam } from "../controllers/exams/addExam";
+import { deleteExam } from "../controllers/exams/deleteExam";
+import { updateExam } from "../controllers/exams/updateExam";
 const examRouter = Router();
-examRouter.get("/getExams", getExams);
+examRouter.get("/", getExams);
+examRouter.post("/addExam", addExam);
+examRouter.delete("/deleteExam", deleteExam);
+examRouter.put("/updateExam", updateExam);
 export default examRouter;

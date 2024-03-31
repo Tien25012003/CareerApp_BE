@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import { IExam } from "../utils/interfaces/Exam";
 //"R", "I", "A", "S", "E", "C", "IQ", "EQ"
-const ExamSchema = new mongoose.Schema(
+const ExamSchema = new mongoose.Schema<IExam>(
   {
     type: {
       type: String,
@@ -30,10 +31,7 @@ const ExamSchema = new mongoose.Schema(
     ],
     results: [
       {
-        score: {
-          type: Number,
-          required: true,
-        },
+        score: Number,
         content: {
           type: String,
           required: true,
