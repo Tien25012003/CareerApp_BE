@@ -19,10 +19,18 @@ export const addNews = async (req: Request, res: Response) => {
     const newsCategory = await NewCategoryModel.findOne({
       categoryName: categoryName,
     });
-    newsCategory?.listNews.push(news.id);
-    await newsCategory?.save();
-
-    res.status(200).json(news);
+    console.log(newsCategory);
+    if (!!newsCategory) {
+      newsCategory?.listNews.push(news.id);
+      await newsCategory?.save();
+      res.status(200).json(news);
+    } else {
+      await NewCategoryModel.create({
+        categoryName: categoryName,
+        listNews: [news.id],
+      });
+      res.status(200).json(news);
+    }
   } catch (error) {
     res.send(error);
   }
