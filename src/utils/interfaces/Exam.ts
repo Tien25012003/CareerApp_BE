@@ -5,6 +5,7 @@ declare interface IOption {
   image?: string;
   content: string;
   isResult?: boolean;
+  standardScore?: number;
 }
 export interface IQuestion {
   questionTitle: string;
@@ -12,7 +13,7 @@ export interface IQuestion {
   options?: IOption[];
 }
 export interface IResult {
-  score?: number | string;
+  score?: number | string | number[];
   content: string;
   image?: string;
 }
