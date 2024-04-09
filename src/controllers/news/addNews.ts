@@ -7,7 +7,8 @@ import ErrorUtils from "../../utils/constant/Error";
 export const addNews = async (req: Request, res: Response) => {
   const { categoryName, createdAt, content, title, type, image } =
     req.body as INewsBodyReq;
-  if (!!categoryName || !!content || !!title || !!type || !!image) {
+  console.log(req.body);
+  if (!categoryName || !content || !title || !type || !image) {
     res.send(ErrorUtils.get("ERROR_INVALID"));
     return;
   }
