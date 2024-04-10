@@ -7,7 +7,7 @@ export const getNews = async (req: Request, res: Response) => {
   try {
     await NewCategoryModel.findById(id)
       .populate({ path: "listNews", model: NewsModel })
-      .then((category) => res.status(200).json(category));
+      .then((category) => res.status(200).json(category?.listNews));
   } catch (e) {
     res.send(ErrorUtils.get("SERVER_ERROR"));
   }
