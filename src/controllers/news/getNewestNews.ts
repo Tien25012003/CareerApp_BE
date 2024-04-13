@@ -7,7 +7,7 @@ export const getNewestNews = async (req: Request, res: Response) => {
     const news = await NewsModel.find({
       createdAt: { $gte: dayjs(new Date()).subtract(15, "d") },
     });
-    console.log(news);
+    //console.log(news);
     res.status(200).json(news);
   } catch (error) {
     res.send(ErrorUtils.get("SERVER_ERROR"));

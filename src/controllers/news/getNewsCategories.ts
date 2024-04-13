@@ -6,7 +6,7 @@ export const getNewsCategories = async (req: Request, res: Response) => {
     const newCategories = await NewCategoryModel.find().select({
       categoryName: 1,
     });
-    console.log("categories", newCategories);
+    //console.log("categories", newCategories);
     res.status(200).json(newCategories);
   } catch (error) {
     res.send(ErrorUtils.get("SERVER_ERROR"));

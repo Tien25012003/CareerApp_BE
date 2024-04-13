@@ -1,0 +1,11 @@
+import { Router } from "express";
+import { ISubjects } from "../utils/interfaces/SchoolSubjects";
+import ErrorUtils from "../utils/constant/Error";
+import { addSubjects } from "../controllers/schoolSubjects/addSubjects";
+import { getSubjects } from "../controllers/schoolSubjects/getSubjects";
+import { deleteSubjects } from "../controllers/schoolSubjects/deleteSubject";
+const schoolSubjectRouter = Router();
+schoolSubjectRouter.post("/addSubjects", addSubjects);
+schoolSubjectRouter.get("/getSubjects", getSubjects);
+schoolSubjectRouter.delete("/deleteSubjects", deleteSubjects);
+export default schoolSubjectRouter;

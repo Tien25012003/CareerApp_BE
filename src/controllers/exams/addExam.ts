@@ -6,9 +6,9 @@ export const addExam = async (req: Request<any, any, IExam>, res: Response) => {
   try {
     const { type, questions, results } = req.body;
     const newExam = new ExamModel({
-      type: type,
-      questions: questions,
-      results: results,
+      type,
+      questions,
+      results,
     });
     await newExam.save().then((savedExam) => {
       return res.send({

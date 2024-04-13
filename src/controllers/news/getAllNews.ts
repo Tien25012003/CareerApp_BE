@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 export const getAllNews = async (req: Request, res: Response) => {
   try {
     const news = await NewsModel.find({});
-    console.log(news);
+    //console.log(news);
     res.status(200).json(news);
   } catch (error) {
     res.send(ErrorUtils.get("SERVER_ERROR"));

@@ -8,7 +8,8 @@ export type TErrorKey =
   | "ADD_FAIL"
   | "SERVER_ERROR"
   | "NEW_EMPTY"
-  | "EXAM_ID_DELETE_NOT_FOUND";
+  | "EXAM_ID_DELETE_NOT_FOUND"
+  | "SUBJECT_ID_DELETE_NOT_FOUND";
 const ErrorUtils = new Map<TErrorKey, IErrorData>([
   [
     "ERROR_INVALID",
@@ -48,6 +49,14 @@ const ErrorUtils = new Map<TErrorKey, IErrorData>([
     {
       code: "EXAM_ID_DELETE_NOT_FOUND",
       message: "Id bài kiểm tra cần xóa không tồn tại",
+      data: {},
+    },
+  ],
+  [
+    "SUBJECT_ID_DELETE_NOT_FOUND",
+    {
+      code: "SUBJECT_ID_DELETE_NOT_FOUND",
+      message: "Id môn học cần xóa không tồn tại",
       data: {},
     },
   ],

@@ -7,7 +7,7 @@ import ErrorUtils from "../../utils/constant/Error";
 export const addNews = async (req: Request, res: Response) => {
   const { categoryName, createdAt, content, title, type, image } =
     req.body as INewsBodyReq;
-  console.log(req.body);
+  //console.log(req.body);
   if (!categoryName || !content || !title || !type || !image) {
     res.send(ErrorUtils.get("ERROR_INVALID"));
     return;
@@ -24,7 +24,7 @@ export const addNews = async (req: Request, res: Response) => {
     const newsCategory = await NewCategoryModel.findOne({
       categoryName: categoryName,
     });
-    console.log(newsCategory);
+    //console.log(newsCategory);
     if (!!newsCategory) {
       newsCategory?.listNews.push(news.id);
       await newsCategory?.save();

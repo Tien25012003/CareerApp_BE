@@ -3,12 +3,14 @@ import { connectToDb } from "./src/utils/db";
 import { NewCategoryModel } from "./src/models/NewCategory";
 import newsRouter from "./src/routes/newsRouter";
 import examRouter from "./src/routes/examRouter";
+import schoolSubjectRouter from "./src/routes/schoolSubjectRouter";
 const app = express();
 app.use(express.json());
 
 connectToDb();
 app.use("/news", newsRouter);
 app.use("/exams", examRouter);
+app.use("/schoolSubjects", schoolSubjectRouter);
 app.post("/", async (req, res) => {
   const category = req.body;
   const newCategoryModel = new NewCategoryModel(category);
