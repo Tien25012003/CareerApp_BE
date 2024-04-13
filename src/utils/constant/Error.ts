@@ -1,4 +1,4 @@
-interface IErrorData {
+export interface IErrorData {
   code: string;
   data?: any;
   message: string;
@@ -7,7 +7,8 @@ export type TErrorKey =
   | "ERROR_INVALID"
   | "ADD_FAIL"
   | "SERVER_ERROR"
-  | "NEW_EMPTY";
+  | "NEW_EMPTY"
+  | "EXAM_ID_DELETE_NOT_FOUND";
 const ErrorUtils = new Map<TErrorKey, IErrorData>([
   [
     "ERROR_INVALID",
@@ -39,6 +40,14 @@ const ErrorUtils = new Map<TErrorKey, IErrorData>([
     {
       code: "NEW_EMPTY",
       message: "Dữ liệu rộng",
+      data: {},
+    },
+  ],
+  [
+    "EXAM_ID_DELETE_NOT_FOUND",
+    {
+      code: "EXAM_ID_DELETE_NOT_FOUND",
+      message: "Id bài kiểm tra cần xóa không tồn tại",
       data: {},
     },
   ],

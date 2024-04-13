@@ -3,10 +3,11 @@ import { NewCategoryModel } from "../../models/NewCategory";
 import { NewsModel } from "../../models/News";
 import ErrorUtils from "../../utils/constant/Error";
 export const getNews = async (req: Request, res: Response) => {
+  const { id } = req.query;
   try {
-    await NewCategoryModel.find({})
+    await NewCategoryModel.findById(id)
       .populate({ path: "listNews", model: NewsModel })
-      .then((category) => res.status(200).json(category));
+      .then((category) => res.status(200).json(category?.listNews));
   } catch (e) {
     res.send(ErrorUtils.get("SERVER_ERROR"));
   }

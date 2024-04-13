@@ -25,13 +25,14 @@ const ExamSchema = new mongoose.Schema<IExam>(
               type: Boolean,
               default: false,
             },
+            standardScore: Number,
           },
         ],
       },
     ],
     results: [
       {
-        score: Number,
+        score: [Number],
         content: {
           type: String,
           required: true,

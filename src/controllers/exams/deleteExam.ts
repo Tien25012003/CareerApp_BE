@@ -2,20 +2,19 @@ import { Response, Request } from "express";
 import { ExamModel } from "../../models/Exam";
 import ErrorUtils from "../../utils/constant/Error";
 import { ObjectId } from "mongoose";
+import { TResponse } from "../../utils/types/meta";
 export const deleteExam = async (
   req: Request<any, any, { id: ObjectId }>,
-  res: Response
+  res: Response<TResponse<any>>
 ) => {
   const { id } = req.query;
-  console.log(id);
   try {
-    await ExamModel.deleteOne(ExamModel.findById(id)).then(async () => {
-      await ExamModel.find({}).then((exam) => {
-        return res.send({
-          code: 200,
-          data: exam,
-        });
-      });
+    const deletedExam = await ExamModel.deleteOne(ExamModel.findById(id));
+    if (deletedExam.deletedCount === 0) {
+      return res.send(ErrorUtils.get("EXAM_ID_DELETE_NOT_FOUND")!);
+    }
+    return res.send({
+      code: 200,
     });
   } catch (e) {
     return res.send(ErrorUtils.get("SERVER_ERROR"));
