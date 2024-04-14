@@ -16,6 +16,7 @@ export interface IResult {
   score?: number | string | number[];
   content: string;
   image?: string;
+  detail?: string;
 }
 export interface IExam {
   type: TExam;

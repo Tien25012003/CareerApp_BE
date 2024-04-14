@@ -38,6 +38,7 @@ const ExamSchema = new mongoose.Schema<IExam>(
           required: true,
         },
         image: String,
+        detail: String,
       },
     ],
   },
