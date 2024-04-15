@@ -1,6 +1,7 @@
 import { Response, Request } from "express";
 import { ExamModel } from "../../models/Exam";
 import ErrorUtils from "../../utils/constant/Error";
+
 export const getExams = async (req: Request, res: Response) => {
   try {
     //await ExamModel.find({}).then((exam) => res.status(200).json(exam));

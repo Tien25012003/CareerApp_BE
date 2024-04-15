@@ -9,7 +9,9 @@ export type TErrorKey =
   | "SERVER_ERROR"
   | "NEW_EMPTY"
   | "EXAM_ID_DELETE_NOT_FOUND"
-  | "SUBJECT_ID_DELETE_NOT_FOUND";
+  | "SUBJECT_ID_DELETE_NOT_FOUND"
+  | "PROMT_IS_EMPTY"
+  | "LOCK_AI";
 const ErrorUtils = new Map<TErrorKey, IErrorData>([
   [
     "ERROR_INVALID",
@@ -57,6 +59,22 @@ const ErrorUtils = new Map<TErrorKey, IErrorData>([
     {
       code: "SUBJECT_ID_DELETE_NOT_FOUND",
       message: "Id môn học cần xóa không tồn tại",
+      data: {},
+    },
+  ],
+  [
+    "PROMT_IS_EMPTY",
+    {
+      code: "PROMT_IS_EMPTY",
+      message: "Câu hỏi rỗng",
+      data: {},
+    },
+  ],
+  [
+    "LOCK_AI",
+    {
+      code: "LOCK_AI",
+      message: "Chức năng AI bị khoá",
       data: {},
     },
   ],

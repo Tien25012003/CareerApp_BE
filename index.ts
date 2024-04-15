@@ -4,6 +4,9 @@ import { NewCategoryModel } from "./src/models/NewCategory";
 import newsRouter from "./src/routes/newsRouter";
 import examRouter from "./src/routes/examRouter";
 import schoolSubjectRouter from "./src/routes/schoolSubjectRouter";
+import "dotenv/config";
+import geminiRouter from "./src/routes/geminiRouter";
+
 const app = express();
 app.use(express.json());
 
@@ -11,6 +14,7 @@ connectToDb();
 app.use("/news", newsRouter);
 app.use("/exams", examRouter);
 app.use("/schoolSubjects", schoolSubjectRouter);
+app.use("/geminiAI", geminiRouter);
 app.post("/", async (req, res) => {
   const category = req.body;
   const newCategoryModel = new NewCategoryModel(category);
