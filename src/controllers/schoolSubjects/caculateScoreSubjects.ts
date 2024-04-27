@@ -154,9 +154,15 @@ export const caculateScoreSubjects = async (
     ],
   ]);
   const maxValue = Math.max(...Unit_Score.values());
+  if (maxValue === 0)
+    return res.send({
+      code: 200,
+      data: [],
+    });
   const keys: { title: string; description: string }[] = [];
   Unit_Score.forEach((value, key) => {
     if (value === maxValue) {
+      console.log(value, maxValue);
       if (keys.findIndex((item) => item.title.includes(key[0])) === -1)
         keys.push({
           title: key[0],
