@@ -6,7 +6,7 @@ import examRouter from "./src/routes/examRouter";
 import schoolSubjectRouter from "./src/routes/schoolSubjectRouter";
 import "dotenv/config";
 import geminiRouter from "./src/routes/geminiRouter";
-import { convertImageToText } from "./src/controllers/OCR/imageToText";
+import ocrRouter from "./src/routes/ocrRouter";
 
 const app = express();
 app.use(express.json());
@@ -16,7 +16,7 @@ app.use("/news", newsRouter);
 app.use("/exams", examRouter);
 app.use("/schoolSubjects", schoolSubjectRouter);
 app.use("/geminiAI", geminiRouter);
-app.use("/convertImageToText", convertImageToText);
+app.use("/ocr", ocrRouter);
 app.post("/", async (req, res) => {
   const category = req.body;
   const newCategoryModel = new NewCategoryModel(category);
