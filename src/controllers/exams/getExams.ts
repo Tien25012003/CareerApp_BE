@@ -1,8 +1,12 @@
 import { Response, Request } from "express";
 import { ExamModel } from "../../models/Exam";
-import ErrorUtils from "../../utils/constant/Error";
+import ErrorUtils, { IErrorData } from "../../utils/constant/Error";
+import { IExamResponse } from "../../utils/interfaces";
 
-export const getExams = async (req: Request, res: Response) => {
+export const getExams = async (
+  req: Request,
+  res: Response<IExamResponse | IErrorData>
+) => {
   try {
     //await ExamModel.find({}).then((exam) => res.status(200).json(exam));
     await ExamModel.find({}).then((exam) => {

@@ -1,4 +1,5 @@
 import { ObjectId } from "mongoose";
+import { IResponse } from ".";
 
 type TExam = "R" | "I" | "A" | "S" | "E" | "C" | "IQ" | "EQ";
 declare interface IOption {
@@ -22,4 +23,7 @@ export interface IExam {
   type: TExam;
   questions: IQuestion[];
   results: IResult[];
+}
+export interface IExamResponse extends IResponse {
+  data: IExam[];
 }

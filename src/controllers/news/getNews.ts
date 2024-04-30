@@ -1,7 +1,8 @@
 import { Response, Request } from "express";
 import { NewCategoryModel } from "../../models/NewCategory";
 import { NewsModel } from "../../models/News";
-import ErrorUtils from "../../utils/constant/Error";
+import ErrorUtils, { IErrorData } from "../../utils/constant/Error";
+import { INewResponse, INews } from "../../utils/interfaces";
 export const getNews = async (req: Request, res: Response) => {
   const { id, page = 1, size = 7 } = req.query;
   try {
@@ -19,7 +20,7 @@ export const getNews = async (req: Request, res: Response) => {
         },
       })
       .then((category) => {
-        res.send({
+        return res.send({
           code: 200,
           data: category?.listNews,
           totalCount: totalCount,

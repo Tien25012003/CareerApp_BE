@@ -1,3 +1,5 @@
+import { IResponse } from ".";
+
 export interface IImageNew {
   longImage: string;
   shortImage: string;
@@ -28,4 +30,9 @@ export interface INewsUpdateReq {
 export interface INewsReq {
   newsId: string;
   categoryName: string;
+}
+
+export interface INewResponse extends IResponse {
+  data: INews[];
+  totalCount: number;
 }

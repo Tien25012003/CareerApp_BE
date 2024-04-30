@@ -11,7 +11,8 @@ export type TErrorKey =
   | "EXAM_ID_DELETE_NOT_FOUND"
   | "SUBJECT_ID_DELETE_NOT_FOUND"
   | "PROMT_IS_EMPTY"
-  | "LOCK_AI";
+  | "LOCK_AI"
+  | "CONCLUSION_NOT_EXIST";
 const ErrorUtils = new Map<TErrorKey, IErrorData>([
   [
     "ERROR_INVALID",
@@ -75,6 +76,14 @@ const ErrorUtils = new Map<TErrorKey, IErrorData>([
     {
       code: "LOCK_AI",
       message: "Chức năng AI bị khoá",
+      data: {},
+    },
+  ],
+  [
+    "CONCLUSION_NOT_EXIST",
+    {
+      code: "CONCLUSION_NOT_EXIST",
+      message: "Kết luận không tồn tại",
       data: {},
     },
   ],
