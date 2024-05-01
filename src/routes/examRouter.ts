@@ -12,5 +12,5 @@ examRouter.post("/addExam", addExam);
 examRouter.delete("/deleteExam", deleteExam);
 examRouter.put("/updateExam", updateExam);
 examRouter.post("/uploadConclusion", upload.single("file"), uploadConclusion);
-examRouter.get("/getConclusion", getConclusion);
+examRouter.post("/getConclusion", getConclusion);
 export default examRouter;
