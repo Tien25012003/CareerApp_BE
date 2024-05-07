@@ -15,9 +15,7 @@ export const deleteNews = async (req: Request, res: Response) => {
     const news = (await NewsModel.find({})).map((map) => map.id);
 
     await NewCategoryModel.updateOne(
-      {
-        categoryName: categoryName,
-      },
+      { categoryName: categoryName },
       {
         $set: {
           listNews: news,

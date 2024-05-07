@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { ICaculateSubject } from "../../utils/interfaces/SchoolSubjects";
-import ErrorUtils from "../../utils/constant/Error";
 type TSubjects =
   | "Literature"
   | "Math"
@@ -17,10 +16,7 @@ export const caculateScoreSubjects = async (
   res: Response
 ) => {
   const { scores } = req.body;
-  // const scores={
-  //   ...data,
-
-  // }
+  console.log("score", scores);
   const Unit_Score = new Map([
     [
       "A00",
