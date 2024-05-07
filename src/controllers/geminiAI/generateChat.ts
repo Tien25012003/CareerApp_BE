@@ -22,7 +22,6 @@ export const generateChat = async (req: Request, res: Response) => {
     if (!prompt) return res.send(ErrorUtils.get("PROMT_IS_EMPTY"));
     if (isLock) return res.send(ErrorUtils.get("LOCK_AI"));
     const parts = [{ text: dataSet({ question: prompt }) }];
-    console.log("parts", parts);
     const result = await model.generateContent({
       contents: [{ role: "user", parts }],
       generationConfig,

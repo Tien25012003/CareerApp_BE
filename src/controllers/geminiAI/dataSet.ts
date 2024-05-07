@@ -25,7 +25,7 @@ export const dataSet = ({ question }: TQuestion) => {
 
 ---
 User's question: 
-Question 1:  ${question}
+Question:  ${question}
 Keyword: ${question?.trim()?.split(" ")?.join(",")}. 
     `;
 };
