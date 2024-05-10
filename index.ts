@@ -7,6 +7,7 @@ import schoolSubjectRouter from "./src/routes/schoolSubjectRouter";
 import "dotenv/config";
 import geminiRouter from "./src/routes/geminiRouter";
 import ocrRouter from "./src/routes/ocrRouter";
+import dictionaryRouter from "./src/routes/dictionaryRouter";
 
 const app = express();
 app.use(express.json());
@@ -17,6 +18,7 @@ app.use("/exams", examRouter);
 app.use("/schoolSubjects", schoolSubjectRouter);
 app.use("/geminiAI", geminiRouter);
 app.use("/ocr", ocrRouter);
+app.use("/dictionary", dictionaryRouter);
 app.post("/", async (req, res) => {
   const category = req.body;
   const newCategoryModel = new NewCategoryModel(category);
