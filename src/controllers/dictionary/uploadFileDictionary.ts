@@ -39,7 +39,6 @@ export const uploadFileDictionary = async (
         }));
         return await addNewDictionary(group as TGroup, majors).then(
           (result: any) => {
-            console.log("result", result);
             results.push(result);
           }
         );
@@ -56,7 +55,7 @@ export const uploadFileDictionary = async (
       return res.send({ code: 200, data: results });
     });
   } catch (e) {
-    console.log(e);
+    //console.log(e);
     return res.send(ErrorUtils.get("SERVER_ERROR"));
   }
 };
