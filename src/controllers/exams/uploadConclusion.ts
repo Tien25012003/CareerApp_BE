@@ -35,7 +35,6 @@ export const uploadConclusion = async (
       });
     });
   } catch (e) {
-    console.log(e);
     return res.send(ErrorUtils.get("SERVER_ERROR"));
   }
 };

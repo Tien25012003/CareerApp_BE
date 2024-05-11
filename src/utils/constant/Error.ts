@@ -12,7 +12,10 @@ export type TErrorKey =
   | "SUBJECT_ID_DELETE_NOT_FOUND"
   | "PROMT_IS_EMPTY"
   | "LOCK_AI"
-  | "CONCLUSION_NOT_EXIST";
+  | "CONCLUSION_NOT_EXIST"
+  | "DICTIONARY_ID_DELETE_NOT_FOUND"
+  | "DICTIONARY_ID_OR_ENTRY_ID_DELETE_NOT_FOUND"
+  | "UPDATED_DICTIONARY_NOT_FOUND";
 const ErrorUtils = new Map<TErrorKey, IErrorData>([
   [
     "ERROR_INVALID",
@@ -84,6 +87,30 @@ const ErrorUtils = new Map<TErrorKey, IErrorData>([
     {
       code: "CONCLUSION_NOT_EXIST",
       message: "Kết luận không tồn tại",
+      data: {},
+    },
+  ],
+  [
+    "DICTIONARY_ID_DELETE_NOT_FOUND",
+    {
+      code: "DICTIONARY_ID_DELETE_NOT_FOUND",
+      message: "Id từ điển cần xoá không tồn tại",
+      data: {},
+    },
+  ],
+  [
+    "DICTIONARY_ID_OR_ENTRY_ID_DELETE_NOT_FOUND",
+    {
+      code: "DICTIONARY_ID_OR_ENTRY_ID_DELETE_NOT_FOUND",
+      message: "Id từ điển hoặc id ngành nghề không tồn tại",
+      data: {},
+    },
+  ],
+  [
+    "UPDATED_DICTIONARY_NOT_FOUND",
+    {
+      code: "UPDATED_DICTIONARY_NOT_FOUND",
+      message: "Không tìm thấy từ điển cần thay đổi",
       data: {},
     },
   ],

@@ -2,10 +2,9 @@ import { Response, Request } from "express";
 import { ExamModel } from "../../models/Exam";
 import ErrorUtils from "../../utils/constant/Error";
 import { ObjectId } from "mongoose";
-import { TResponse } from "../../utils/types/meta";
 export const deleteExam = async (
-  req: Request<any, any, { id: ObjectId }>,
-  res: Response<TResponse<any>>
+  req: Request<any, any, any, { id: ObjectId }>,
+  res: Response
 ) => {
   const { id } = req.query;
   try {
