@@ -1,6 +1,14 @@
 import { ObjectId } from "mongoose";
 import { IResponse } from ".";
 export type TGroup = "A" | "A1" | "B" | "C" | "D" | "D7";
+export enum EGroup {
+  "A",
+  "A1",
+  "B",
+  "C",
+  "D",
+  "D7",
+}
 export interface IMajor {
   name: string;
   image: string;
@@ -9,7 +17,6 @@ export interface IMajor {
   cons: string;
 }
 export interface IDictionary {
-  _id: ObjectId;
   group: TGroup;
   majors: IMajor[];
 }
