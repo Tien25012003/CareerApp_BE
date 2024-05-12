@@ -1,13 +1,9 @@
 import { Request, Response } from "express";
 import ErrorUtils from "../../utils/constant/Error";
 import { SchoolModel } from "../../models/School";
-export const getSchool = async (
-  req: Request<any, any, any, { group: string }>,
-  res: Response
-) => {
+export const getAllSchool = async (req: Request, res: Response) => {
   try {
-    const { group } = req.query;
-    const dictionary = await SchoolModel.findOne({ group });
+    const dictionary = await SchoolModel.find({});
     return res.send({
       code: 200,
       data: dictionary,

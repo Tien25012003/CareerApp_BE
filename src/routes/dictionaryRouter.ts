@@ -7,8 +7,9 @@ import {
   deleteMajor,
   uploadFileDictionary,
   addSchool,
-  getSchool,
+  getAllSchool,
   deleteAllSchool,
+  getSchool,
 } from "../controllers/dictionary";
 import upload from "../middlewares/upload";
 const dictionaryRouter = Router();
@@ -23,6 +24,7 @@ dictionaryRouter.post(
   uploadFileDictionary
 );
 dictionaryRouter.post("/addSchool", upload.single("file"), addSchool);
-dictionaryRouter.get("/getSchool", getSchool);
+dictionaryRouter.get("/getAllSchool", getAllSchool);
 dictionaryRouter.delete("/deleteAllSchool", deleteAllSchool);
+dictionaryRouter.get("/getSchool", getSchool);
 export default dictionaryRouter;
