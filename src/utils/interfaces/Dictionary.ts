@@ -1,12 +1,12 @@
 import { ObjectId } from "mongoose";
 import { IResponse } from ".";
-export type TGroup = "A" | "A1" | "B" | "C" | "D" | "D7";
+export type TGroup = "A0" | "A1" | "B" | "C" | "D1" | "D7";
 export enum EGroup {
-  "A",
+  "A0",
   "A1",
   "B",
   "C",
-  "D",
+  "D1",
   "D7",
 }
 export interface IMajor {

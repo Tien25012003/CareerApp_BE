@@ -5,7 +5,7 @@ const DictionarySchema = new mongoose.Schema<IDictionary>(
     group: {
       type: String,
       required: true,
-      enum: ["A", "A1", "B", "C", "D", "D7"],
+      enum: ["A0", "A1", "B", "C", "D1", "D7"],
     },
     majors: [
       {

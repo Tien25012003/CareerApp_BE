@@ -1,11 +1,13 @@
 import { Router } from "express";
-import { getExams } from "../controllers/exams/getExams";
-import { addExam } from "../controllers/exams/addExam";
-import { deleteExam } from "../controllers/exams/deleteExam";
-import { updateExam } from "../controllers/exams/updateExam";
-import { uploadConclusion } from "../controllers/exams/uploadConclusion";
+import {
+  getExams,
+  addExam,
+  deleteExam,
+  updateExam,
+  uploadConclusion,
+  getConclusion,
+} from "../controllers/exams";
 import upload from "../middlewares/upload";
-import { getConclusion } from "../controllers/exams/getConclusions";
 const examRouter = Router();
 examRouter.get("/", getExams);
 examRouter.post("/addExam", addExam);
