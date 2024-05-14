@@ -20,7 +20,7 @@ const prompt = `Convert image to text?. After converting to image, you will have
 |Âm nhạc|84|89|83|85|8,0|Giỏi|Giỏi
 |Mỹ thuật|84|89|83|85|8,0|Giỏi|Giỏi
 |Thể dục|84|89|83|85|8,0|Giỏi|Giỏi
-|NN2|1|0|1|0|1,0|Kém|Kém. 
+|Ngoại ngữ|1|0|1|0|1,0|Kém|Kém. 
 Please extract the subject names and their corresponding average scores for the entire year (the collumn at the end of array). 
 For example, extract "Toán" with the average score "8,0", "Vật lí" with the average score "8,0", and so on.
 After this, please give me response at this format: 
@@ -49,9 +49,8 @@ export const ocrGemini = async (req: Request, res: Response) => {
       const result = await model.generateContent([prompt, imagePart]);
       const text = await result.response.text();
       console.log("text", text);
-      const response = convertTextToArray(text);
+      const response = await convertTextToArray(text);
       console.log("response", response);
-
       return res.send({ code: 200, data: response });
     }
 

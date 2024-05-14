@@ -1,6 +1,7 @@
 import { ObjectId } from "mongoose";
 
 export interface ISubject {
+  _id: ObjectId;
   name: string;
   vnName: string;
 }
