@@ -1,4 +1,3 @@
-import { ObjectId } from "mongoose";
 import { IResponse } from ".";
 
 type TExam = "R" | "I" | "A" | "S" | "E" | "C" | "IQ" | "EQ";

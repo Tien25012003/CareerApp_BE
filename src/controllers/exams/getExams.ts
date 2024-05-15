@@ -8,7 +8,6 @@ export const getExams = async (
   res: Response<IExamResponse | IErrorData>
 ) => {
   try {
-    //await ExamModel.find({}).then((exam) => res.status(200).json(exam));
     await ExamModel.find({}).then((exam) => {
       return res.send({
         code: 200,
