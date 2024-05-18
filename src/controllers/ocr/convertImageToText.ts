@@ -7,6 +7,6 @@ export const convertImageToText = async (req: Request, res: Response) => {
     "https://r2.easyimg.io/3d8d256av/b5d180b998a936f76fb8.jpg"
   );
   await worker.terminate();
-  console.table(ret.data.lines);
+  //console.table(ret.data.lines);
   return res.json(ret.data.text);
 };

@@ -26,7 +26,7 @@ export const updateDictionary = async (
       data: updatedDictionary,
     });
   } catch (e) {
-    console.log(e);
+    //console.log(e);
     return res.send(ErrorUtils.get("SERVER_ERROR"));
   }
 };

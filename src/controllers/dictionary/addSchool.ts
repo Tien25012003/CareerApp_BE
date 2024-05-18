@@ -57,7 +57,7 @@ export const addSchool = async (
     for (const file of files) {
       const filePath = path.join(directoryPath, file);
       await fsPromises.unlink(filePath);
-      console.log("Successfully deleted file: ", filePath);
+      //console.log("Successfully deleted file: ", filePath);
     }
     Promise.all(savedSchools).then(() => {
       return res.send({
@@ -66,7 +66,7 @@ export const addSchool = async (
       });
     });
   } catch (e) {
-    console.log(e);
+    //console.log(e);
     return res.send(ErrorUtils.get("SERVER_ERROR"));
   }
 };

@@ -23,15 +23,15 @@ export const ocrGemini = async (req: Request, res: Response) => {
     if (imagePart) {
       const result = await model.generateContent([OCRDataset, imagePart]);
       const text = await result.response.text();
-      console.log("text", text);
+      //console.log("text", text);
       const response = await convertTextToArray(text);
-      console.log("response", response);
+      //console.log("response", response);
       return res.send({ code: 200, data: response });
     }
 
     return res.send(ErrorUtils.get("OCR_ERROR"));
   } catch (e) {
-    console.log(e);
+    //console.log(e);
     return res.send(ErrorUtils.get("SERVER_ERROR"));
   }
 };

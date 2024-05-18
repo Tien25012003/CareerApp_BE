@@ -1,6 +1,5 @@
 import express from "express";
 import { connectToDb } from "./src/utils/db";
-import { NewCategoryModel } from "./src/models/NewCategory";
 import newsRouter from "./src/routes/newsRouter";
 import examRouter from "./src/routes/examRouter";
 import schoolSubjectRouter from "./src/routes/schoolSubjectRouter";
@@ -19,13 +18,6 @@ app.use("/schoolSubjects", schoolSubjectRouter);
 app.use("/geminiAI", geminiRouter);
 app.use("/ocr", ocrRouter);
 app.use("/dictionary", dictionaryRouter);
-app.post("/", async (req, res) => {
-  const category = req.body;
-  const newCategoryModel = new NewCategoryModel(category);
-  await newCategoryModel.save();
-  res.status(200).json(newCategoryModel);
-});
-
 app.listen(3000, () => {
   console.log("Listening localhost 3000");
 });
