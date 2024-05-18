@@ -7,8 +7,10 @@ import "dotenv/config";
 import geminiRouter from "./src/routes/geminiRouter";
 import ocrRouter from "./src/routes/ocrRouter";
 import dictionaryRouter from "./src/routes/dictionaryRouter";
-
 const app = express();
+// Load environment variables based on NODE_ENV
+require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
+
 app.use(express.json());
 
 connectToDb();
@@ -18,6 +20,11 @@ app.use("/schoolSubjects", schoolSubjectRouter);
 app.use("/geminiAI", geminiRouter);
 app.use("/ocr", ocrRouter);
 app.use("/dictionary", dictionaryRouter);
+console.log("env", process.env.BASE_URL_OPEN_AI);
+if (process.env.NODE_ENV !== "development") {
+  console.log = () => {}; // Remove console.log on staging
+}
+
 app.listen(3000, () => {
   console.log("Listening localhost 3000");
 });
