@@ -20,10 +20,9 @@ app.use("/schoolSubjects", schoolSubjectRouter);
 app.use("/geminiAI", geminiRouter);
 app.use("/ocr", ocrRouter);
 app.use("/dictionary", dictionaryRouter);
-console.log("env", process.env.BASE_URL_OPEN_AI);
-if (process.env.NODE_ENV !== "development") {
-  console.log = () => {}; // Remove console.log on staging
-}
+// if (process.env.NODE_ENV !== "development") {
+//   console.log = () => {}; // Remove console.log on staging
+// }
 
 app.listen(3000, () => {
   console.log("Listening localhost 3000");
