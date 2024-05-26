@@ -12,8 +12,10 @@ jobs:
         run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
       - name: Build docker image
         run: docker build -t tien25012003/careerapp-be .
-      - name: Tag image
-        run: docker tag careerapp-be tien25012003/careerapp-be
+      - name: Logout
+        run: docker logout
+      - name: Login to docker hub
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
       - name: Publish image to docker hub
         run: docker push tien25012003/careerapp-be:latest
 
