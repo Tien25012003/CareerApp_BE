@@ -23,8 +23,8 @@ jobs:
     runs-on: [aws-ec2]
     steps:
       - name: Pull image from docker hub
-        run: docker pull tien25012003/careerapp-be:latest
+        run: docker pull phuongtien/careerapp-be:first-image
       - name: Delete old container
         run: docker rm -f careerapp-be-container
       - name: Run docker container
-        run: docker run -d -p 5000:5000 -name careerapp-be-container tien25012003/careerapp-be
+        run: docker run -d -p 5000:5000 -name careerapp-be-container phuongtien/careerapp-be:first-image
