@@ -13,7 +13,7 @@ jobs:
       - name: Build docker image
         run: docker build -t tien25012003/careerapp-be .
       - name: Tag image
-        run: docker tag firstimage tien25012003/careerapp-be
+        run: docker tag careerapp-be tien25012003/careerapp-be
       - name: Publish image to docker hub
         run: docker push tien25012003/careerapp-be:latest
 
