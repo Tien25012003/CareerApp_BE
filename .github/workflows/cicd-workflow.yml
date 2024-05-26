@@ -27,4 +27,4 @@ jobs:
       - name: Delete old container
         run: docker rm -f careerapp-be-container
       - name: Run docker container
-        run: docker run -d -p 5000:5000 -name careerapp-be-container phuongtien/careerapp-be:first-image
+        run: docker run -d -p 5000:5000 --name careerapp-be-container phuongtien/careerapp-be:first-image
