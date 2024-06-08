@@ -7,6 +7,7 @@ import "dotenv/config";
 import geminiRouter from "./src/routes/geminiRouter";
 import ocrRouter from "./src/routes/ocrRouter";
 import dictionaryRouter from "./src/routes/dictionaryRouter";
+import cors from "cors";
 const app = express();
 // Load environment variables based on NODE_ENV
 require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });

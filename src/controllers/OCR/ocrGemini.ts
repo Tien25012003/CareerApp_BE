@@ -11,7 +11,7 @@ const genAI = new GoogleGenerativeAI(API_KEY!);
 const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
 export const ocrGemini = async (req: Request, res: Response) => {
   try {
-    //console.log(req.file);
+    console.log(req.file);
     const imagePart = await convertFileToGenerativePart(req.file);
     const directoryPath = path.join(__dirname, "../../../public/uploads");
     const files = await fsPromises.readdir(directoryPath);
