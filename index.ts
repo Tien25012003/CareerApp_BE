@@ -1,5 +1,5 @@
 import express from "express";
-import { connectToDb } from "./src/utils/db";
+import { connectToDb } from "./src/config/db";
 import newsRouter from "./src/routes/newsRouter";
 import examRouter from "./src/routes/examRouter";
 import schoolSubjectRouter from "./src/routes/schoolSubjectRouter";
@@ -7,13 +7,13 @@ import "dotenv/config";
 import geminiRouter from "./src/routes/geminiRouter";
 import ocrRouter from "./src/routes/ocrRouter";
 import dictionaryRouter from "./src/routes/dictionaryRouter";
-import cors from "cors";
+import bodyParser from "body-parser";
 const app = express();
 // Load environment variables based on NODE_ENV
 require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
-
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(express.json());
-
 connectToDb();
 app.use("/news", newsRouter);
 app.use("/exams", examRouter);
