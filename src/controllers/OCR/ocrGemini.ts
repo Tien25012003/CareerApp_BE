@@ -16,9 +16,9 @@ export const ocrGemini = async (req: Request, res: Response) => {
       OCRDataset,
       { inlineData: { data: JSON.parse(base64Image), mimeType: mimeType } },
     ]);
-    //console.log("result", result);
+    console.log("result", result);
     const text = await result.response.text();
-    //console.log("text", text);
+    console.log("text", text);
     if (text) {
       const response = await convertTextToArray(text);
       return res.send({ code: 200, data: response });

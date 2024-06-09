@@ -25,5 +25,6 @@ Công nghệ:9,0
 Tin học:9,0
 Giáo dục công dân: 8,0
 If a number equal 8,0 then convert to 8.0
+Please use data in image not in dataset!!
 `;
 export default OCRDataset;
