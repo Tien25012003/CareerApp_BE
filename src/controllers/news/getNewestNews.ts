@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 export const getNewestNews = async (req: Request, res: Response) => {
   try {
     const news = await NewsModel.find({
-      createdAt: { $gte: dayjs(new Date()).subtract(60, "d") },
+      createdAt: { $gte: dayjs(new Date()).subtract(200, "d") },
     });
     //console.log(news);
     res.status(200).json(news);
