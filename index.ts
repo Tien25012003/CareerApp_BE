@@ -10,7 +10,6 @@ import dictionaryRouter from "./src/routes/dictionaryRouter";
 import bodyParser from "body-parser";
 const app = express();
 // Load environment variables based on NODE_ENV
-// DEV_STAGING_PRODUCTION
 require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
