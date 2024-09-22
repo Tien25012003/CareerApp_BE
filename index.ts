@@ -8,6 +8,7 @@ import geminiRouter from "./src/routes/geminiRouter";
 import ocrRouter from "./src/routes/ocrRouter";
 import dictionaryRouter from "./src/routes/dictionaryRouter";
 import bodyParser from "body-parser";
+import accountRouter from "./src/routes/accountRouter";
 const app = express();
 // Load environment variables based on NODE_ENV
 require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
@@ -21,6 +22,7 @@ app.use("/schoolSubjects", schoolSubjectRouter);
 app.use("/geminiAI", geminiRouter);
 app.use("/ocr", ocrRouter);
 app.use("/dictionary", dictionaryRouter);
+app.use("/accounts", accountRouter);
 // if (process.env.NODE_ENV !== "development") {
 //   console.log = () => {}; // Remove console.log on staging
 // }
