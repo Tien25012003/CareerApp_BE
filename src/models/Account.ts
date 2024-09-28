@@ -64,7 +64,7 @@ const AccountSchema = new mongoose.Schema<IAccount>(
       required: true,
     },
   },
-  { timestamps: true, collection: "AccountModel", versionKey: false }
+  { timestamps: true, collection: "Accounts", versionKey: false }
 );
 
 const AccountModel = mongoose.model("AccountModel", AccountSchema);
