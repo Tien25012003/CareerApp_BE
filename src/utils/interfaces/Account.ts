@@ -26,6 +26,8 @@ export interface IAccount {
   groups: Types.ObjectId[];
   createdAt: Date;
   updatedAt: Date;
+  accessToken: string;
+  password: string;
   status: number; //0: deactive ; 1: active
   permissions: TPermission[];
 }

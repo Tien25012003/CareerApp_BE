@@ -2,16 +2,19 @@ import { Request, Response } from "express";
 import { AccountModel } from "../../models/Account";
 import ErrorUtils from "../../utils/constant/Error";
 
-export const getAccount = async (
-  req: Request<any, any, any, { id: number }>,
+type TParams = {
+  id: number;
+};
+export const verifyAccount = async (
+  req: Request<any, any, any, TParams>,
   res: Response
 ) => {
   try {
     const { id } = req.query;
-    const account = await AccountModel.findById(id).select("-password");
-    return res.send({
-      code: 200,
-      data: account,
+    await AccountModel.findByIdAndUpdate(id, {
+      status: 1,
+    }).then((value) => {
+      return res.send({ code: 200 });
     });
   } catch (error) {
     return res.send(ErrorUtils.get("SERVER_ERROR"));

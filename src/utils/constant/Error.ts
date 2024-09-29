@@ -19,7 +19,10 @@ export type TErrorKey =
   | "OCR_ERROR"
   | "DUPLICATE_EMAIL"
   | "DUPLICATE_USER_NAME"
-  | "EMPTY_DATA";
+  | "EMPTY_DATA"
+  | "EMPTY_EMAIL"
+  | "INVALID_USERNAME_PASSWORD"
+  | "INVALID_TOKEN";
 const ErrorUtils = new Map<TErrorKey, IErrorData>([
   [
     "ERROR_INVALID",
@@ -147,6 +150,30 @@ const ErrorUtils = new Map<TErrorKey, IErrorData>([
     {
       code: "EMPTY_DATA",
       message: "Dữ liệu không tồn tại",
+      data: {},
+    },
+  ],
+  [
+    "EMPTY_EMAIL",
+    {
+      code: "EMPTY_EMAIL",
+      message: "Email không tồn tại!",
+      data: {},
+    },
+  ],
+  [
+    "INVALID_USERNAME_PASSWORD",
+    {
+      code: "INVALID_USERNAME_PASSWORD",
+      message: "Mật khẩu hoặc tài khoản không đúng",
+      data: {},
+    },
+  ],
+  [
+    "INVALID_TOKEN",
+    {
+      code: "INVALID_TOKEN",
+      message: "Token hết hạn",
       data: {},
     },
   ],

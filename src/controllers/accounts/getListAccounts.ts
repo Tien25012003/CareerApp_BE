@@ -46,6 +46,7 @@ export const getListAccounts = async (
     }
 
     const accounts = await AccountModel.find(query)
+      .select("-password")
       .sort({ updatedAt: direction === 1 ? 1 : -1 })
       .skip(page * size)
       .limit(size)

@@ -1,17 +1,18 @@
 import nodemailer from "nodemailer";
 const transporter = nodemailer.createTransport({
-  host: "smtp.ethereal.email",
+  host: "smtp.gmail.com",
   port: 587,
   secure: false, // true for port 465, false for other ports
   auth: {
     user: "doank3442@gmail.com",
-    pass: "0356955354",
+    pass: "draboltgigrurfsk",
   },
 });
-export const sendVerifyEmail = async (emails: string[]) => {
+export const sendVerifyEmail = async (emails: string[], id: string) => {
+  const actionLink = `http://192.168.0.102/accounts/verify?id=${id}`;
   const info = await transporter.sendMail({
-    from: '"My Daily" <doank3442@gmail.com>',
-    to: emails,
+    from: `"My Daily" <doank3442@gmail.com>`,
+    to: emails.length > 1 ? emails.join(", ") : emails[0],
     subject: "Xác thực tài khoản",
     html: `<!DOCTYPE html>
 <html lang="en">
@@ -76,7 +77,7 @@ export const sendVerifyEmail = async (emails: string[]) => {
         </p>
 
         <!-- Action Button -->
-        <a href="{{actionLink}}" class="button">Xác thực</a>
+        <a href="${actionLink}" class="button">Xác thực</a>
 
         <!-- Optional details -->
         <p>Nếu nút xác thực ở trên không hoạt động vui lòng liên hệ:</p>
@@ -95,5 +96,5 @@ export const sendVerifyEmail = async (emails: string[]) => {
 </html>
 `,
   });
-  console.log("Message sent", info);
+  return info;
 };

@@ -38,6 +38,7 @@ const AccountSchema = new mongoose.Schema<IAccount>(
       required: true,
       trim: true,
       minlength: 5,
+      unique: true,
     },
     email: {
       type: String,
@@ -53,6 +54,16 @@ const AccountSchema = new mongoose.Schema<IAccount>(
         ref: "GroupModel", // References the Group model
       },
     ],
+    accessToken: {
+      type: String,
+      trim: true,
+    },
+    password: {
+      type: String,
+      required: true,
+      trim: true,
+      minlength: 8,
+    },
     name: {
       type: String,
       required: true,

@@ -1,0 +1,12 @@
+import JWT from "jsonwebtoken";
+export const generateToken = (userId: string) => {
+  const jwtSecretKey = process.env.JWT_SECRET_KEY;
+  const data = {
+    time: Date(),
+    userId,
+  };
+  if (jwtSecretKey) {
+    const token = JWT.sign(data, jwtSecretKey, { expiresIn: "6h" });
+    return token;
+  }
+};
