@@ -5,7 +5,7 @@ import ErrorUtils from "../../utils/constant/Error";
 type TParams = {
   id: number;
 };
-export const updateAccount = async (
+export const deleteAccount = async (
   req: Request<any, any, any, TParams>,
   res: Response
 ) => {

@@ -6,7 +6,7 @@ import { IAccount } from "../../utils/interfaces/Account";
 type TParams = {
   id: number;
 };
-export const updateAccount = async (
+export const updateInfoAccount = async (
   req: Request<any, any, Omit<IAccount, "id" | "status">, TParams>,
   res: Response
 ) => {

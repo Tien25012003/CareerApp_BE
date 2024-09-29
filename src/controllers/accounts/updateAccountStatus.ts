@@ -7,7 +7,7 @@ type TBody = {
 type TParams = {
   id: number;
 };
-export const updateAccount = async (
+export const updateStatusAccount = async (
   req: Request<any, any, TBody, TParams>,
   res: Response
 ) => {

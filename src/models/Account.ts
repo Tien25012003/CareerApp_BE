@@ -35,6 +35,7 @@ const AccountSchema = new mongoose.Schema<IAccount>(
     email: {
       type: String,
       required: true,
+      unique: true,
       trim: true,
       match: [/^\S+@\S+\.\S+$/, "Địa chỉ email không chính xác"],
       lowercase: true,
