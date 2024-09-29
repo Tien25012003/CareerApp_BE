@@ -8,6 +8,7 @@ export const getAccount = async (
 ) => {
   try {
     const { id } = req.query;
+
     const account = await AccountModel.findById(id).select("-password");
     return res.send({
       code: 200,

@@ -1,6 +1,6 @@
 import JWT from "jsonwebtoken";
 export const generateToken = (userId: string) => {
-  const jwtSecretKey = process.env.JWT_SECRET_KEY;
+  const jwtSecretKey = "25012003";
   const data = {
     time: Date(),
     userId,
