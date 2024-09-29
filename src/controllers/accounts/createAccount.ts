@@ -2,25 +2,29 @@ import { Request, Response } from "express";
 import { AccountModel } from "../../models/Account";
 import ErrorUtils from "../../utils/constant/Error";
 import { IAccount } from "../../utils/interfaces/Account";
-import { sendVerifyEmail } from "../../hooks/sendVerifyEmail";
-type TBody = IAccount;
+type TBody = Partial<IAccount>;
 export const createAccount = async (
   req: Request<any, any, TBody>,
   res: Response
 ) => {
   try {
     const data = req.body;
-    const isExistAccount = await AccountModel.findOne({
+    const isExisEmail = await AccountModel.findOne({
       email: data.email,
     });
-    if (!isExistAccount) {
+    const isExistUserName = await AccountModel.findOne({
+      username: data.username,
+    });
+    if (!isExisEmail && !isExistUserName) {
       const newAccount = new AccountModel(data);
       await newAccount.save();
       return res.send({ code: 200 });
     }
-    return res.status(404).send(ErrorUtils.get("DUPLICATE_EMAIL"));
+    if (isExisEmail)
+      return res.status(404).send(ErrorUtils.get("DUPLICATE_EMAIL"));
+    if (isExistUserName)
+      return res.status(404).send(ErrorUtils.get("DUPLICATE_USER_NAME"));
   } catch (e) {
-    console.log(e);
     return res.send(ErrorUtils.get("SERVER_ERROR"));
   }
 };

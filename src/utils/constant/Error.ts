@@ -17,7 +17,9 @@ export type TErrorKey =
   | "DICTIONARY_ID_OR_ENTRY_ID_DELETE_NOT_FOUND"
   | "UPDATED_DICTIONARY_NOT_FOUND"
   | "OCR_ERROR"
-  | "DUPLICATE_EMAIL";
+  | "DUPLICATE_EMAIL"
+  | "DUPLICATE_USER_NAME"
+  | "EMPTY_DATA";
 const ErrorUtils = new Map<TErrorKey, IErrorData>([
   [
     "ERROR_INVALID",
@@ -129,6 +131,22 @@ const ErrorUtils = new Map<TErrorKey, IErrorData>([
     {
       code: "DUPLICATE_EMAIL",
       message: "Email đã tồn tại",
+      data: {},
+    },
+  ],
+  [
+    "DUPLICATE_USER_NAME",
+    {
+      code: "DUPLICATE_USER_NAME",
+      message: "Tên tài khoản đã tồn tại",
+      data: {},
+    },
+  ],
+  [
+    "EMPTY_DATA",
+    {
+      code: "EMPTY_DATA",
+      message: "Dữ liệu không tồn tại",
       data: {},
     },
   ],

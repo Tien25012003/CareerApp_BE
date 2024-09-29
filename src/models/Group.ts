@@ -23,8 +23,8 @@ const GroupSchema = new mongoose.Schema<IGroup>(
       required: true,
     },
   },
-  { timestamps: true, collection: "GroupModel", versionKey: false }
+  { timestamps: true, collection: "Groups", versionKey: false }
 );
 
 const GroupModel = mongoose.model("GroupModel", GroupSchema);
-export { GroupSchema };
+export { GroupModel };

@@ -17,7 +17,7 @@ export const updateStatusAccount = async (
     await AccountModel.findByIdAndUpdate(id, {
       status: status,
     }).then((value) => {
-      return res.send({ code: 200, data: value });
+      return res.send({ code: 200 });
     });
   } catch (error) {
     return res.send(ErrorUtils.get("SERVER_ERROR"));

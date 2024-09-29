@@ -1,6 +1,13 @@
 import mongoose, { Schema } from "mongoose";
 import { IAccount } from "../utils/interfaces/Account";
 
+// Enum for roles
+const roles = {
+  ADMIN: "ADMIN",
+  TEACHER: "TEACHER",
+  STUDENT: "STUDENT",
+};
+
 const FeatureDetailSchema = new mongoose.Schema(
   {
     create: { type: Boolean, required: true },
@@ -54,6 +61,7 @@ const AccountSchema = new mongoose.Schema<IAccount>(
     role: {
       type: String,
       required: true,
+      enum: Object.values(roles), // Use the enum for validation
       trim: true,
     },
     status: {
