@@ -9,9 +9,15 @@ export const createAccount = async (
 ) => {
   try {
     const data = req.body;
-    const newAccount = new AccountModel(data);
-    await newAccount.save();
-    return res.send({ code: 200 });
+    const isExistAccount = await AccountModel.findOne({
+      email: data.email,
+    });
+    if (!isExistAccount) {
+      const newAccount = new AccountModel(data);
+      await newAccount.save();
+      return res.send({ code: 200 });
+    }
+    return res.status(404).send(ErrorUtils.get("DUPLICATE_EMAIL"));
   } catch (e) {
     return res.send(ErrorUtils.get("SERVER_ERROR"));
   }
