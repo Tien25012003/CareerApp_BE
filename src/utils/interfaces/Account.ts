@@ -29,5 +29,5 @@ export interface IAccount {
   accessToken: string;
   password: string;
   status: number; //0: deactive ; 1: active
-  permissions: TPermission[];
+  permissions?: TPermission[];
 }

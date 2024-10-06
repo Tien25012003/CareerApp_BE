@@ -18,18 +18,15 @@ const FeatureDetailSchema = new mongoose.Schema(
   { _id: false } // No need for a separate _id for this sub-document
 );
 
-const PermissionSchema = new mongoose.Schema(
-  {
-    DASHBOARD: { type: FeatureDetailSchema, required: true },
-    ACCOUNT: { type: FeatureDetailSchema, required: true },
-    EXAM_SYSTEM: { type: FeatureDetailSchema, required: true },
-    EXAM_CUSTOM: { type: FeatureDetailSchema, required: true },
-    NEWS: { type: FeatureDetailSchema, required: true },
-    CHATBOT: { type: FeatureDetailSchema, required: true },
-    LIBRARY: { type: FeatureDetailSchema, required: true },
-  },
-  { _id: false }
-);
+const PermissionSchema = new mongoose.Schema({
+  DASHBOARD: { type: FeatureDetailSchema, required: false },
+  ACCOUNT: { type: FeatureDetailSchema, required: false },
+  EXAM_SYSTEM: { type: FeatureDetailSchema, required: false },
+  EXAM_CUSTOM: { type: FeatureDetailSchema, required: false },
+  NEWS: { type: FeatureDetailSchema, required: false },
+  CHATBOT: { type: FeatureDetailSchema, required: false },
+  LIBRARY: { type: FeatureDetailSchema, required: false },
+});
 
 const AccountSchema = new mongoose.Schema<IAccount>(
   {
