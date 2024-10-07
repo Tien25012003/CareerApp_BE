@@ -10,6 +10,7 @@ export const createGroup = async (
   res: Response
 ) => {
   const data = req.body;
+  console.log("create group", data);
   if (!data.groupName || !data.owner || data.members?.length === 0)
     return res.status(400).send(ErrorUtils.get("ERROR_INVALID"));
 

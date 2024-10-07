@@ -9,6 +9,7 @@ import { verifyAccount } from "../controllers/accounts/verifyAccount";
 import { login } from "../controllers/accounts/login";
 import { logout } from "../controllers/accounts/logout";
 import { verifyToken } from "../middlewares/verifyToken";
+import { getAccessToken } from "../controllers/accounts/getAccessToken";
 const accountRouter = Router();
 
 accountRouter.get("/all", verifyToken, getListAccounts);
@@ -20,5 +21,6 @@ accountRouter.delete("/", verifyToken, deleteAccount);
 accountRouter.get("/verify", verifyAccount);
 accountRouter.post("/login", login);
 accountRouter.post("/logout", logout);
+accountRouter.get("/accessToken", getAccessToken);
 
 export default accountRouter;

@@ -29,6 +29,8 @@ export const getListGroups = async (
       query.status = status; // Add status to the query if provided
     }
     const groups = await GroupModel.find(query)
+      .populate("members", "_id email name status")
+      .populate("owner", "_id email name status")
       .sort({ updatedAt: direction === 1 ? 1 : -1 })
       .skip(page * size)
       .limit(size)
