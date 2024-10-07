@@ -16,7 +16,11 @@ type TFeatureDetail = {
   view: boolean;
 };
 
-type TPermission = Record<EFeature, TFeatureDetail>;
+type TPermission = {
+  code: string;
+  name: string;
+  permission: TFeatureDetail;
+};
 
 export interface IAccount {
   username: string;
@@ -26,8 +30,9 @@ export interface IAccount {
   groups: Types.ObjectId[];
   createdAt: Date;
   updatedAt: Date;
-  accessToken: string;
+  accessToken?: string;
   password: string;
   status: number; //0: deactive ; 1: active
   permissions?: TPermission[];
+  deviceId: string;
 }

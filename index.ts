@@ -9,6 +9,7 @@ import ocrRouter from "./src/routes/ocrRouter";
 import dictionaryRouter from "./src/routes/dictionaryRouter";
 import bodyParser from "body-parser";
 import accountRouter from "./src/routes/accountRouter";
+import groupRouter from "./src/routes/groupRouter";
 const app = express();
 // Load environment variables based on NODE_ENV
 require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
@@ -23,6 +24,8 @@ app.use("/geminiAI", geminiRouter);
 app.use("/ocr", ocrRouter);
 app.use("/dictionary", dictionaryRouter);
 app.use("/accounts", accountRouter);
+app.use("/groups", groupRouter);
+
 // if (process.env.NODE_ENV !== "development") {
 //   console.log = () => {}; // Remove console.log on staging
 // }

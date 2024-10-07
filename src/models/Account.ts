@@ -6,6 +6,7 @@ const roles = {
   ADMIN: "ADMIN",
   TEACHER: "TEACHER",
   STUDENT: "STUDENT",
+  ANONYMOUS: "ANONYMOUS",
 };
 
 const FeatureDetailSchema = new mongoose.Schema(
@@ -15,18 +16,23 @@ const FeatureDetailSchema = new mongoose.Schema(
     delete: { type: Boolean, required: true },
     view: { type: Boolean, required: true },
   },
-  { _id: false } // No need for a separate _id for this sub-document
+  { timestamps: true, collection: "Feature", versionKey: false }
 );
 
-const PermissionSchema = new mongoose.Schema({
-  DASHBOARD: { type: FeatureDetailSchema, required: false },
-  ACCOUNT: { type: FeatureDetailSchema, required: false },
-  EXAM_SYSTEM: { type: FeatureDetailSchema, required: false },
-  EXAM_CUSTOM: { type: FeatureDetailSchema, required: false },
-  NEWS: { type: FeatureDetailSchema, required: false },
-  CHATBOT: { type: FeatureDetailSchema, required: false },
-  LIBRARY: { type: FeatureDetailSchema, required: false },
-});
+const PermissionSchema = new mongoose.Schema(
+  {
+    code: {
+      type: String,
+      required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    permission: FeatureDetailSchema,
+  },
+  { timestamps: true, collection: "Permission", versionKey: false }
+);
 
 const AccountSchema = new mongoose.Schema<IAccount>(
   {
@@ -54,6 +60,7 @@ const AccountSchema = new mongoose.Schema<IAccount>(
     accessToken: {
       type: String,
       trim: true,
+      required: false,
     },
     password: {
       type: String,
@@ -75,6 +82,9 @@ const AccountSchema = new mongoose.Schema<IAccount>(
     status: {
       type: Number,
       required: true,
+    },
+    deviceId: {
+      type: String,
     },
     permissions: {
       type: [PermissionSchema], // Array of permission objects

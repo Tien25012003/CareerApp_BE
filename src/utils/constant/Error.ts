@@ -22,7 +22,10 @@ export type TErrorKey =
   | "EMPTY_DATA"
   | "EMPTY_EMAIL"
   | "INVALID_USERNAME_PASSWORD"
-  | "INVALID_TOKEN";
+  | "INVALID_TOKEN"
+  | "UNVERIFY_EMAIL"
+  | "ACCOUNT_INVALID"
+  | "INVALID_PERMISSION";
 const ErrorUtils = new Map<TErrorKey, IErrorData>([
   [
     "ERROR_INVALID",
@@ -174,6 +177,30 @@ const ErrorUtils = new Map<TErrorKey, IErrorData>([
     {
       code: "INVALID_TOKEN",
       message: "Token hết hạn",
+      data: {},
+    },
+  ],
+  [
+    "UNVERIFY_EMAIL",
+    {
+      code: "UNVERIFY_EMAIL",
+      message: "Email chưa xác thực",
+      data: {},
+    },
+  ],
+  [
+    "ACCOUNT_INVALID",
+    {
+      code: "ACCOUNT_INVALID",
+      message: "Tài khoản không tồn tại",
+      data: {},
+    },
+  ],
+  [
+    "INVALID_PERMISSION",
+    {
+      code: "INVALID_PERMISSION",
+      message: "Tính năng không được cấp quyền",
       data: {},
     },
   ],

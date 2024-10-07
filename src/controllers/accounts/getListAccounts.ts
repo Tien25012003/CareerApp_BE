@@ -8,6 +8,7 @@ type TParams = {
   status?: number; // 1: active, 0: deactive
   name?: string;
   email?: string;
+  role?: string;
   direction?: number; // -1: DESC, 1: ASC
 };
 
@@ -19,6 +20,7 @@ export const getListAccounts = async (
     const {
       email,
       name,
+      role = "",
       status,
       direction = -1,
       page = 0,
@@ -40,12 +42,14 @@ export const getListAccounts = async (
         query["$or"] = [{ name: namePattern }];
       }
     }
-
     if (status !== undefined) {
       query.status = status; // Add status to the query if provided
     }
 
     const accounts = await AccountModel.find(query)
+      .where({
+        role,
+      })
       .select("-password")
       .sort({ updatedAt: direction === 1 ? 1 : -1 })
       .skip(page * size)

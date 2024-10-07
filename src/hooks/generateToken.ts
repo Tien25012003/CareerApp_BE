@@ -6,7 +6,7 @@ export const generateToken = (userId: string) => {
     userId,
   };
   if (jwtSecretKey) {
-    const token = JWT.sign(data, jwtSecretKey, { expiresIn: "6h" });
+    const token = JWT.sign(data, jwtSecretKey, { expiresIn: "2h" });
     return token;
   }
 };
