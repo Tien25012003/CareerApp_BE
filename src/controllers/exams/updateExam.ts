@@ -9,12 +9,20 @@ export const updateExam = async (
 ) => {
   try {
     const { id } = req.query;
-    await ExamModel.findByIdAndUpdate(id, req.body).then((result) => {
-      res.send({
-        code: 200,
-        data: result,
-      });
-    });
+    const exam = await ExamModel.findById(id);
+    if (!!exam) {
+      const updatedData = { ...exam.toObject(), ...req.body };
+      await ExamModel.findByIdAndUpdate(id, updatedData, { new: true }).then(
+        (result) => {
+          return res.send({
+            code: 200,
+            data: result,
+          });
+        }
+      );
+    } else {
+      return res.send(ErrorUtils.get("SERVER_ERROR"));
+    }
   } catch (e) {
     console.log("e", e);
     return res.send(ErrorUtils.get("SERVER_ERROR"));
