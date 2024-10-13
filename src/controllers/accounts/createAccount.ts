@@ -28,7 +28,8 @@ export const createAccount = async (
           password: hashedPassword,
         });
         await newAccount.save();
-        if (data.email) await sendVerifyEmail([data.email], newAccount.id);
+        if (data.email)
+          await sendVerifyEmail([data.email], newAccount.id, newAccount.name);
         return res.send({ code: 200 });
       }
     }

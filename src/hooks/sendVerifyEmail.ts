@@ -8,7 +8,11 @@ const transporter = nodemailer.createTransport({
     pass: "draboltgigrurfsk",
   },
 });
-export const sendVerifyEmail = async (emails: string[], id: string) => {
+export const sendVerifyEmail = async (
+  emails: string[],
+  id: string,
+  name?: string
+) => {
   const actionLink = `http://192.168.0.102/accounts/verify?id=${id}`;
   const info = await transporter.sendMail({
     from: `"My Daily" <doank3442@gmail.com>`,
@@ -51,7 +55,7 @@ export const sendVerifyEmail = async (emails: string[], id: string) => {
         padding: 10px 20px;
         margin: 20px 0;
         background-color: #4caf50;
-        color: white;
+        color: #ffffff;
         text-decoration: none;
         border-radius: 5px;
       }
@@ -70,7 +74,7 @@ export const sendVerifyEmail = async (emails: string[], id: string) => {
       </div>
 
       <div class="content">
-        <p>Xin chào Khang,</p>
+        <p>Xin chào ${name},</p>
         <p>
           Cảm ơn bạn đã đăng ký tài khoản! Vui lòng nhấp vào nút dưới đây để xác
           minh địa chỉ email của bạn.
