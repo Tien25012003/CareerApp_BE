@@ -1,13 +1,13 @@
 import { Response, Request, query } from "express";
 import { ExamModel } from "../../models/Exam";
 import ErrorUtils, { IErrorData } from "../../utils/constant/Error";
-import { IExamREQ, IExamResponse } from "../../utils/interfaces";
+import { IExam, IExamREQ, IExamResponse } from "../../utils/interfaces";
 import { EExamCategory } from "../../utils/enums/exam.enum";
 import { TPagingParams, TResponseWithPagination } from "../../utils/types/meta";
 
 export const getExams = async (
   req: Request<any, any, any, IExamREQ & TPagingParams>,
-  res: Response<TResponseWithPagination<IExamResponse> | IErrorData>
+  res: Response<TResponseWithPagination<IExam[]> | IErrorData>
 ) => {
   try {
     const {

@@ -2,10 +2,10 @@ import { Response, Request } from "express";
 import { SubjectsModel } from "../../models/Subjects";
 import ErrorUtils from "../../utils/constant/Error";
 import { ISubject } from "../../utils/interfaces/SchoolSubjects";
-import { TResponse } from "../../utils/types/meta";
+import { TResponse, TResponseWithPagination } from "../../utils/types/meta";
 export const getSubjects = async (
   req: Request,
-  res: Response<TResponse<ISubject[]>>
+  res: Response<TResponseWithPagination<ISubject[]>>
 ) => {
   try {
     await SubjectsModel.find({}).then((subjects) => {
