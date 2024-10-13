@@ -1,18 +1,44 @@
-import { Response, Request } from "express";
+import { Response, Request, query } from "express";
 import { ExamModel } from "../../models/Exam";
 import ErrorUtils, { IErrorData } from "../../utils/constant/Error";
-import { IExamResponse } from "../../utils/interfaces";
+import { IExamREQ, IExamResponse } from "../../utils/interfaces";
+import { EExamCategory } from "../../utils/enums/exam.enum";
+import { TPagingParams, TResponseWithPagination } from "../../utils/types/meta";
 
 export const getExams = async (
-  req: Request,
-  res: Response<IExamResponse | IErrorData>
+  req: Request<any, any, any, IExamREQ & TPagingParams>,
+  res: Response<TResponseWithPagination<IExamResponse> | IErrorData>
 ) => {
   try {
-    await ExamModel.find({}).then((exam) => {
-      return res.send({
-        code: 200,
-        data: exam,
-      });
+    const {
+      category = EExamCategory.SYSTEM,
+      size = 10,
+      page = 1,
+      direction = -1,
+      ...queries
+    } = req.query;
+
+    const exams = await ExamModel.find({ category, ...queries })
+      .sort({ createdAt: direction === 1 ? 1 : -1 })
+      .skip((+page - 1) * +size)
+      .limit(size)
+      .exec();
+
+    const totalCounts = await ExamModel.countDocuments({
+      category,
+      ...queries,
+    });
+
+    return res.send({
+      code: 200,
+      data: exams,
+      message: "Success",
+      pagination: {
+        size: +size,
+        page: +page,
+        totalCounts: totalCounts || 0,
+        totalPages: Math.ceil(totalCounts / size),
+      },
     });
   } catch (e) {
     console.log(e);

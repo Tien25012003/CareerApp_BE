@@ -31,9 +31,9 @@ export interface IExam {
   // new response
   name?: string;
   category: EExamCategory;
-  createdAt?: number;
+  createdAt?: Date;
   creator?: string; // email
-  updatedAt?: number;
+  updatedAt?: Date;
   updator?: string; // email
   status?: EExamStatus;
 
@@ -43,4 +43,14 @@ export interface IExam {
 }
 export interface IExamResponse extends IResponse {
   data: IExam[];
+}
+
+export interface IExamREQ {
+  category?: EExamCategory;
+  name?: string;
+  type?: TExam;
+  creator?: string;
+  updator?: string;
+  status?: EExamStatus;
+  direction?: number; // -1: DESC, 1: ASC
 }
