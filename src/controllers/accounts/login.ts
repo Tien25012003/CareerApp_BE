@@ -54,6 +54,7 @@ export const login = async (
         code: 200,
         message: "Đăng nhập thành công",
         data: {
+          id: account.id,
           name: account.name,
           role: account.role,
           email: account.email,

@@ -23,6 +23,7 @@ type TPermission = {
 };
 
 export interface IAccount {
+  id: Types.ObjectId;
   username: string;
   name: string;
   email: string;
