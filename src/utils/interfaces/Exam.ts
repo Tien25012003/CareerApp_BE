@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { IResponse } from ".";
+import { ITracking, IResponse } from ".";
 import { EExamCategory, EExamStatus, EQuestionType } from "../enums/exam.enum";
 
 type TExam = "R" | "I" | "A" | "S" | "E" | "C" | "IQ" | "EQ";
@@ -23,7 +23,7 @@ export interface IResult {
   image?: string;
   detail?: string;
 }
-export interface IExam {
+export interface IExam extends ITracking {
   type?: TExam;
   questions: IQuestion[];
   results: IResult[];
@@ -31,15 +31,7 @@ export interface IExam {
   // new response
   name?: string;
   category: EExamCategory;
-  createdAt?: Date;
-  creator?: string; // email
-  updatedAt?: Date;
-  updator?: string; // email
   status?: EExamStatus;
-
-  // FOREIGN KEY
-  creatorId: mongoose.Schema.Types.ObjectId;
-  groupId?: mongoose.Schema.Types.ObjectId;
 }
 export interface IExamResponse extends IResponse {
   data: IExam[];

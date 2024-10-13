@@ -1,6 +1,6 @@
-import { IResponse } from ".";
+import { ITracking, IResponse } from ".";
 
-export interface IConclusion {
+export interface IConclusion extends ITracking {
   Type: string;
   Holland: "R" | "I" | "A" | "S" | "E" | "C";
   SchoolScore: "A" | "B" | "C" | "D";

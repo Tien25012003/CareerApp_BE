@@ -34,8 +34,25 @@ const ConclusionSchema = new mongoose.Schema<IConclusion>(
       type: String,
       required: true,
     },
+    creator: {
+      type: String,
+      required: true,
+    },
+    updator: {
+      type: String,
+      required: true,
+    },
+    // FOREIGN KEY
+    creatorId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "AccountModel",
+    },
+    groupId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "GroupModel",
+    },
   },
-  { collection: "Conclusion", versionKey: false }
+  { timestamps: true, collection: "Conclusion", versionKey: false }
 );
 const ConclusionModel = mongoose.model("ConclusionModel", ConclusionSchema);
 export { ConclusionModel };
