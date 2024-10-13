@@ -8,11 +8,17 @@ import {
   getConclusion,
 } from "../controllers/exams";
 import upload from "../middlewares/upload";
+import { verifyToken } from "../middlewares/verifyToken";
 const examRouter = Router();
-examRouter.get("/", getExams);
-examRouter.post("/addExam", addExam);
-examRouter.delete("/deleteExam", deleteExam);
-examRouter.put("/updateExam", updateExam);
-examRouter.post("/uploadConclusion", upload.single("file"), uploadConclusion);
-examRouter.post("/getConclusion", getConclusion);
+examRouter.get("/", verifyToken, getExams);
+examRouter.post("/addExam", verifyToken, addExam);
+examRouter.delete("/deleteExam", verifyToken, deleteExam);
+examRouter.put("/updateExam", verifyToken, updateExam);
+examRouter.post(
+  "/uploadConclusion",
+  verifyToken,
+  upload.single("file"),
+  uploadConclusion
+);
+examRouter.post("/getConclusion", verifyToken, getConclusion);
 export default examRouter;

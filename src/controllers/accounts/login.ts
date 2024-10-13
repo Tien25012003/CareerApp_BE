@@ -47,7 +47,6 @@ export const login = async (
   // Ensure account.password is defined before calling bcrypt.compare
   const isPasswordValid =
     account.password && (await bcrypt.compare(password, account.password));
-  console.log(isPasswordValid);
   if (isPasswordValid) {
     if (account.status === 1) {
       const token = generateToken(account.id);
