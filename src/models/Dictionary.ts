@@ -29,10 +29,28 @@ const DictionarySchema = new mongoose.Schema<IDictionary>(
           type: String,
           required: true,
         },
+        creator: {
+          type: String,
+          required: true,
+        },
+        updator: {
+          type: String,
+          required: true,
+        },
+        // FOREIGN KEY
+        creatorId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "AccountModel",
+        },
+
+        groupId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "GroupModel",
+        },
       },
     ],
   },
-  { collection: "Dictionary", versionKey: false }
+  { timestamps: true, collection: "Dictionary", versionKey: false }
 );
 const DictionaryModel = mongoose.model("Dictionary", DictionarySchema);
 export { DictionaryModel };

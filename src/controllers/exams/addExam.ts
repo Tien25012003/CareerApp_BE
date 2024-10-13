@@ -10,7 +10,7 @@ export const addExam = async (req: TRequest<IExam>, res: Response) => {
     const { type, questions, results, name, category, status } = req.body;
     const creator = await AccountModel.findById(req.userId);
 
-    if (!!creator?.email) {
+    if (!!creator?.id) {
       const newExam = new ExamModel({
         type,
         questions,

@@ -1,4 +1,4 @@
-import { IResponse } from ".";
+import { IResponse, ITracking } from ".";
 export type TGroup = "A0" | "A1" | "B" | "C" | "D1" | "D7";
 export enum EGroup {
   "A0",
@@ -15,7 +15,7 @@ export interface IMajor {
   pros: string;
   cons: string;
 }
-export interface IDictionary {
+export interface IDictionary extends ITracking {
   group: TGroup;
   majors: IMajor[];
 }
