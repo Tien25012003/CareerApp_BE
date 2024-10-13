@@ -1,17 +1,14 @@
 import { Response, Request } from "express";
 import { ExamModel } from "../../models/Exam";
-import { IAddExamREQ } from "../../utils/interfaces/Exam";
+import { IExam } from "../../utils/interfaces/Exam";
 import ErrorUtils from "../../utils/constant/Error";
 import { AccountModel } from "../../models/Account";
+import { TRequest } from "../../utils/types/meta";
 
-export const addExam = async (
-  req: Request<any, any, IAddExamREQ>,
-  res: Response
-) => {
+export const addExam = async (req: TRequest<IExam>, res: Response) => {
   try {
-    const { type, questions, results, name, category, status, creatorId } =
-      req.body;
-    const creator = await AccountModel.findById(creatorId);
+    const { type, questions, results, name, category, status } = req.body;
+    const creator = await AccountModel.findById(req.userId);
 
     if (!!creator?.email) {
       const newExam = new ExamModel({
@@ -23,7 +20,7 @@ export const addExam = async (
         status,
         creator: creator?.email,
         updator: creator?.email,
-        creatorId: creatorId,
+        creatorId: creator?.id,
       });
       await newExam.save().then((savedExam) => {
         return res.send({
@@ -32,7 +29,7 @@ export const addExam = async (
         });
       });
     } else {
-      return res.send(ErrorUtils.get("SERVER_ERROR"));
+      return res.send(ErrorUtils.get("ACCOUNT_INVALID"));
     }
   } catch (e) {
     console.log("e", e);

@@ -25,7 +25,8 @@ export type TErrorKey =
   | "INVALID_TOKEN"
   | "UNVERIFY_EMAIL"
   | "ACCOUNT_INVALID"
-  | "INVALID_PERMISSION";
+  | "INVALID_PERMISSION"
+  | "PERMISSION_DENIED";
 const ErrorUtils = new Map<TErrorKey, IErrorData>([
   [
     "ERROR_INVALID",
@@ -202,6 +203,13 @@ const ErrorUtils = new Map<TErrorKey, IErrorData>([
       code: "INVALID_PERMISSION",
       message: "Tính năng không được cấp quyền",
       data: {},
+    },
+  ],
+  [
+    "PERMISSION_DENIED",
+    {
+      code: "PERMISSION_DENIED",
+      message: "Không có quyền truy cập",
     },
   ],
 ]);

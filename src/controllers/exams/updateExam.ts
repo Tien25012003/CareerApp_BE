@@ -3,8 +3,9 @@ import ErrorUtils from "../../utils/constant/Error";
 import { IExam } from "../../utils/interfaces/Exam";
 import { ExamModel } from "../../models/Exam";
 import { ObjectId } from "mongoose";
+import { TRequest } from "../../utils/types/meta";
 export const updateExam = async (
-  req: Request<any, any, IExam, { id: ObjectId }>,
+  req: TRequest<IExam, { id: ObjectId }>,
   res: Response
 ) => {
   try {

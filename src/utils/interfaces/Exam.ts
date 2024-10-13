@@ -53,5 +53,3 @@ export interface IExamREQ {
   updator?: string;
   status?: EExamStatus;
 }
-
-export interface IAddExamREQ extends IExam {}

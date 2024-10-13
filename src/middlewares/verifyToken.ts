@@ -1,12 +1,13 @@
-import JWT from "jsonwebtoken";
+import JWT, { JwtPayload } from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 import { getTokenFromHeader } from "../hooks/getTokenFromHeader";
 import ErrorUtils from "../utils/constant/Error";
 import { BlackListModel } from "../models/Blacklist";
+import { TRequest } from "../utils/types/meta";
 
 // Middleware to check token validity
 export const verifyToken = async (
-  req: Request<any, any, any, any>,
+  req: TRequest,
   res: Response,
   next: NextFunction
 ) => {
@@ -18,8 +19,11 @@ export const verifyToken = async (
   const blacklist = await BlackListModel.findOne({ token: token });
   if (blacklist) return res.status(404).send(ErrorUtils.get("INVALID_TOKEN"));
   try {
-    const verified = JWT.verify(token, jwtSecretKey);
-    console.log(verified);
+    const verified: JwtPayload | string = JWT.verify(token, jwtSecretKey);
+    console.log("okk", (verified as JwtPayload)?.userId);
+    if ((verified as JwtPayload)?.userId) {
+      req.userId = (verified as JwtPayload)?.userId;
+    }
     next();
   } catch (err) {
     await BlackListModel.deleteOne({ token: token });

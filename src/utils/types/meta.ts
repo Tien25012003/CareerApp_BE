@@ -1,4 +1,6 @@
+import { ObjectId } from "mongoose";
 import { IErrorData } from "../constant/Error";
+import { Request } from "express";
 
 export type TResponse<TData> = {
   code: number | string | IErrorData;
@@ -31,4 +33,13 @@ export type TResponseWithPagination<TData> = {
   message?: string;
   data?: TData;
   pagination?: TPaginationRES;
+};
+
+export type TRequest<TBody = {}, TQuery = {}> = Request<
+  any,
+  any,
+  TBody,
+  TQuery
+> & {
+  userId?: ObjectId;
 };

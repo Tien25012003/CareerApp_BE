@@ -1,16 +1,40 @@
-import { Response, Request } from "express";
+import { Response } from "express";
 import { SubjectsModel } from "../../models/Subjects";
 import ErrorUtils from "../../utils/constant/Error";
 import { ISubject, ISubjectREQ } from "../../utils/interfaces/SchoolSubjects";
-import { TPagingParams, TResponseWithPagination } from "../../utils/types/meta";
+import {
+  TPagingParams,
+  TRequest,
+  TResponseWithPagination,
+} from "../../utils/types/meta";
+import { AccountModel } from "../../models/Account";
+import { ERole } from "../../utils/enums/account.enum";
 export const getSubjects = async (
-  req: Request<any, any, any, ISubjectREQ & TPagingParams>,
+  req: TRequest<any, ISubjectREQ & TPagingParams>,
   res: Response<TResponseWithPagination<ISubject[]>>
 ) => {
   try {
-    const { size = 10, page = 1, direction = -1, ...queries } = req.query;
+    const {
+      size = 10,
+      page = 1,
+      direction = -1,
+      vnName,
+      name,
+      ...queries
+    } = req.query;
 
-    const subjects = await SubjectsModel.find({ ...queries })
+    const user = await AccountModel.findById(req.userId);
+    if (!user) return res.send(ErrorUtils.get("ACCOUNT_INVALID"));
+
+    const filterQueries: any = {
+      ...queries,
+      ...(user.role !== ERole.ADMIN &&
+        user.role !== ERole.ANONYMOUS && { creatorId: req.userId }),
+      ...(vnName && { vnName: { $regex: vnName, $options: "i" } }), // Search by vnName
+      ...(name && { name: { $regex: name, $options: "i" } }),
+    };
+
+    const subjects = await SubjectsModel.find(filterQueries)
       .sort({
         createdAt: direction === 1 ? 1 : -1,
       })
@@ -18,7 +42,7 @@ export const getSubjects = async (
       .limit(size)
       .exec();
 
-    const totalCounts = await SubjectsModel.countDocuments({ ...queries });
+    const totalCounts = await SubjectsModel.countDocuments(filterQueries);
 
     return res.send({
       code: 200,

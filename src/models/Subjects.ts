@@ -14,6 +14,20 @@ const SubjectsSchema = new mongoose.Schema<ISubject>(
       required: true,
       default: "",
     },
+    creator: {
+      type: String,
+      required: true,
+    },
+    updator: {
+      type: String,
+      required: true,
+    },
+
+    // FOREIGN KEY
+    creatorId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "AccountModel",
+    },
   },
   { timestamps: true, collection: "Subject", versionKey: false }
 );

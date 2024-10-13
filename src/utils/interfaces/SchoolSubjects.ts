@@ -6,6 +6,10 @@ export interface ISubject {
   vnName: string;
   createdAt?: Date;
   updatedAt?: Date;
+  creator?: string;
+  updator?: string;
+  creatorId?: ObjectId;
+  groupId?: ObjectId;
 }
 export interface ICaculateSubject extends ISubject {
   value: string;
