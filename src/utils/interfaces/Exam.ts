@@ -24,7 +24,7 @@ export interface IResult {
   detail?: string;
 }
 export interface IExam {
-  type: TExam;
+  type?: TExam;
   questions: IQuestion[];
   results: IResult[];
 
@@ -52,5 +52,6 @@ export interface IExamREQ {
   creator?: string;
   updator?: string;
   status?: EExamStatus;
-  direction?: number; // -1: DESC, 1: ASC
 }
+
+export interface IAddExamREQ extends IExam {}

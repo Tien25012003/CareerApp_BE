@@ -95,7 +95,7 @@ const ExamSchema = new mongoose.Schema<IExam>(
     },
   },
   {
-    timestamps: { currentTime: () => Math.floor(Date.now()) },
+    timestamps: true,
     collection: "Exam",
     versionKey: false,
   }

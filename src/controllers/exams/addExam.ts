@@ -1,10 +1,13 @@
 import { Response, Request } from "express";
 import { ExamModel } from "../../models/Exam";
-import { IExam } from "../../utils/interfaces/Exam";
+import { IAddExamREQ } from "../../utils/interfaces/Exam";
 import ErrorUtils from "../../utils/constant/Error";
 import { AccountModel } from "../../models/Account";
 
-export const addExam = async (req: Request<any, any, IExam>, res: Response) => {
+export const addExam = async (
+  req: Request<any, any, IAddExamREQ>,
+  res: Response
+) => {
   try {
     const { type, questions, results, name, category, status, creatorId } =
       req.body;
@@ -20,6 +23,7 @@ export const addExam = async (req: Request<any, any, IExam>, res: Response) => {
         status,
         creator: creator?.email,
         updator: creator?.email,
+        creatorId: creatorId,
       });
       await newExam.save().then((savedExam) => {
         return res.send({

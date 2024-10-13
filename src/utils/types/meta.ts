@@ -16,6 +16,7 @@ export type TPagingResponse<TData> = {
 export type TPagingParams = {
   size?: number;
   page?: number;
+  direction?: number; // -1: DESC, 1: ASC
 };
 
 export type TPaginationRES = {
