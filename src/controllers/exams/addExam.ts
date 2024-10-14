@@ -4,10 +4,19 @@ import { IExam } from "../../utils/interfaces/Exam";
 import ErrorUtils from "../../utils/constant/Error";
 import { AccountModel } from "../../models/Account";
 import { TRequest } from "../../utils/types/meta";
+import { GroupModel } from "../../models/Group";
 
 export const addExam = async (req: TRequest<IExam>, res: Response) => {
   try {
-    const { type, questions, results, name, category, status } = req.body;
+    const {
+      type,
+      questions,
+      results,
+      name,
+      category,
+      status,
+      groupId = [],
+    } = req.body;
     const creator = await AccountModel.findById(req.userId);
 
     if (!!creator?.id) {
@@ -21,8 +30,18 @@ export const addExam = async (req: TRequest<IExam>, res: Response) => {
         creator: creator?.email,
         updator: creator?.email,
         creatorId: creator?.id,
+        groupId: groupId,
       });
-      await newExam.save().then((savedExam) => {
+      await newExam.save().then(async (savedExam) => {
+        // HANDLE FOREIGN KEYS
+
+        if (groupId.length > 0) {
+          await GroupModel.updateMany(
+            { _id: { $in: groupId } }, // Filter by group IDs
+            { $push: { exams: savedExam._id } } // Push exam ID to exams array
+          );
+        }
+
         return res.send({
           code: 200,
           data: savedExam,

@@ -2,7 +2,7 @@ import { ObjectId } from "mongoose";
 
 export interface ITracking {
   creatorId?: ObjectId;
-  groupId?: ObjectId;
+  groupId?: ObjectId[];
   createdAt?: Date;
   creator?: string; // email
   updatedAt?: Date;

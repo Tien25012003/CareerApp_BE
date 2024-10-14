@@ -8,4 +8,5 @@ export interface IGroup {
   createdAt: Date;
   updatedAt: Date;
   status: number; //0: deactive ; 1: active
+  exams?: mongoose.Schema.Types.ObjectId[];
 }

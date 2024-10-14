@@ -35,7 +35,6 @@ const DictionarySchema = new mongoose.Schema<IDictionary>(
         },
         updator: {
           type: String,
-          required: true,
         },
         // FOREIGN KEY
         creatorId: {
@@ -44,7 +43,7 @@ const DictionarySchema = new mongoose.Schema<IDictionary>(
         },
 
         groupId: {
-          type: mongoose.Schema.Types.ObjectId,
+          type: [mongoose.Schema.Types.ObjectId],
           ref: "GroupModel",
         },
       },

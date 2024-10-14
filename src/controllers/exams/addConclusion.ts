@@ -17,7 +17,7 @@ export const addConclusion = async (
         creator: creator?.email,
         updator: creator?.email,
         creatorId: creator?.id,
-        groupId: null,
+        groupId: [],
       });
       await newConclusion.save().then((savedConclusion) => {
         return res.send({

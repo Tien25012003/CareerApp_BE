@@ -48,7 +48,7 @@ const ConclusionSchema = new mongoose.Schema<IConclusion>(
       ref: "AccountModel",
     },
     groupId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: [mongoose.Schema.Types.ObjectId],
       ref: "GroupModel",
     },
   },

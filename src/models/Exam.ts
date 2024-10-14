@@ -90,7 +90,7 @@ const ExamSchema = new mongoose.Schema<IExam>(
     },
 
     groupId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: [mongoose.Schema.Types.ObjectId],
       ref: "GroupModel",
     },
   },

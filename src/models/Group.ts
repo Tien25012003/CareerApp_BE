@@ -22,6 +22,11 @@ const GroupSchema = new mongoose.Schema<IGroup>(
       type: Number,
       required: true,
     },
+    exams: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "ExamModel",
+      default: [],
+    },
   },
   { timestamps: true, collection: "Groups", versionKey: false }
 );
