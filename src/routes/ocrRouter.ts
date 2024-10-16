@@ -6,5 +6,5 @@ import { verifyToken } from "../middlewares/verifyToken";
 const ocrRouter = Router();
 //ocrRouter.post("/ocrGemini", upload.single("file"), ocrGemini);
 //ocrRouter.post("/ocrGemini", uploadImages.single("file"), ocrGemini);
-ocrRouter.post("/ocrGemini", verifyToken, ocrGemini);
+ocrRouter.post("/ocrGemini", ocrGemini);
 export default ocrRouter;

@@ -11,16 +11,16 @@ import upload from "../middlewares/upload";
 import { verifyToken } from "../middlewares/verifyToken";
 import { getListConclusion } from "../controllers/exams/getListConclusion";
 const examRouter = Router();
-examRouter.get("/", verifyToken, getExams);
-examRouter.post("/addExam", verifyToken, addExam);
-examRouter.delete("/deleteExam", verifyToken, deleteExam);
-examRouter.put("/updateExam", verifyToken, updateExam);
+examRouter.get("/", getExams);
+examRouter.post("/addExam", addExam);
+examRouter.delete("/deleteExam", deleteExam);
+examRouter.put("/updateExam", updateExam);
 examRouter.post(
   "/uploadConclusion",
-  verifyToken,
+
   upload.single("file"),
   uploadConclusion
 );
-examRouter.post("/getConclusion", verifyToken, getConclusion);
-examRouter.get("/getListConclusion", verifyToken, getListConclusion);
+examRouter.post("/getConclusion", getConclusion);
+examRouter.get("/getListConclusion", getListConclusion);
 export default examRouter;
