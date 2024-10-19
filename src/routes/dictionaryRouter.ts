@@ -21,11 +21,17 @@ dictionaryRouter.delete("/deleteDictionary", verifyToken, deleteDictonary);
 dictionaryRouter.put("/deleteMajor", verifyToken, deleteMajor);
 dictionaryRouter.post(
   "/uploadFileDictionary",
+  verifyToken,
   upload.single("file"),
   uploadFileDictionary
 );
-dictionaryRouter.post("/addSchool", upload.single("file"), addSchool);
-dictionaryRouter.get("/getAllSchool", getAllSchool);
-dictionaryRouter.delete("/deleteAllSchool", deleteAllSchool);
-dictionaryRouter.get("/getSchool", getSchool);
+dictionaryRouter.post(
+  "/addSchool",
+  verifyToken,
+  upload.single("file"),
+  addSchool
+);
+dictionaryRouter.get("/getAllSchool", verifyToken, getAllSchool);
+dictionaryRouter.delete("/deleteAllSchool", verifyToken, deleteAllSchool);
+dictionaryRouter.get("/getSchool", verifyToken, getSchool);
 export default dictionaryRouter;
