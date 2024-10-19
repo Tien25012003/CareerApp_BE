@@ -14,9 +14,9 @@ export const verifyToken = async (
   const jwtSecretKey = "25012003";
 
   const token = getTokenFromHeader(req);
-  if (token === null) {
-    next();
-  }
+  // if (token === null) {
+  //   next();
+  // }
   if (!token) return res.status(404).send(ErrorUtils.get("INVALID_TOKEN"));
   const blacklist = await BlackListModel.findOne({ token: token });
   if (blacklist) return res.status(404).send(ErrorUtils.get("INVALID_TOKEN"));

@@ -1,18 +1,18 @@
-import { Response } from "express";
+import { AccountModel } from "../../models/Account";
 import { ExamModel } from "../../models/Exam";
 import ErrorUtils, { IErrorData } from "../../utils/constant/Error";
-import { IExam, IExamREQ } from "../../utils/interfaces";
+import { ERole } from "../../utils/enums/account.enum";
+import { IExamList, IExamREQ } from "../../utils/interfaces";
 import {
   TPagingParams,
   TRequest,
   TResponseWithPagination,
 } from "../../utils/types/meta";
-import { AccountModel } from "../../models/Account";
-import { ERole } from "../../utils/enums/account.enum";
+import { Response } from "express";
 
-export const getExams = async (
+export const getExamList = async (
   req: TRequest<any, IExamREQ & TPagingParams>,
-  res: Response<TResponseWithPagination<IExam[]> | IErrorData>
+  res: Response<TResponseWithPagination<IExamList[]> | IErrorData>
 ) => {
   try {
     const {
@@ -26,18 +26,20 @@ export const getExams = async (
 
     const user = await AccountModel.findById(req.userId);
     if (!user) return res.send(ErrorUtils.get("ACCOUNT_INVALID"));
+    if (user.role === ERole.ANONYMOUS || user.role === ERole.ANONYMOUS)
+      return res.send(ErrorUtils.get("PERMISSION_DENIED"));
 
     // Build filter query based on user role
     const filterQueries: any = {
       ...queries,
-      ...(user.role !== ERole.ADMIN &&
-        user.role !== ERole.ANONYMOUS && { creatorId: req.userId }),
+      ...(user.role !== ERole.TEACHER && { creatorId: req.userId }),
       ...(category ? { category } : category),
       ...(name && { name: { $regex: name, $options: "i" } }),
     };
 
     // Fetch exams with pagination and sorting
     const exams = await ExamModel.find(filterQueries)
+      .select("-questions -results -groupId -creatorId")
       .sort({ createdAt: direction === 1 ? 1 : -1 })
       .skip((+page - 1) * +size)
       .limit(+size)
@@ -58,8 +60,8 @@ export const getExams = async (
         totalPages: Math.ceil(totalCounts / +size),
       },
     });
-  } catch (e) {
-    console.log("error", e);
+  } catch (error) {
+    console.log("error", error);
     return res.send(ErrorUtils.get("SERVER_ERROR"));
   }
 };

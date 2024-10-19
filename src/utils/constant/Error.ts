@@ -26,7 +26,9 @@ export type TErrorKey =
   | "UNVERIFY_EMAIL"
   | "ACCOUNT_INVALID"
   | "INVALID_PERMISSION"
-  | "PERMISSION_DENIED";
+  | "PERMISSION_DENIED"
+  | "EXAM_NOT_FOUND"
+  | "GROUP_NOT_FOUND";
 const ErrorUtils = new Map<TErrorKey, IErrorData>([
   [
     "ERROR_INVALID",
@@ -210,6 +212,20 @@ const ErrorUtils = new Map<TErrorKey, IErrorData>([
     {
       code: "PERMISSION_DENIED",
       message: "Không có quyền truy cập",
+    },
+  ],
+  [
+    "EXAM_NOT_FOUND",
+    {
+      code: "EXAM_NOT_FOUND",
+      message: "Bài kiểm tra không tồn tại",
+    },
+  ],
+  [
+    "GROUP_NOT_FOUND",
+    {
+      code: "GROUP_NOT_FOUND",
+      message: "Nhóm không tồn tại",
     },
   ],
 ]);

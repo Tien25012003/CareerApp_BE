@@ -44,4 +44,15 @@ export interface IExamREQ {
   creator?: string;
   updator?: string;
   status?: EExamStatus;
+
+  // For group
+  groupId?: number;
+}
+
+// EXAM LIST
+export interface IExamList extends ITracking {
+  type?: TExam;
+  name?: string;
+  category: EExamCategory;
+  status?: EExamStatus;
 }
