@@ -1,4 +1,3 @@
-import { ObjectId } from "mongoose";
 import { AccountModel } from "../../models/Account";
 import { ExamModel } from "../../models/Exam";
 import ErrorUtils from "../../utils/constant/Error";
