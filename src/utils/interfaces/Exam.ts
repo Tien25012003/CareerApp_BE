@@ -1,15 +1,17 @@
-import mongoose from "mongoose";
+import mongoose, { ObjectId } from "mongoose";
 import { ITracking, IResponse } from ".";
 import { EExamCategory, EExamStatus, EQuestionType } from "../enums/exam.enum";
 
 type TExam = "R" | "I" | "A" | "S" | "E" | "C" | "IQ" | "EQ";
-declare interface IOption {
+export interface IOption {
+  _id: ObjectId;
   image?: string;
   content: string;
   isResult?: boolean;
   standardScore?: number;
 }
 export interface IQuestion {
+  _id: ObjectId;
   questionTitle: string;
   image?: string;
   options?: IOption[];

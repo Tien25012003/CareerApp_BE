@@ -60,7 +60,7 @@ export const getListConclusion = async (
       },
     });
   } catch (e) {
-    console.error(e);
+    console.log(e);
     return res.send(ErrorUtils.get("SERVER_ERROR"));
   }
 };
