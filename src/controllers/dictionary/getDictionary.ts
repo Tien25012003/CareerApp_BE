@@ -7,7 +7,6 @@ import {
   TResponseWithPagination,
 } from "../../utils/types/meta";
 import { IDictionary } from "../../utils/interfaces";
-import { AccountModel } from "../../models/Account";
 export const getDictionary = async (
   req: TRequest<any, IDictionary & TPagingParams>,
   res: Response<TResponseWithPagination<IDictionary[]> | IErrorData>

@@ -13,6 +13,7 @@ import {
 } from "../controllers/dictionary";
 import upload from "../middlewares/upload";
 import { verifyToken } from "../middlewares/verifyToken";
+import { getMajors } from "../controllers/dictionary/getMajors";
 const dictionaryRouter = Router();
 dictionaryRouter.get("/", verifyToken, getDictionary);
 dictionaryRouter.post("/addDictionary", verifyToken, addDictionary);
@@ -34,4 +35,5 @@ dictionaryRouter.post(
 dictionaryRouter.get("/getAllSchool", verifyToken, getAllSchool);
 dictionaryRouter.delete("/deleteAllSchool", verifyToken, deleteAllSchool);
 dictionaryRouter.get("/getSchool", verifyToken, getSchool);
+dictionaryRouter.get("/major", verifyToken, getMajors);
 export default dictionaryRouter;
