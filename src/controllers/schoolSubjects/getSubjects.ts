@@ -9,6 +9,7 @@ import {
 } from "../../utils/types/meta";
 import { AccountModel } from "../../models/Account";
 import { ERole } from "../../utils/enums/account.enum";
+import { Types } from "mongoose";
 export const getSubjects = async (
   req: TRequest<any, ISubjectREQ & TPagingParams>,
   res: Response<TResponseWithPagination<ISubject[]>>
@@ -22,6 +23,23 @@ export const getSubjects = async (
       name,
       ...queries
     } = req.query;
+
+    // TEMPORARY
+    if (!Types.ObjectId.isValid(req.userId as any)) {
+      const subjects = await SubjectsModel.find({});
+      return res.send({
+        code: 200,
+        data: subjects,
+        message: "Success!",
+        pagination: {
+          size: 10,
+          page: 1,
+          totalCounts: 6,
+          totalPages: 1,
+        },
+      });
+    }
+    ///
 
     const user = await AccountModel.findById(req.userId);
     if (!user) return res.send(ErrorUtils.get("ACCOUNT_INVALID"));

@@ -9,6 +9,8 @@ import {
 } from "../../utils/types/meta";
 import { AccountModel } from "../../models/Account";
 import { ERole } from "../../utils/enums/account.enum";
+import { Types } from "mongoose";
+import { EExamCategory } from "../../utils/enums/exam.enum";
 
 export const getExams = async (
   req: TRequest<any, IExamREQ & TPagingParams>,
@@ -24,7 +26,26 @@ export const getExams = async (
       ...queries
     } = req.query;
 
-    const user = await AccountModel.findById(req.userId);
+    // TEMPORARY
+    if (!Types.ObjectId.isValid(req.userId as any)) {
+      const exams = await ExamModel.find({ category: EExamCategory.SYSTEM });
+      return res.send({
+        code: 200,
+        data: exams,
+        message: "Success!",
+        pagination: {
+          size: 10,
+          page: 1,
+          totalCounts: 6,
+          totalPages: 1,
+        },
+      });
+    }
+    ///
+
+    const user = await AccountModel.findById(
+      new Types.ObjectId(req.userId as unknown as string)
+    );
     if (!user) return res.send(ErrorUtils.get("ACCOUNT_INVALID"));
 
     // Build filter query based on user role
