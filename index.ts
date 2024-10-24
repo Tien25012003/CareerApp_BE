@@ -11,6 +11,7 @@ import bodyParser from "body-parser";
 import accountRouter from "./src/routes/accountRouter";
 import groupRouter from "./src/routes/groupRouter";
 import doExamRouter from "./src/routes/doExamRouter";
+import chatBotRouter from "./src/routes/chatBotRouter";
 const app = express();
 // Load environment variables based on NODE_ENV
 require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
@@ -27,6 +28,7 @@ app.use("/dictionary", dictionaryRouter);
 app.use("/accounts", accountRouter);
 app.use("/groups", groupRouter);
 app.use("/do-exam", doExamRouter);
+app.use("/chat-bot", chatBotRouter);
 
 // if (process.env.NODE_ENV !== "development") {
 //   console.log = () => {}; // Remove console.log on staging
