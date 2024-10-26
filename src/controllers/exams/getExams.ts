@@ -26,7 +26,7 @@ export const getExams = async (
       ...queries
     } = req.query;
 
-    // TEMPORARY
+    // GET EXAMS FOR ANYNOMOUS
     if (!Types.ObjectId.isValid(req.userId as any)) {
       const exams = await ExamModel.find({ category: EExamCategory.SYSTEM });
       return res.send({
@@ -51,8 +51,7 @@ export const getExams = async (
     // Build filter query based on user role
     const filterQueries: any = {
       ...queries,
-      ...(user.role !== ERole.ADMIN &&
-        user.role !== ERole.ANONYMOUS && { creatorId: req.userId }),
+      ...(user.role !== ERole.ADMIN && { creatorId: req.userId }), // If user role is ADMIN => Get all exams. // If user role is TEACHER => just get their exams
       ...(category ? { category } : category),
       ...(name && { name: { $regex: name, $options: "i" } }),
     };

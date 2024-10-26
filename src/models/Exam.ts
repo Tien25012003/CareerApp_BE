@@ -74,7 +74,6 @@ const ExamSchema = new mongoose.Schema<IExam>(
     },
     updator: {
       type: String,
-      required: true,
     },
     status: {
       type: String,

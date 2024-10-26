@@ -20,7 +20,6 @@ const SubjectsSchema = new mongoose.Schema<ISubject>(
     },
     updator: {
       type: String,
-      required: true,
     },
 
     // FOREIGN KEY
