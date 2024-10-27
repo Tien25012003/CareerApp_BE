@@ -1,13 +1,13 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { Response } from "express";
-import { AccountModel } from "../../../models/Account";
-import { ChatBotModel } from "../../../models/ChatBot";
-import ErrorUtils from "../../../utils/constant/Error";
-import { ERole } from "../../../utils/enums/account.enum";
-import { EChatBotType } from "../../../utils/enums/chat-bot.enum";
-import { IChatBot } from "../../../utils/interfaces/ChatBot";
-import { TRequest, TResponse } from "../../../utils/types/meta";
-import { generateInstruction } from "../data/generateInstruction";
+import { AccountModel } from "../../models/Account";
+import { ChatBotModel } from "../../models/ChatBot";
+import ErrorUtils from "../../utils/constant/Error";
+import { ERole } from "../../utils/enums/account.enum";
+import { EChatBotType } from "../../utils/enums/chat-bot.enum";
+import { IChatBot } from "../../utils/interfaces/ChatBot";
+import { TRequest, TResponse } from "../../utils/types/meta";
+import { generateInstruction } from "../chat-bot/data/generateInstruction";
 
 // Access your API key as an environment variable (see "Set up your API key" above)
 const API_KEY = process.env.GOOGLE_API_KEY;

@@ -1,8 +1,8 @@
 import { Router } from "express";
+import { addPromptToGroup } from "../controllers/chat-bot-in-group/addPromptToGroup";
+import { executePromptInGroup } from "../controllers/chat-bot-in-group/executePromptInGroup";
+import { removePromptFromGroup } from "../controllers/chat-bot-in-group/removePromptFromGroup";
 import { addPrompt } from "../controllers/chat-bot/addPrompt";
-import { addPromptToGroup } from "../controllers/chat-bot/chat-bot-in-group/addPromptTogroup";
-import { executePromptInGroup } from "../controllers/chat-bot/chat-bot-in-group/executePromptInGroup";
-import { removePromptFromGroup } from "../controllers/chat-bot/chat-bot-in-group/removePromptFromGroup";
 import { deletePrompt } from "../controllers/chat-bot/deletePrompt";
 import { executePrompt } from "../controllers/chat-bot/executePrompt";
 import { getPrompt } from "../controllers/chat-bot/getPrompt";
