@@ -19,40 +19,22 @@ export const login = async (
   console.log("okkk");
 
   const account = await AccountModel.findOne({
-    $or: [
-      {
-        username,
-      },
-      { deviceId },
-    ],
+    username,
   });
+
   // Check if account exists
   if (!account) {
-    if (username)
-      return res.status(401).send(ErrorUtils.get("INVALID_USERNAME_PASSWORD"));
-    else {
-      return res.status(200).send({
-        code: 200,
-        message: "Đăng nhập thành công",
-        data: {
-          name: "",
-          role: "",
-          email: "",
-          groups: [],
-          permissions: [],
-          accessToken: "",
-        },
-      });
-    }
+    return res.status(401).json(ErrorUtils.get("INVALID_USERNAME_PASSWORD"));
   }
 
   // Ensure account.password is defined before calling bcrypt.compare
   const isPasswordValid =
     account.password && (await bcrypt.compare(password, account.password));
+
   if (isPasswordValid) {
     if (account.status === 1) {
       const token = generateToken(account.id);
-      res.status(200).send({
+      return res.status(200).send({
         code: 200,
         message: "Đăng nhập thành công",
         data: {
@@ -66,9 +48,9 @@ export const login = async (
         },
       });
     } else {
-      res.status(400).send(ErrorUtils.get("UNVERIFY_EMAIL"));
+      return res.status(401).json(ErrorUtils.get("UNVERIFY_EMAIL"));
     }
   } else {
-    res.status(400).send(ErrorUtils.get("SERVER_ERROR"));
+    return res.status(401).json(ErrorUtils.get("INVALID_USERNAME_PASSWORD"));
   }
 };
