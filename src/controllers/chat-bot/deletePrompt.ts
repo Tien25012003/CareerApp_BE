@@ -16,7 +16,7 @@ export const deletePrompt = async (
       return res.send(ErrorUtils.get("DATA_NOT_FOUND"));
     }
 
-    // HANDLE FOREIGN KEYS
+    // HANDLE FOREIGN KEYS --
 
     // Pull the exam id from all groups that have it
     await GroupModel.updateMany({ prompts: id }, { $pull: { prompts: id } });
