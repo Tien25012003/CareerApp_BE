@@ -29,7 +29,8 @@ export type TErrorKey =
   | "PERMISSION_DENIED"
   | "EXAM_NOT_FOUND"
   | "GROUP_NOT_FOUND"
-  | "DATA_NOT_FOUND";
+  | "DATA_NOT_FOUND"
+  | "FORGOT_PASSWORD_SUCCESS";
 const ErrorUtils = new Map<TErrorKey, IErrorData>([
   [
     "ERROR_INVALID",
@@ -232,6 +233,14 @@ const ErrorUtils = new Map<TErrorKey, IErrorData>([
   [
     "DATA_NOT_FOUND",
     { code: "DATA_NOT_FOUND", message: "Dữ liệu không tồn tại" },
+  ],
+  [
+    "FORGOT_PASSWORD_SUCCESS",
+    {
+      code: "FORGOT_PASSWORD_SUCCESS",
+      message:
+        "Email xác thực mật khẩu mới đã được gửi về email. Vui lòng kiểm tra!",
+    },
   ],
 ]);
 export default ErrorUtils;

@@ -13,7 +13,7 @@ export const sendVerifyEmail = async (
   id: string,
   name?: string
 ) => {
-  const actionLink = `http://192.168.0.102/accounts/verify?id=${id}`;
+  const actionLink = `http://192.168.0.105:3000/accounts/verify?id=${id}`;
   const info = await transporter.sendMail({
     from: `"My Daily" <doank3442@gmail.com>`,
     to: emails.length > 1 ? emails.join(", ") : emails[0],
@@ -94,6 +94,97 @@ export const sendVerifyEmail = async (
           Nếu bạn có bất kì câu hỏi nào, vui lòng liên hệ
           <a href="mailto:doank3442@gmail.com">doank3442@gmail.com</a>.
         </p>
+      </div>
+    </div>
+  </body>
+</html>
+`,
+  });
+  return info;
+};
+
+export const sendVerifyChangePassword = async (
+  emails: string[],
+  id: string,
+  newPassword: string
+) => {
+  const actionLink = `http://192.168.0.105:3000/accounts/confirmChangePassword?id=${id}&token=${newPassword}`;
+  const info = await transporter.sendMail({
+    from: `"My Daily" <doank3442@gmail.com>`,
+    to: emails.length > 1 ? emails.join(", ") : emails[0],
+    subject: "Yêu Cầu Đổi Mật Khẩu",
+    html: `<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yêu Cầu Đổi Mật Khẩu</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        color: #333;
+        background-color: #f7f7f7;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 600px;
+        margin: 20px auto;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+      h2 {
+        color: #444;
+        text-align: center;
+      }
+      p {
+        line-height: 1.5;
+        font-size: 16px;
+        margin: 20px 0;
+      }
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #ffffff;
+        background-color: #ff6b6b;
+        text-align: center;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+      }
+      .button:hover {
+        background-color: #ff4c4c;
+      }
+      .footer {
+        text-align: center;
+        font-size: 14px;
+        color: #888;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Yêu Cầu Đổi Mật Khẩu</h2>
+      <p>
+        Chúng tôi đã nhận được yêu cầu đổi mật khẩu của bạn. Để tiếp tục, vui
+        lòng xác nhận bằng cách nhấn vào nút bên dưới.
+      </p>
+      <div style="text-align: center; margin: 20px 0">
+        <a href=${actionLink} class="button"
+          >Xác Nhận Đổi Mật Khẩu</a
+        >
+      </div>
+      <p>
+        Nếu bạn không yêu cầu đổi mật khẩu, vui lòng bỏ qua email này. Mật khẩu
+        hiện tại của bạn vẫn sẽ an toàn.
+      </p>
+      <div class="footer">
+        <p>&copy; 2024 My Daily. Bảo lưu mọi quyền.</p>
       </div>
     </div>
   </body>

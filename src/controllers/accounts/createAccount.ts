@@ -1,9 +1,9 @@
+import bcrypt from "bcrypt";
 import { Request, Response } from "express";
+import { sendVerifyEmail } from "../../hooks/sendVerifyEmail";
 import { AccountModel } from "../../models/Account";
 import ErrorUtils from "../../utils/constant/Error";
 import { IAccount } from "../../utils/interfaces/Account";
-import { sendVerifyEmail } from "../../hooks/sendVerifyEmail";
-import bcrypt from "bcrypt";
 type TBody = Partial<IAccount>;
 export const createAccount = async (
   req: Request<any, any, TBody>,
