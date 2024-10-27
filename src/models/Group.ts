@@ -27,6 +27,11 @@ const GroupSchema = new mongoose.Schema<IGroup>(
       ref: "ExamModel",
       default: [],
     },
+    prompts: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "ChatBotModel",
+      default: [],
+    },
   },
   { timestamps: true, collection: "Groups", versionKey: false }
 );

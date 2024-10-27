@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
 
 import mongoose from "mongoose";
-import ErrorUtils from "../../utils/constant/Error";
+import { ChatBotModel } from "../../models/ChatBot";
+import { ExamModel } from "../../models/Exam";
 import { GroupModel } from "../../models/Group";
+import ErrorUtils from "../../utils/constant/Error";
 
 type TParams = {
   id: string; // MongoDB ObjectId is a string
@@ -22,6 +24,11 @@ export const deleteAccount = async (
 
     // Attempt to delete the account by ID
     const deleteGroup = await GroupModel.findByIdAndDelete(id);
+
+    // HANDLE FOREIGN KEYS
+    await ExamModel.updateMany({ groupId: id }, { $pull: { groupId: id } });
+
+    await ChatBotModel.updateMany({ groupId: id }, { $pull: { groupId: id } });
 
     if (!deleteGroup) {
       return res.status(404).send(ErrorUtils.get("EMPTY_DATA"));

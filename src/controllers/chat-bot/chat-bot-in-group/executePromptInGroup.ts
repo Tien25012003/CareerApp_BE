@@ -1,11 +1,13 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { Response } from "express";
-import { ChatBotModel } from "../../models/ChatBot";
-import ErrorUtils from "../../utils/constant/Error";
-import { EChatBotType } from "../../utils/enums/chat-bot.enum";
-import { IChatBot } from "../../utils/interfaces/ChatBot";
-import { TRequest, TResponse } from "../../utils/types/meta";
-import { generateInstruction } from "./data/generateInstruction";
+import { AccountModel } from "../../../models/Account";
+import { ChatBotModel } from "../../../models/ChatBot";
+import ErrorUtils from "../../../utils/constant/Error";
+import { ERole } from "../../../utils/enums/account.enum";
+import { EChatBotType } from "../../../utils/enums/chat-bot.enum";
+import { IChatBot } from "../../../utils/interfaces/ChatBot";
+import { TRequest, TResponse } from "../../../utils/types/meta";
+import { generateInstruction } from "../data/generateInstruction";
 
 // Access your API key as an environment variable (see "Set up your API key" above)
 const API_KEY = process.env.GOOGLE_API_KEY;
@@ -21,20 +23,37 @@ const model = genAI.getGenerativeModel({
   generationConfig,
 });
 
-export const executePrompt = async (
-  req: TRequest<{ prompt: string }>,
+export const executePromptInGroup = async (
+  req: TRequest<{ prompt: string; groupId: number }>,
   res: Response<TResponse<string>>
 ) => {
   try {
-    const { prompt } = req.body;
+    const { prompt, groupId } = req.body;
     const isLock = false;
 
     if (!prompt) return res.send(ErrorUtils.get("PROMT_IS_EMPTY"));
     if (isLock) return res.send(ErrorUtils.get("LOCK_AI"));
 
-    const prompts: IChatBot[] = await ChatBotModel.find({
-      type: EChatBotType.SYSTEM,
-    });
+    const user = await AccountModel.findById(req.userId);
+    if (!user) return res.send(ErrorUtils.get("ACCOUNT_INVALID"));
+    if (user?.role === ERole.STUDENT && !groupId)
+      return res.send(ErrorUtils.get("PERMISSION_DENIED"));
+
+    let filterQueries: { [key: string]: any } = { type: EChatBotType.DESIGN };
+
+    // Add groupId to filter queries if provided
+    if (groupId) {
+      filterQueries = {
+        ...filterQueries,
+        groupId,
+      };
+    }
+
+    if (user?.role === ERole.TEACHER) {
+      filterQueries = { ...filterQueries, creatorId: user?.id };
+    }
+
+    const prompts: IChatBot[] = await ChatBotModel.find(filterQueries);
     if (!prompts) {
       return res.send(ErrorUtils.get("DATA_NOT_FOUND"));
     }
@@ -47,8 +66,6 @@ export const executePrompt = async (
       )
       .join("\n");
     const parts = [{ text: generateInstruction({ question: prompt, faqs }) }];
-
-    console.log("faqs", faqs);
 
     const result = await model.generateContent({
       contents: [{ role: "user", parts: parts }],

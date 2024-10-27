@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { IAccount } from "./Account";
 
 export interface IGroup {
   groupName: string;
@@ -9,4 +8,5 @@ export interface IGroup {
   updatedAt: Date;
   status: number; //0: deactive ; 1: active
   exams?: mongoose.Schema.Types.ObjectId[];
+  prompts?: mongoose.Schema.Types.ObjectId[];
 }

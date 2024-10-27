@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import { IChatBot } from "../utils/interfaces/ChatBot";
 import { EChatBotType } from "../utils/enums/chat-bot.enum";
+import { IChatBot } from "../utils/interfaces/ChatBot";
 
 const ChatBotSchema = new mongoose.Schema<IChatBot>(
   {
@@ -32,6 +32,11 @@ const ChatBotSchema = new mongoose.Schema<IChatBot>(
     creatorId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "AccountModel",
+    },
+    groupId: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "GroupModel",
+      default: [],
     },
   },
   {

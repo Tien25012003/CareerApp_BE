@@ -1,8 +1,9 @@
-import { ObjectId } from "mongoose";
-import { TRequest, TResponse } from "../../utils/types/meta";
 import { Response } from "express";
-import ErrorUtils from "../../utils/constant/Error";
+import { ObjectId } from "mongoose";
 import { ChatBotModel } from "../../models/ChatBot";
+import { GroupModel } from "../../models/Group";
+import ErrorUtils from "../../utils/constant/Error";
+import { TRequest, TResponse } from "../../utils/types/meta";
 export const deletePrompt = async (
   req: TRequest<any, { id: ObjectId }>,
   res: Response<TResponse<void>>
@@ -14,6 +15,12 @@ export const deletePrompt = async (
     if (!deletedPrompt) {
       return res.send(ErrorUtils.get("DATA_NOT_FOUND"));
     }
+
+    // HANDLE FOREIGN KEYS
+
+    // Pull the exam id from all groups that have it
+    await GroupModel.updateMany({ prompts: id }, { $pull: { prompts: id } });
+
     return res.send({
       code: 200,
       message: "Success",
