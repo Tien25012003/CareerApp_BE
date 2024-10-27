@@ -1,10 +1,10 @@
-import { Request, Response } from "express";
-import { AccountModel } from "../../models/Account";
 import bcrypt from "bcrypt";
+import { Request, Response } from "express";
 import { generateToken } from "../../hooks/generateToken";
-import { TResponse } from "../../utils/types/meta";
+import { AccountModel } from "../../models/Account";
 import ErrorUtils from "../../utils/constant/Error";
 import { IAccount } from "../../utils/interfaces/Account";
+import { TResponse } from "../../utils/types/meta";
 type TBody = {
   username: string;
   password: string;
@@ -15,6 +15,8 @@ export const login = async (
   res: Response<TResponse<Partial<IAccount>>>
 ) => {
   const { username, password, deviceId } = req.body;
+
+  console.log("okkk");
 
   const account = await AccountModel.findOne({
     $or: [

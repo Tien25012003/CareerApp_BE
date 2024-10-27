@@ -1,18 +1,22 @@
+import bodyParser from "body-parser";
+import cors from "cors";
+import "dotenv/config";
 import express from "express";
 import { connectToDb } from "./src/config/db";
-import newsRouter from "./src/routes/newsRouter";
-import examRouter from "./src/routes/examRouter";
-import schoolSubjectRouter from "./src/routes/schoolSubjectRouter";
-import "dotenv/config";
-import geminiRouter from "./src/routes/geminiRouter";
-import ocrRouter from "./src/routes/ocrRouter";
-import dictionaryRouter from "./src/routes/dictionaryRouter";
-import bodyParser from "body-parser";
 import accountRouter from "./src/routes/accountRouter";
-import groupRouter from "./src/routes/groupRouter";
-import doExamRouter from "./src/routes/doExamRouter";
 import chatBotRouter from "./src/routes/chatBotRouter";
+import dictionaryRouter from "./src/routes/dictionaryRouter";
+import doExamRouter from "./src/routes/doExamRouter";
+import examRouter from "./src/routes/examRouter";
+import geminiRouter from "./src/routes/geminiRouter";
+import groupRouter from "./src/routes/groupRouter";
+import newsRouter from "./src/routes/newsRouter";
+import ocrRouter from "./src/routes/ocrRouter";
+import schoolSubjectRouter from "./src/routes/schoolSubjectRouter";
 const app = express();
+
+app.use(cors());
+
 // Load environment variables based on NODE_ENV
 require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
 app.use(bodyParser.json({ limit: "50mb" }));
