@@ -1,15 +1,11 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { AccountModel } from "../../models/Account";
 import ErrorUtils from "../../utils/constant/Error";
+import { TRequest } from "../../utils/types/meta";
 
-export const getAccount = async (
-  req: Request<any, any, any, { id: number }>,
-  res: Response
-) => {
+export const getAccount = async (req: TRequest<any>, res: Response) => {
   try {
-    const { id } = req.query;
-
-    const account = await AccountModel.findById(id).select("-password");
+    const account = await AccountModel.findById(req.userId).select("-password");
     return res.send({
       code: 200,
       data: account,
