@@ -1,8 +1,8 @@
+import { Response } from "express";
 import { ChatBotModel } from "../../models/ChatBot";
 import ErrorUtils from "../../utils/constant/Error";
 import { IChatBot } from "../../utils/interfaces/ChatBot";
 import { TRequest, TResponse } from "../../utils/types/meta";
-import { Response } from "express";
 
 export const getPrompt = async (
   req: TRequest<any, { id: number }>,

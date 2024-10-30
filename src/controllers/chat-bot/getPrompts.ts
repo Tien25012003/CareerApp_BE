@@ -1,16 +1,15 @@
+import { Response } from "express";
 import { Types } from "mongoose";
+import { AccountModel } from "../../models/Account";
+import { ChatBotModel } from "../../models/ChatBot";
 import ErrorUtils from "../../utils/constant/Error";
+import { ERole } from "../../utils/enums/account.enum";
 import { IChatBot } from "../../utils/interfaces/ChatBot";
 import {
   TPagingParams,
   TRequest,
-  TResponse,
   TResponseWithPagination,
 } from "../../utils/types/meta";
-import { Response } from "express";
-import { AccountModel } from "../../models/Account";
-import { ERole } from "../../utils/enums/account.enum";
-import { ChatBotModel } from "../../models/ChatBot";
 
 export const getPrompts = async (
   req: TRequest<any, IChatBot & TPagingParams>,
@@ -48,6 +47,7 @@ export const getPrompts = async (
 
     // Fetch exams with pagination and sorting
     const prompts = await ChatBotModel.find(filterQueries)
+      .select("-creatorId -updatedAt -type -groupId")
       .sort({ createdAt: direction === 1 ? 1 : -1 })
       .skip((+page - 1) * +size)
       .limit(+size)
