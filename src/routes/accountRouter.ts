@@ -21,6 +21,7 @@ accountRouter.post("/", createAccount);
 accountRouter.put("/status", verifyToken, updateStatusAccount);
 accountRouter.put("/info", verifyToken, updateInfoAccount);
 accountRouter.delete("/", verifyToken, deleteAccount);
+accountRouter.delete("/privacy", verifyToken, deleteAccount);
 accountRouter.get("/verify", verifyAccount);
 accountRouter.get("/confirmChangePassword", confirmChangePassword);
 accountRouter.post("/login", login);
