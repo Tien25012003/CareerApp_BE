@@ -2,7 +2,8 @@ import { Response } from "express";
 import ErrorUtils from "../../utils/constant/Error";
 import { TRequest, TResponse } from "../../utils/types/meta";
 
-import { v2 as cloudinary } from "cloudinary";
+import { v2 as cloudinary, UploadApiResponse } from "cloudinary";
+import { IImage } from "../../utils/interfaces/Image";
 
 const CLOUD_NAME = process.env.CLOUD_NAME;
 const CLOUD_API_KEY = process.env.CLOUD_API_KEY;
@@ -15,10 +16,20 @@ cloudinary.config({
 });
 export const upload = async (
   req: TRequest<{ folderName: string }>,
-  res: Response<TResponse<void>>
+  res: Response<TResponse<IImage>>
 ) => {
   try {
     console.log("body", req.file);
+    if (!req.file) {
+      return {
+        code: 200,
+        message: "Success!",
+        data: {
+          key: null,
+          url: null,
+        },
+      };
+    }
     const { folderName } = req.body;
     const imageBase64 = req.file?.buffer?.toString("base64");
 
@@ -50,10 +61,15 @@ export const upload = async (
     // console.log("private url", privateURL);
 
     console.log("upload result", uploadResult);
+    const result = uploadResult as UploadApiResponse;
 
     return res.send({
       code: 200,
       message: "Success!",
+      data: {
+        key: result.public_id,
+        url: result.secure_url,
+      },
     });
   } catch (error) {
     console.log("e >>>", error);
