@@ -1,10 +1,10 @@
-import { Response, Request } from "express";
-import { ExamModel } from "../../models/Exam";
-import { IExam } from "../../utils/interfaces/Exam";
-import ErrorUtils from "../../utils/constant/Error";
+import { Response } from "express";
 import { AccountModel } from "../../models/Account";
-import { TRequest } from "../../utils/types/meta";
+import { ExamModel } from "../../models/Exam";
 import { GroupModel } from "../../models/Group";
+import ErrorUtils from "../../utils/constant/Error";
+import { IExam } from "../../utils/interfaces/Exam";
+import { TRequest } from "../../utils/types/meta";
 
 export const addExam = async (req: TRequest<IExam>, res: Response) => {
   try {

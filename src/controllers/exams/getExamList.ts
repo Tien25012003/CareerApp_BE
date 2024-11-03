@@ -1,3 +1,4 @@
+import { Response } from "express";
 import { AccountModel } from "../../models/Account";
 import { ExamModel } from "../../models/Exam";
 import ErrorUtils, { IErrorData } from "../../utils/constant/Error";
@@ -8,7 +9,6 @@ import {
   TRequest,
   TResponseWithPagination,
 } from "../../utils/types/meta";
-import { Response } from "express";
 
 export const getExamList = async (
   req: TRequest<any, IExamREQ & TPagingParams>,
@@ -26,13 +26,13 @@ export const getExamList = async (
 
     const user = await AccountModel.findById(req.userId);
     if (!user) return res.send(ErrorUtils.get("ACCOUNT_INVALID"));
-    if (user.role === ERole.ANONYMOUS || user.role === ERole.ANONYMOUS)
+    if (user.role === ERole.ANONYMOUS)
       return res.send(ErrorUtils.get("PERMISSION_DENIED"));
 
     // Build filter query based on user role
     const filterQueries: any = {
       ...queries,
-      ...(user.role !== ERole.TEACHER && { creatorId: req.userId }),
+      ...(user.role === ERole.TEACHER && { creatorId: req.userId }),
       ...(category ? { category } : category),
       ...(name && { name: { $regex: name, $options: "i" } }),
     };

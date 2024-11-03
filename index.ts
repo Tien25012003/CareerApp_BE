@@ -13,6 +13,7 @@ import groupRouter from "./src/routes/groupRouter";
 import newsRouter from "./src/routes/newsRouter";
 import ocrRouter from "./src/routes/ocrRouter";
 import schoolSubjectRouter from "./src/routes/schoolSubjectRouter";
+import uploadRouter from "./src/routes/uploadRouter";
 const app = express();
 
 app.use(cors());
@@ -33,6 +34,7 @@ app.use("/accounts", accountRouter);
 app.use("/groups", groupRouter);
 app.use("/do-exam", doExamRouter);
 app.use("/chat-bot", chatBotRouter);
+app.use("/uploads", uploadRouter);
 
 // if (process.env.NODE_ENV !== "development") {
 //   console.log = () => {}; // Remove console.log on staging
