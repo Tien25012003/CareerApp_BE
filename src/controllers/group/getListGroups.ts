@@ -1,16 +1,18 @@
 import { Request, Response } from "express";
-import { TPagingParams, TPagingResponse } from "../../utils/types/meta";
-import { IGroup } from "../../utils/interfaces/Group";
 import { GroupModel } from "../../models/Group";
+import { IGroup } from "../../utils/interfaces/Group";
+import { TPagingParams, TResponseWithPagination } from "../../utils/types/meta";
 
 type TParams = {
   groupName: string;
   status: number; // 1: Active , 0: Deactive
   direction?: number; // -1: DESC, 1: ASC
+  page: number;
+  size: number;
 };
 export const getListGroups = async (
   req: Request<any, any, any, TParams & Partial<TPagingParams>>,
-  res: Response<Partial<TPagingResponse<IGroup[]>>>
+  res: Response<Partial<TResponseWithPagination<IGroup[]>>>
 ) => {
   try {
     const {
@@ -39,7 +41,12 @@ export const getListGroups = async (
     return res.send({
       code: 200,
       data: groups,
-      totalElements: countGroups,
+      pagination: {
+        size: +size,
+        page: +page,
+        totalCounts: countGroups,
+        totalPages: Math.ceil(countGroups / +size),
+      },
     });
   } catch (error) {}
 };

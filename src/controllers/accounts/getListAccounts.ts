@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { AccountModel } from "../../models/Account";
 import ErrorUtils from "../../utils/constant/Error";
-import { TPagingParams, TPagingResponse } from "../../utils/types/meta";
 import { IAccount } from "../../utils/interfaces/Account";
+import { TPagingParams, TResponseWithPagination } from "../../utils/types/meta";
 
 type TParams = {
   status?: number; // 1: active, 0: deactive
@@ -14,7 +14,7 @@ type TParams = {
 
 export const getListAccounts = async (
   req: Request<any, any, any, TParams & Partial<TPagingParams>>,
-  res: Response<Partial<TPagingResponse<IAccount[]>>>
+  res: Response<Partial<TResponseWithPagination<IAccount[]>>>
 ) => {
   try {
     const {
@@ -23,7 +23,7 @@ export const getListAccounts = async (
       role = "",
       status,
       direction = -1,
-      page = 0,
+      page = 1,
       size = 10,
     } = req.query;
     let query: any = {};
@@ -46,21 +46,48 @@ export const getListAccounts = async (
       query.status = status; // Add status to the query if provided
     }
 
-    const accounts = await AccountModel.find(query)
-      .where({
-        role,
-      })
-      .select("-password")
-      .sort({ updatedAt: direction === 1 ? 1 : -1 })
-      .skip(page * size)
-      .limit(size)
-      .exec();
-    const countAccounts = await AccountModel.countDocuments(query);
-    return res.send({
-      code: 200,
-      data: accounts,
-      totalElements: countAccounts,
-    });
+    if (role) {
+      const accounts = await AccountModel.find(query)
+        .where({
+          role: role || "",
+        })
+        .select("-password")
+        .sort({ updatedAt: direction === 1 ? 1 : -1 })
+        .skip((page - 1) * size)
+        .limit(size)
+        .exec();
+
+      const countAccounts = await AccountModel.countDocuments(query);
+      return res.send({
+        code: 200,
+        data: accounts,
+        pagination: {
+          size: +size,
+          page: +page,
+          totalCounts: countAccounts,
+          totalPages: Math.ceil(countAccounts / +size),
+        },
+      });
+    } else {
+      const accounts = await AccountModel.find(query)
+        .select("-password")
+        .sort({ updatedAt: direction === 1 ? 1 : -1 })
+        .skip((page - 1) * size)
+        .limit(size)
+        .exec();
+
+      const countAccounts = await AccountModel.countDocuments(query);
+      return res.send({
+        code: 200,
+        data: accounts,
+        pagination: {
+          size: +size,
+          page: +page,
+          totalCounts: countAccounts,
+          totalPages: Math.ceil(countAccounts / +size),
+        },
+      });
+    }
   } catch (e) {
     return res.send(ErrorUtils.get("SERVER_ERROR"));
   }
