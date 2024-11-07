@@ -27,7 +27,7 @@ export interface IAccount {
   username: string;
   name: string;
   email: string;
-  role: string;
+  role: string; // ADMIN, STUDENT, TEACHER
   groups: Types.ObjectId[];
   createdAt: Date;
   updatedAt: Date;

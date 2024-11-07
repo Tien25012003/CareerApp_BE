@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 import { IAccount } from "../utils/interfaces/Account";
 
 // Enum for roles
@@ -53,7 +53,7 @@ const AccountSchema = new mongoose.Schema<IAccount>(
     },
     groups: [
       {
-        type: [mongoose.Schema.Types.ObjectId],
+        type: mongoose.Schema.Types.ObjectId,
         ref: "GroupModel", // References the Group model
       },
     ],

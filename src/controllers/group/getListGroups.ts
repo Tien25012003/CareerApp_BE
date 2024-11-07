@@ -19,7 +19,7 @@ export const getListGroups = async (
       groupName,
       status,
       direction = -1,
-      page = 0,
+      page = 1,
       size = 10,
     } = req.query;
     let query: any = {};
@@ -34,7 +34,7 @@ export const getListGroups = async (
       .populate("members", "_id email name status")
       .populate("owner", "_id email name status")
       .sort({ updatedAt: direction === 1 ? 1 : -1 })
-      .skip(page * size)
+      .skip((page - 1) * size)
       .limit(size)
       .exec();
     const countGroups = await GroupModel.countDocuments(query);
@@ -43,7 +43,7 @@ export const getListGroups = async (
       data: groups,
       pagination: {
         size: +size,
-        page: +page,
+        page: +(page - 1),
         totalCounts: countGroups,
         totalPages: Math.ceil(countGroups / +size),
       },

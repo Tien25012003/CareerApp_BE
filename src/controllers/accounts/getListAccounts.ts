@@ -51,6 +51,7 @@ export const getListAccounts = async (
         .where({
           role: role || "",
         })
+        .populate("groups", "_id groupName")
         .select("-password")
         .sort({ updatedAt: direction === 1 ? 1 : -1 })
         .skip((page - 1) * size)
@@ -71,6 +72,7 @@ export const getListAccounts = async (
     } else {
       const accounts = await AccountModel.find(query)
         .select("-password")
+        .populate("groups", "_id groupName")
         .sort({ updatedAt: direction === 1 ? 1 : -1 })
         .skip((page - 1) * size)
         .limit(size)
