@@ -5,6 +5,7 @@ import { deleteAccount } from "../controllers/accounts/deleteAccount";
 import { forgotPassword } from "../controllers/accounts/forgotPassword";
 import { getAccessToken } from "../controllers/accounts/getAccessToken";
 import { getAccount } from "../controllers/accounts/getAccount";
+import { getListAccountMember } from "../controllers/accounts/getListAccountMember";
 import { getListAccounts } from "../controllers/accounts/getListAccounts";
 import { login } from "../controllers/accounts/login";
 import { loginWithSocial } from "../controllers/accounts/loginWithSocial";
@@ -29,5 +30,6 @@ accountRouter.post("/logout", logout);
 accountRouter.post("/forgotPassword", forgotPassword);
 accountRouter.get("/confirmChangePassword");
 accountRouter.get("/accessToken", getAccessToken);
+accountRouter.get("/account-name", verifyToken, getListAccountMember);
 
 export default accountRouter;
