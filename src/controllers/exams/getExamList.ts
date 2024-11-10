@@ -3,6 +3,7 @@ import { AccountModel } from "../../models/Account";
 import { ExamModel } from "../../models/Exam";
 import ErrorUtils, { IErrorData } from "../../utils/constant/Error";
 import { ERole } from "../../utils/enums/account.enum";
+import { EExamStatus } from "../../utils/enums/exam.enum";
 import { IExamList, IExamREQ } from "../../utils/interfaces";
 import {
   TPagingParams,
@@ -31,6 +32,7 @@ export const getExamList = async (
 
     // Build filter query based on user role
     const filterQueries: any = {
+      status: [EExamStatus.ACTIVE, EExamStatus.UNACTIVATED],
       ...queries,
       ...(user.role === ERole.TEACHER && { creatorId: req.userId }),
       ...(category ? { category } : category),

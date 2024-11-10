@@ -1,19 +1,21 @@
 import { Router } from "express";
 import {
-  getExams,
   addExam,
   deleteExam,
+  getConclusion,
+  getExams,
   updateExam,
   uploadConclusion,
-  getConclusion,
 } from "../controllers/exams";
-import upload from "../middlewares/upload";
-import { verifyToken } from "../middlewares/verifyToken";
-import { getListConclusion } from "../controllers/exams/getListConclusion";
 import { addExamToGroup } from "../controllers/exams-in-group/addExamToGroup";
 import { removeExamFromGroup } from "../controllers/exams-in-group/removeExamFromGroup";
-import { getExamList } from "../controllers/exams/getExamList";
+import { editExam } from "../controllers/exams/editExam";
 import { getExam } from "../controllers/exams/getExam";
+import { getExamList } from "../controllers/exams/getExamList";
+import { getListConclusion } from "../controllers/exams/getListConclusion";
+import { updateStatus } from "../controllers/exams/updateStatus";
+import upload from "../middlewares/upload";
+import { verifyToken } from "../middlewares/verifyToken";
 const examRouter = Router();
 
 // EXAM
@@ -29,6 +31,8 @@ examRouter.post(
 );
 examRouter.post("/getConclusion", verifyToken, getConclusion);
 examRouter.get("/getListConclusion", verifyToken, getListConclusion);
+examRouter.put("/status", verifyToken, updateStatus);
+examRouter.put("/edit", verifyToken, editExam);
 
 // EXAM LIST
 examRouter.get("/examList", verifyToken, getExamList);
