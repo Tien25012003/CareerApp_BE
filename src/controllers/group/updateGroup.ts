@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { IGroup } from "../../utils/interfaces/Group";
 import { GroupModel } from "../../models/Group";
 import ErrorUtils from "../../utils/constant/Error";
+import { IGroup } from "../../utils/interfaces/Group";
 type TParam = {
   id: string;
 };
@@ -14,7 +14,7 @@ export const updateGroup = async (
     await GroupModel.findByIdAndUpdate(id, {
       ...req.body,
     }).then((value) => {
-      return res.send({ code: 200, data: value });
+      return res.send({ code: 200, data: {} });
     });
   } catch (error) {
     return res.send(ErrorUtils.get("SERVER_ERROR"));
