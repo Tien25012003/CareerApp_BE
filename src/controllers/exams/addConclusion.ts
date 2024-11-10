@@ -1,9 +1,9 @@
+import { Response } from "express";
 import { AccountModel } from "../../models/Account";
 import { ConclusionModel } from "../../models/Conclusion";
 import ErrorUtils, { IErrorData } from "../../utils/constant/Error";
 import { IConclusion } from "../../utils/interfaces";
 import { TRequest, TResponse } from "../../utils/types/meta";
-import { Response } from "express";
 
 export const addConclusion = async (
   req: TRequest<IConclusion>,
@@ -20,6 +20,7 @@ export const addConclusion = async (
         groupId: [],
       });
       await newConclusion.save().then((savedConclusion) => {
+        console.log("");
         return res.send({
           code: 200,
           data: savedConclusion,

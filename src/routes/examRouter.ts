@@ -2,13 +2,15 @@ import { Router } from "express";
 import {
   addExam,
   deleteExam,
-  getConclusion,
   getExams,
   updateExam,
   uploadConclusion,
 } from "../controllers/exams";
 import { addExamToGroup } from "../controllers/exams-in-group/addExamToGroup";
 import { removeExamFromGroup } from "../controllers/exams-in-group/removeExamFromGroup";
+import { addConclusion } from "../controllers/exams/addConclusion";
+import { deleteConclusion } from "../controllers/exams/deleteConclusion";
+import { editConclusion } from "../controllers/exams/editConclusion";
 import { editExam } from "../controllers/exams/editExam";
 import { getExam } from "../controllers/exams/getExam";
 import { getExamList } from "../controllers/exams/getExamList";
@@ -29,8 +31,6 @@ examRouter.post(
   upload.single("file"),
   uploadConclusion
 );
-examRouter.post("/getConclusion", verifyToken, getConclusion);
-examRouter.get("/getListConclusion", verifyToken, getListConclusion);
 examRouter.put("/status", verifyToken, updateStatus);
 examRouter.put("/edit", verifyToken, editExam);
 
@@ -41,4 +41,10 @@ examRouter.get("/detail", verifyToken, getExam);
 // EXAM IN GROUP
 examRouter.put("/addExamToGroup", verifyToken, addExamToGroup);
 examRouter.put("/removeExamFromGroup", verifyToken, removeExamFromGroup);
+
+// CONCLUSION
+examRouter.post("/conclusion", verifyToken, addConclusion);
+examRouter.delete("/conclusion", verifyToken, deleteConclusion);
+examRouter.put("/conclusion", verifyToken, editConclusion);
+examRouter.get("/getListConclusion", verifyToken, getListConclusion);
 export default examRouter;
