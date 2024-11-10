@@ -1,7 +1,5 @@
 import { Request, Response } from "express";
-import { IGroup } from "../../utils/interfaces/Group";
 import { GroupModel } from "../../models/Group";
-import { TPagingResponse } from "../../utils/types/meta";
 import ErrorUtils from "../../utils/constant/Error";
 type TParam = {
   id: string;
@@ -13,7 +11,9 @@ export const getGroup = async (
   const { id } = req.query;
 
   try {
-    const group = await GroupModel.findById(id);
+    const group = await GroupModel.findById(id)
+      .populate("owner", "_id name email status")
+      .populate("members", "_id name email status");
     return res.status(200).send({
       code: 200,
       data: group,
