@@ -16,7 +16,6 @@ export const deleteAccount = async (
 ) => {
   try {
     const { id } = req.query;
-
     // Validate if the provided ID is a valid MongoDB ObjectId
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).send(ErrorUtils.get("EMPTY_DATA"));
@@ -29,7 +28,6 @@ export const deleteAccount = async (
     await ExamModel.updateMany({ groupId: id }, { $pull: { groupId: id } });
 
     await ChatBotModel.updateMany({ groupId: id }, { $pull: { groupId: id } });
-
     if (!deleteGroup) {
       return res.status(404).send(ErrorUtils.get("EMPTY_DATA"));
     }
