@@ -22,6 +22,9 @@ export const getExamList = async (
       direction = -1,
       category,
       name,
+      startDate,
+      endDate,
+      id,
       ...queries
     } = req.query;
 
@@ -30,6 +33,17 @@ export const getExamList = async (
     if (user.role === ERole.ANONYMOUS)
       return res.send(ErrorUtils.get("PERMISSION_DENIED"));
 
+    // Parse startDate and endDate as Date objects if provided
+    const dateRange: { $gte?: String; $lte?: String } = {};
+    if (startDate)
+      dateRange.$gte = new Date(Number(startDate))
+        ?.toISOString()
+        ?.replace("Z", "+00:00");
+    if (endDate)
+      dateRange.$lte = new Date(Number(endDate))
+        ?.toISOString()
+        ?.replace("Z", "+00:00");
+
     // Build filter query based on user role
     const filterQueries: any = {
       status: [EExamStatus.ACTIVE, EExamStatus.UNACTIVATED],
@@ -37,11 +51,13 @@ export const getExamList = async (
       ...(user.role === ERole.TEACHER && { creatorId: req.userId }),
       ...(category ? { category } : category),
       ...(name && { name: { $regex: name, $options: "i" } }),
+      ...(startDate || endDate ? { createdAt: dateRange } : {}),
+      ...(id && { _id: id }),
     };
 
     // Fetch exams with pagination and sorting
     const exams = await ExamModel.find(filterQueries)
-      .select("-questions -results -groupId -creatorId")
+      .select("-questions -results -groupId -creatorId -updator")
       .sort({ createdAt: direction === 1 ? 1 : -1 })
       .skip((+page - 1) * +size)
       .limit(+size)

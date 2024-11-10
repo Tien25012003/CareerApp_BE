@@ -56,6 +56,11 @@ export interface IExamREQ {
 
   // For group
   groupId?: number;
+
+  // For Filter
+  id?: string;
+  startDate?: number;
+  endDate?: number;
 }
 
 // EXAM LIST
