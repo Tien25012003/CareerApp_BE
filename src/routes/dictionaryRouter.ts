@@ -1,19 +1,21 @@
 import { Router } from "express";
 import {
   addDictionary,
-  getDictionary,
-  updateDictionary,
+  addSchool,
+  deleteAllSchool,
   deleteDictonary,
   deleteMajor,
-  uploadFileDictionary,
-  addSchool,
   getAllSchool,
-  deleteAllSchool,
+  getDictionary,
   getSchool,
+  updateDictionary,
+  uploadFileDictionary,
 } from "../controllers/dictionary";
+import { addMajor } from "../controllers/dictionary/addMajor";
+import { getGroups } from "../controllers/dictionary/getGroups";
+import { getMajors } from "../controllers/dictionary/getMajors";
 import upload from "../middlewares/upload";
 import { verifyToken } from "../middlewares/verifyToken";
-import { getMajors } from "../controllers/dictionary/getMajors";
 const dictionaryRouter = Router();
 dictionaryRouter.get("/", verifyToken, getDictionary);
 dictionaryRouter.post("/addDictionary", verifyToken, addDictionary);
@@ -36,4 +38,7 @@ dictionaryRouter.get("/getAllSchool", verifyToken, getAllSchool);
 dictionaryRouter.delete("/deleteAllSchool", verifyToken, deleteAllSchool);
 dictionaryRouter.get("/getSchool", verifyToken, getSchool);
 dictionaryRouter.get("/major", verifyToken, getMajors);
+dictionaryRouter.post("/major", verifyToken, addMajor);
+
+dictionaryRouter.get("/groups", verifyToken, getGroups);
 export default dictionaryRouter;

@@ -17,6 +17,9 @@ const DictionarySchema = new mongoose.Schema<IDictionary>(
           type: String,
           required: true,
         },
+        imageKey: {
+          type: String,
+        },
         subjects: {
           type: String,
           required: true,
@@ -31,7 +34,7 @@ const DictionarySchema = new mongoose.Schema<IDictionary>(
         },
         creator: {
           type: String,
-          required: true,
+          required: false,
         },
         updator: {
           type: String,

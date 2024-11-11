@@ -14,6 +14,11 @@ export interface IMajor {
   subjects: string;
   pros: string;
   cons: string;
+
+  // new response
+  imageKey?: string;
+  groupId?: string;
+  _id?: string;
 }
 export interface IDictionary extends ITracking {
   group: TGroup;
