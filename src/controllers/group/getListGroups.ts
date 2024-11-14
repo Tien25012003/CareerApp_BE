@@ -28,12 +28,13 @@ export const getListGroups = async (
       query["$or"] = [{ groupName: groupNamePattern }];
     }
     if (status !== undefined) {
-      query.status = status; // Add status to the query if provided
+      query.status = +status; // Add status to the query if provided
     }
+
     const groups = await GroupModel.find(query)
       .populate("members", "_id email name status")
       .populate("owner", "_id email name status")
-      .sort({ updatedAt: direction === 1 ? 1 : -1 })
+      .sort({ updatedAt: +direction === 1 ? 1 : -1 })
       .skip((page - 1) * size)
       .limit(size)
       .exec();
