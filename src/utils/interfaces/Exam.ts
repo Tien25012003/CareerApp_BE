@@ -2,7 +2,7 @@ import { ObjectId } from "mongoose";
 import { IResponse, ITracking } from ".";
 import { EExamCategory, EExamStatus, EQuestionType } from "../enums/exam.enum";
 
-type TExam = "R" | "I" | "A" | "S" | "E" | "C" | "IQ" | "EQ";
+export type TExam = "R" | "I" | "A" | "S" | "E" | "C" | "IQ" | "EQ";
 export interface IOption {
   _id: ObjectId;
   image?: string;

@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   addExam,
   deleteExam,
+  getConclusion,
   getExams,
   updateExam,
   uploadConclusion,
@@ -51,4 +52,5 @@ examRouter.get("/getListConclusion", verifyToken, getListConclusion);
 
 //SELECT
 examRouter.get("/exam-select", verifyToken, getExamSelect);
+examRouter.post("/getConclusion", verifyToken, getConclusion);
 export default examRouter;
