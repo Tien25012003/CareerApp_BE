@@ -1,16 +1,16 @@
 import { Response } from "express";
+import { Types } from "mongoose";
+import { AccountModel } from "../../models/Account";
 import { ExamModel } from "../../models/Exam";
 import ErrorUtils, { IErrorData } from "../../utils/constant/Error";
+import { ERole } from "../../utils/enums/account.enum";
+import { EExamCategory } from "../../utils/enums/exam.enum";
 import { IExam, IExamREQ } from "../../utils/interfaces";
 import {
   TPagingParams,
   TRequest,
   TResponseWithPagination,
 } from "../../utils/types/meta";
-import { AccountModel } from "../../models/Account";
-import { ERole } from "../../utils/enums/account.enum";
-import { Types } from "mongoose";
-import { EExamCategory } from "../../utils/enums/exam.enum";
 
 export const getExams = async (
   req: TRequest<any, IExamREQ & TPagingParams>,

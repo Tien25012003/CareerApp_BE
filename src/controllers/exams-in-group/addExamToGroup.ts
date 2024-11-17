@@ -1,11 +1,11 @@
+import { Response } from "express";
 import { ExamModel } from "../../models/Exam";
 import { GroupModel } from "../../models/Group";
 import ErrorUtils from "../../utils/constant/Error";
 import { TRequest, TResponse } from "../../utils/types/meta";
-import { Response } from "express";
 
 export const addExamToGroup = async (
-  req: TRequest<{ groupId: number; examId: number }>,
+  req: TRequest<{ groupId: string; examId: string }>,
   res: Response<TResponse<void>>
 ) => {
   try {

@@ -14,6 +14,7 @@ import { editConclusion } from "../controllers/exams/editConclusion";
 import { editExam } from "../controllers/exams/editExam";
 import { getExam } from "../controllers/exams/getExam";
 import { getExamList } from "../controllers/exams/getExamList";
+import { getExamSelect } from "../controllers/exams/getExamSelect";
 import { getListConclusion } from "../controllers/exams/getListConclusion";
 import { updateStatus } from "../controllers/exams/updateStatus";
 import upload from "../middlewares/upload";
@@ -47,4 +48,7 @@ examRouter.post("/conclusion", verifyToken, addConclusion);
 examRouter.delete("/conclusion", verifyToken, deleteConclusion);
 examRouter.put("/conclusion", verifyToken, editConclusion);
 examRouter.get("/getListConclusion", verifyToken, getListConclusion);
+
+//SELECT
+examRouter.get("/exam-select", verifyToken, getExamSelect);
 export default examRouter;
