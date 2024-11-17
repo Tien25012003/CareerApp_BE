@@ -13,7 +13,9 @@ export const getExamSelect = async (
   res: Response<Partial<TPagingResponse<TExamSelect[]>>>
 ) => {
   try {
-    const exams = await ExamModel.find().select("_id name type category");
+    const exams = await ExamModel.find({
+      category: "DESIGN",
+    }).select("_id name type category");
     return res.send({
       code: 200,
       data: exams as unknown as TExamSelect[],
