@@ -32,5 +32,5 @@ export interface IGetDoExamREQ {
 }
 
 export interface IDoExamDetailRES extends IDoExam {
-  questions: IQuestion[];
+  questions?: IQuestion[];
 }

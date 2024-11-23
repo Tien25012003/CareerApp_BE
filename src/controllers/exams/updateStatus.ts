@@ -3,7 +3,6 @@ import { ObjectId } from "mongoose";
 import { AccountModel } from "../../models/Account";
 import { ExamModel } from "../../models/Exam";
 import ErrorUtils from "../../utils/constant/Error";
-import { ERole } from "../../utils/enums/account.enum";
 import { EExamStatus } from "../../utils/enums/exam.enum";
 import { IExam } from "../../utils/interfaces";
 import { TRequest, TResponse } from "../../utils/types/meta";
@@ -23,12 +22,9 @@ export const updateStatus = async (
       return res.send(ErrorUtils.get("ERROR_INVALID"));
     }
 
-    if (
-      user.role === ERole.TEACHER &&
-      exam?.toObject().creatorId !== user?.id
-    ) {
-      return res.send(ErrorUtils.get("PERMISSION_DENIED"));
-    }
+    // if (exam?.toObject().creatorId !== user?.id) {
+    //   return res.send(ErrorUtils.get("PERMISSION_DENIED"));
+    // }
 
     const updatedData: IExam = {
       ...exam.toObject(),

@@ -22,7 +22,10 @@ export const getStatistics = async (
     const exams = await ExamModel.countDocuments(filterQueries);
     const groups = await GroupModel.countDocuments(filterQueries);
     const teachers = await AccountModel.countDocuments({ role: ERole.TEACHER });
-    const students = await AccountModel.countDocuments({ role: ERole.STUDENT });
+    const students = await AccountModel.countDocuments({
+      role: ERole.STUDENT,
+      ...filterQueries,
+    });
 
     return res.send({
       code: 200,
@@ -30,7 +33,7 @@ export const getStatistics = async (
         exams: exams,
         groups,
         teachers: user.role === ERole.ADMIN ? teachers : undefined,
-        students: user.role === ERole.ADMIN ? students : undefined,
+        students,
       },
     });
   } catch (error) {

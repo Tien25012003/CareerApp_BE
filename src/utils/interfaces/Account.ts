@@ -1,4 +1,5 @@
 import { Types } from "mongoose";
+import { ITracking } from ".";
 
 enum EFeature {
   DASHBOARD = "DASHBOARD",
@@ -22,7 +23,7 @@ type TPermission = {
   permission: TFeatureDetail;
 };
 
-export interface IAccount {
+export interface IAccount extends ITracking {
   id: Types.ObjectId;
   username: string;
   name: string;

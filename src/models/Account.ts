@@ -90,6 +90,14 @@ const AccountSchema = new mongoose.Schema<IAccount>(
       type: [PermissionSchema], // Array of permission objects
       required: true,
     },
+    creatorId: {
+      type: String,
+      required: true,
+    },
+    creator: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true, collection: "Accounts", versionKey: false }
 );

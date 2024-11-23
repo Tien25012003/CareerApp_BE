@@ -1,8 +1,13 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { AccountModel } from "../../models/Account";
 import ErrorUtils from "../../utils/constant/Error";
+import { ERole } from "../../utils/enums/account.enum";
 import { IAccount } from "../../utils/interfaces/Account";
-import { TPagingParams, TResponseWithPagination } from "../../utils/types/meta";
+import {
+  TPagingParams,
+  TRequest,
+  TResponseWithPagination,
+} from "../../utils/types/meta";
 
 type TParams = {
   status?: number; // 1: active, 0: deactive
@@ -13,7 +18,7 @@ type TParams = {
 };
 
 export const getListAccounts = async (
-  req: Request<any, any, any, TParams & Partial<TPagingParams>>,
+  req: TRequest<any, TParams & Partial<TPagingParams>>,
   res: Response<Partial<TResponseWithPagination<IAccount[]>>>
 ) => {
   try {
@@ -27,6 +32,13 @@ export const getListAccounts = async (
       size = 10,
     } = req.query;
     let query: any = {};
+
+    const creator = await AccountModel.findById(req.userId);
+
+    if (creator?.toObject()?.role !== ERole.ADMIN) {
+      query.creatorId = creator?.id;
+    }
+
     if (email && name) {
       const emailPattern = new RegExp(email, "i");
       const namePattern = new RegExp(name, "i");
@@ -42,14 +54,18 @@ export const getListAccounts = async (
         query["$or"] = [{ name: namePattern }];
       }
     }
+
     if (status !== undefined) {
       query.status = status; // Add status to the query if provided
+    } else {
+      query["$or"] = [{ status: 0 }, { status: 1 }];
     }
 
     if (role) {
       const accounts = await AccountModel.find(query)
         .where({
           role: role || "",
+          status: 0 || 1,
         })
         .populate("groups", "_id groupName")
         .select("-password")

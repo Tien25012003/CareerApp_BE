@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { confirmChangePassword } from "../controllers/accounts/confirmChangePassword";
 import { createAccount } from "../controllers/accounts/createAccount";
+import { createAccountWithToken } from "../controllers/accounts/createAccountWithToken";
 import { deleteAccount } from "../controllers/accounts/deleteAccount";
 import { forgotPassword } from "../controllers/accounts/forgotPassword";
 import { getAccessToken } from "../controllers/accounts/getAccessToken";
@@ -31,5 +32,6 @@ accountRouter.post("/forgotPassword", forgotPassword);
 accountRouter.get("/confirmChangePassword");
 accountRouter.get("/accessToken", getAccessToken);
 accountRouter.get("/account-name", verifyToken, getListAccountMember);
+accountRouter.post("/create-account", verifyToken, createAccountWithToken);
 
 export default accountRouter;
