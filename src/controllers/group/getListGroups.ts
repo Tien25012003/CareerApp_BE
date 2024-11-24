@@ -1,7 +1,13 @@
-import { Request, Response } from "express";
+import { Response } from "express";
+import { AccountModel } from "../../models/Account";
 import { GroupModel } from "../../models/Group";
+import { ERole } from "../../utils/enums/account.enum";
 import { IGroup } from "../../utils/interfaces/Group";
-import { TPagingParams, TResponseWithPagination } from "../../utils/types/meta";
+import {
+  TPagingParams,
+  TRequest,
+  TResponseWithPagination,
+} from "../../utils/types/meta";
 
 type TParams = {
   groupName: string;
@@ -11,7 +17,7 @@ type TParams = {
   size: number;
 };
 export const getListGroups = async (
-  req: Request<any, any, any, TParams & Partial<TPagingParams>>,
+  req: TRequest<any, TParams & Partial<TPagingParams>>,
   res: Response<Partial<TResponseWithPagination<IGroup[]>>>
 ) => {
   try {
@@ -23,6 +29,12 @@ export const getListGroups = async (
       size = 10,
     } = req.query;
     let query: any = {};
+
+    const creator = await AccountModel.findById(req.userId);
+    if (creator?.toObject()?.role !== ERole.ADMIN) {
+      query.creatorId = creator?.id;
+    }
+
     if (groupName) {
       const groupNamePattern = new RegExp(groupName, "i");
       query["$or"] = [{ groupName: groupNamePattern }];
