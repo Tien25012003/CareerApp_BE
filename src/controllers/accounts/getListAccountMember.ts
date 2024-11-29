@@ -14,10 +14,9 @@ export const getListAccountMember = async (
 ) => {
   try {
     const { keyword = "" } = req.query;
-
     const accounts = await AccountModel.find({
       $and: [
-        { status: 1 },
+        { status: 1, role: "STUDENT" },
         {
           $or: [
             { username: { $regex: keyword || "", $options: "i" } },
