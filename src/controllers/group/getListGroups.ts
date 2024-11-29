@@ -32,7 +32,7 @@ export const getListGroups = async (
 
     const creator = await AccountModel.findById(req.userId);
     if (creator?.toObject()?.role !== ERole.ADMIN) {
-      query.creatorId = creator?.id;
+      query.owner = creator?.id;
     }
 
     if (groupName) {
