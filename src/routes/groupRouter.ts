@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { deleteAccount } from "../controllers/accounts/deleteAccount";
 import { createGroup } from "../controllers/group/createGroup";
+import { deleteGroup } from "../controllers/group/deleteGroup";
 import { getGroup } from "../controllers/group/getGroup";
 import { getListGroups } from "../controllers/group/getListGroups";
 import { getListGroupSelect } from "../controllers/group/getListGroupSelect";
@@ -13,7 +13,7 @@ groupRouter.get("/all", verifyToken, getListGroups);
 groupRouter.post("/", verifyToken, createGroup);
 groupRouter.get("/", verifyToken, getGroup);
 groupRouter.put("/", verifyToken, updateGroup);
-groupRouter.delete("/", verifyToken, deleteAccount);
+groupRouter.delete("/", verifyToken, deleteGroup);
 groupRouter.get("/select", verifyToken, getListGroupSelect);
 
 export default groupRouter;

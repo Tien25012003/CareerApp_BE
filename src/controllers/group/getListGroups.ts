@@ -32,7 +32,7 @@ export const getListGroups = async (
 
     const creator = await AccountModel.findById(req.userId);
     if (creator?.toObject()?.role !== ERole.ADMIN) {
-      query.creatorId = creator?.id;
+      query["$or"] = [{ creatorId: creator?.id }, { ownerId: creator?.id }];
     }
 
     if (groupName) {
@@ -42,7 +42,7 @@ export const getListGroups = async (
     if (status !== undefined) {
       query.status = +status; // Add status to the query if provided
     }
-
+    console.log(query);
     const groups = await GroupModel.find(query)
       .populate("members", "_id email name status")
       .populate("owner", "_id email name status")
