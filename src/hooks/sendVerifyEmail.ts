@@ -13,7 +13,7 @@ export const sendVerifyEmail = async (
   id: string,
   name?: string
 ) => {
-  const actionLink = `http://192.168.0.105:3000/accounts/verify?id=${id}`;
+  const actionLink = `https://career-app-ndt9.onrender.com/accounts/verify?id=${id}`;
   const info = await transporter.sendMail({
     from: `"My Daily" <doank3442@gmail.com>`,
     to: emails.length > 1 ? emails.join(", ") : emails[0],
@@ -108,7 +108,7 @@ export const sendVerifyChangePassword = async (
   id: string,
   newPassword: string
 ) => {
-  const actionLink = `http://192.168.0.105:3000/accounts/confirmChangePassword?id=${id}&token=${newPassword}`;
+  const actionLink = `https://career-app-ndt9.onrender.com/accounts/confirmChangePassword?id=${id}&token=${newPassword}`;
   const info = await transporter.sendMail({
     from: `"My Daily" <doank3442@gmail.com>`,
     to: emails.length > 1 ? emails.join(", ") : emails[0],
