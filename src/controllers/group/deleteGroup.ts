@@ -10,7 +10,7 @@ type TParams = {
   id: string; // MongoDB ObjectId is a string
 };
 
-export const deleteAccount = async (
+export const deleteGroup = async (
   req: Request<any, any, any, TParams>,
   res: Response
 ) => {

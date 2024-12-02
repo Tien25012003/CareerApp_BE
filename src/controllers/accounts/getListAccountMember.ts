@@ -16,7 +16,7 @@ export const getListAccountMember = async (
     const { keyword = "" } = req.query;
     const accounts = await AccountModel.find({
       $and: [
-        { status: 1, role: "STUDENT" },
+        { status: 1, $or: [{ role: "STUDENT" }, { role: "TEACHER" }] },
         {
           $or: [
             { username: { $regex: keyword || "", $options: "i" } },
@@ -24,7 +24,7 @@ export const getListAccountMember = async (
           ],
         },
       ],
-    }).select(["name", "_id", "email"]);
+    }).select(["name", "_id", "email", "role"]);
 
     return res.send({
       code: 200,
