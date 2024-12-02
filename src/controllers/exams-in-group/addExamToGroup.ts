@@ -12,32 +12,37 @@ export const addExamToGroup = async (
     const { groupId, examId } = req.body;
 
     // Check if the exam exists
-    const updatedExam = await ExamModel.findByIdAndUpdate(
+    const examExists = await ExamModel.findById(examId);
+    if (!examExists) {
+      return res.status(404).send(ErrorUtils.get("EXAM_NOT_FOUND"));
+    }
+
+    // Check if the group exists
+    const groupExists = await GroupModel.findById(groupId);
+    if (!groupExists) {
+      return res.status(404).send(ErrorUtils.get("GROUP_NOT_FOUND"));
+    }
+
+    // Add groupId to the exam's groups array (if applicable)
+    await ExamModel.findByIdAndUpdate(
       examId,
-      { $addToSet: { groupId: groupId } }, // $addToSet ensures the same examId is not added twice
+      { $addToSet: { groupId: groupId } }, // Ensure the schema has `groups` as an array
       { new: true }
     );
-    if (!updatedExam) {
-      return res.send(ErrorUtils.get("EXAM_NOT_FOUND"));
-    }
 
     // Add examId to the group’s exams array
-    const updatedGroup = await GroupModel.findByIdAndUpdate(
+    await GroupModel.findByIdAndUpdate(
       groupId,
-      { $addToSet: { exams: examId } }, // $addToSet ensures the same examId is not added twice
+      { $addToSet: { exams: examId } },
       { new: true }
     );
 
-    if (!updatedGroup) {
-      return res.send(ErrorUtils.get("GROUP_NOT_FOUND"));
-    }
-
-    return res.send({
+    return res.status(200).send({
       code: 200,
-      message: "Success!",
+      message: "Exam successfully added to the group!",
     });
   } catch (error) {
-    console.log("error", error);
-    return res.send(ErrorUtils.get("SERVER_ERROR"));
+    console.error("Error adding exam to group:", error);
+    return res.status(500).send(ErrorUtils.get("SERVER_ERROR"));
   }
 };
