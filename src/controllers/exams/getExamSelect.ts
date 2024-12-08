@@ -15,6 +15,7 @@ export const getExamSelect = async (
   try {
     const exams = await ExamModel.find({
       category: "DESIGN",
+      status: "ACTIVE",
     }).select("_id name type category");
     return res.send({
       code: 200,

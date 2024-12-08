@@ -22,7 +22,9 @@ export const getGroupByUserId = async (
         },
       });
     // Extract the group IDs as strings
-    console.log(account);
+    // console.log(account);
+
+    console.log("okkk >>>>", account?.groups);
     return res.send({
       code: 200,
       data: account?.groups,

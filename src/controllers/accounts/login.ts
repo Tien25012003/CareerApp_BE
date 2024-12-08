@@ -16,8 +16,6 @@ export const login = async (
 ) => {
   const { username, password, deviceId } = req.body;
 
-  console.log("okkk");
-
   const account = await AccountModel.findOne({
     username,
   });

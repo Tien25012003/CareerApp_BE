@@ -29,6 +29,7 @@ export interface IAddDoExamREQ {
 export interface IGetDoExamREQ {
   groupId: ObjectId;
   examName?: string;
+  creator?: string;
 }
 
 export interface IDoExamDetailRES extends IDoExam {

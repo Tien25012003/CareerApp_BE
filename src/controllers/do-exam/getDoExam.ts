@@ -1,3 +1,4 @@
+import { Response } from "express";
 import { AccountModel } from "../../models/Account";
 import { DoExamModal } from "../../models/DoExam";
 import ErrorUtils from "../../utils/constant/Error";
@@ -8,7 +9,6 @@ import {
   TRequest,
   TResponseWithPagination,
 } from "../../utils/types/meta";
-import { Response } from "express";
 export const getDoExam = async (
   req: TRequest<any, IGetDoExamREQ & TPagingParams>,
   res: Response<TResponseWithPagination<IDoExam[]>>
@@ -20,6 +20,7 @@ export const getDoExam = async (
       direction = -1,
       groupId,
       examName,
+      creator,
       ...queries
     } = req.query;
     const user = await AccountModel.findById(req.userId);
@@ -29,6 +30,7 @@ export const getDoExam = async (
 
     const filterQueries: any = {
       ...queries,
+      ...(creator && { creator: { $regex: creator, $options: "i" } }),
       ...(user.role === ERole.STUDENT && { creatorId: req.userId }),
       ...(examName && { examName: { $regex: examName, $options: "i" } }),
     };

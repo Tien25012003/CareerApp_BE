@@ -15,9 +15,16 @@ export const getGroup = async (
       .populate("exams", "_id type name category status")
       .populate("owner", "_id name email status")
       .populate("members", "_id name email status");
+
     return res.status(200).send({
       code: 200,
       data: group,
+      // data: {
+      //   ...group,
+      //   exam: group?.exams?.filter(
+      //     (item) => item?.status !== EExamStatus.ACTIVE
+      //   ),
+      // },
     });
   } catch (error) {
     return res.send(ErrorUtils.get("SERVER_ERROR"));

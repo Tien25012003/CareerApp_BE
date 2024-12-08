@@ -1,15 +1,15 @@
+import { Response } from "express";
 import { AccountModel } from "../../models/Account";
+import { DoExamModal } from "../../models/DoExam";
 import { ExamModel } from "../../models/Exam";
 import ErrorUtils from "../../utils/constant/Error";
+import { EQuestionType } from "../../utils/enums/exam.enum";
 import {
   IAddDoExamREQ,
   IDoExam,
   IMyAnswer,
 } from "../../utils/interfaces/DoExam";
 import { TRequest, TResponse } from "../../utils/types/meta";
-import { Response } from "express";
-import { DoExamModal } from "../../models/DoExam";
-import { EQuestionType } from "../../utils/enums/exam.enum";
 
 export const addDoExam = async (
   req: TRequest<IAddDoExamREQ>,
@@ -17,6 +17,8 @@ export const addDoExam = async (
 ) => {
   try {
     const { examId, myAnswers, groupId } = req.body;
+
+    console.log("groupId", groupId);
 
     // Fetch creator and validate account existence
     const creator = await AccountModel.findById(req.userId);
