@@ -1,5 +1,5 @@
 import { ObjectId } from "mongoose";
-import { IQuestion } from ".";
+import { IQuestion, IResult } from ".";
 
 export interface IMyAnswer {
   answers: ObjectId[];
@@ -18,6 +18,7 @@ export interface IDoExam {
   creatorId: ObjectId;
   createdAt: Date;
   creator: string;
+  result?: IResult;
 }
 
 export interface IAddDoExamREQ {

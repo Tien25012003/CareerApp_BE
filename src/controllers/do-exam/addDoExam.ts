@@ -4,6 +4,7 @@ import { DoExamModal } from "../../models/DoExam";
 import { ExamModel } from "../../models/Exam";
 import ErrorUtils from "../../utils/constant/Error";
 import { EQuestionType } from "../../utils/enums/exam.enum";
+import { IExam } from "../../utils/interfaces";
 import {
   IAddDoExamREQ,
   IDoExam,
@@ -18,14 +19,12 @@ export const addDoExam = async (
   try {
     const { examId, myAnswers, groupId } = req.body;
 
-    console.log("groupId", groupId);
-
     // Fetch creator and validate account existence
     const creator = await AccountModel.findById(req.userId);
     if (!creator) return res.send(ErrorUtils.get("ACCOUNT_INVALID"));
 
     // Fetch exam and validate its existence
-    const exam = await ExamModel.findById(examId);
+    const exam: IExam | null = await ExamModel.findById(examId);
     if (!exam) return res.send(ErrorUtils.get("EXAM_NOT_FOUND"));
 
     // SAVE ANSWER
@@ -61,6 +60,14 @@ export const addDoExam = async (
         return acc + questionScore;
       }, 0) || 0; // Default totalScore to 0 if no questions are present
 
+    // Find Comment of Teacher
+    const result = exam?.results.find(
+      (item) =>
+        Array.isArray(item.score) &&
+        totalScore >= item.score?.[0] &&
+        totalScore <= item.score?.[1]
+    );
+
     // SAVE ANSWER TO DB
     const newAnswer = new DoExamModal({
       examId,
@@ -70,6 +77,7 @@ export const addDoExam = async (
       myAnswers: savedAnswers,
       creator: creator?.email,
       creatorId: creator?.id,
+      result: result,
     });
     await newAnswer.save().then(async (data) => {
       return res.send({
