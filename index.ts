@@ -2,7 +2,9 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import "dotenv/config";
 import express from "express";
+import cron from "node-cron";
 import { connectToDb } from "./src/config/db";
+import { deleteBlacklist } from "./src/controllers/accounts/deleteBlacklist";
 import accountRouter from "./src/routes/accountRouter";
 import chatBotRouter from "./src/routes/chatBotRouter";
 import dictionaryRouter from "./src/routes/dictionaryRouter";
@@ -37,7 +39,7 @@ app.use("/do-exam", doExamRouter);
 app.use("/chat-bot", chatBotRouter);
 app.use("/uploads", uploadRouter);
 app.use("/report", reportRouter);
-
+cron.schedule("0,0,1 * * * *", deleteBlacklist);
 // if (process.env.NODE_ENV !== "development") {
 //   console.log = () => {}; // Remove console.log on staging
 // }
