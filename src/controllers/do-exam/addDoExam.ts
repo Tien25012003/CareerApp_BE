@@ -43,7 +43,7 @@ export const addDoExam = async (
             const optionId = option._id.toString();
 
             if (question.questionType === EQuestionType.SHORT_ANSWER) {
-              return myAnswer.shortAnswer.toLowerCase() ===
+              return myAnswer?.shortAnswer?.toLowerCase() ===
                 option.content.toLocaleLowerCase()
                 ? sum + (option.standardScore || 0)
                 : sum;

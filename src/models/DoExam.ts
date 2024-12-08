@@ -27,21 +27,19 @@ const DoExamSchema = new mongoose.Schema<IDoExam>(
         shortAnswer: String,
       },
     ],
-    result: [
-      {
-        content: {
-          type: String,
-          required: true,
-        },
-        image: {
-          type: String,
-        },
-        imageKey: {
-          type: String,
-        },
-        detail: String,
+    result: {
+      content: {
+        type: String,
+        required: true,
       },
-    ],
+      image: {
+        type: String,
+      },
+      imageKey: {
+        type: String,
+      },
+      detail: String,
+    },
     creatorId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "AccountModel",
