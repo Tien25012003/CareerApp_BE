@@ -13,10 +13,9 @@ export const refreshToken = async (
 
     const token = getTokenFromHeader(req);
     if (token) {
-      const decoded: { userId: string } = JWT.verify(
-        token,
-        jwtSecretKey
-      ) as any;
+      const decoded: { userId: string } = JWT.verify(token, jwtSecretKey, {
+        ignoreExpiration: true,
+      }) as any;
       const newBlacklist = new BlackListModel({
         ...decoded,
         token,
@@ -29,7 +28,7 @@ export const refreshToken = async (
       });
     }
   } catch {
-    res.status(403).json({
+    res.status(401).json({
       message: "Token hết hạn",
       data: {},
     });
