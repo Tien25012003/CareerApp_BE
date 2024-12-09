@@ -1,12 +1,17 @@
 import { Request, Response } from "express";
-import { IGroup } from "../../utils/interfaces/Group";
 import { GroupModel } from "../../models/Group";
 import ErrorUtils from "../../utils/constant/Error";
+import { IGroup } from "../../utils/interfaces/Group";
 type TParam = {
   id: string;
 };
 export const updateGroup = async (
-  req: Request<any, any, Omit<IGroup, "updatedAt" | "createdAt">, TParam>,
+  req: Request<
+    any,
+    any,
+    Omit<Partial<IGroup>, "updatedAt" | "createdAt">,
+    TParam
+  >,
   res: Response
 ) => {
   const { id } = req.query;

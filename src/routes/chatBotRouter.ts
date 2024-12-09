@@ -6,7 +6,9 @@ import { addPrompt } from "../controllers/chat-bot/addPrompt";
 import { deletePrompt } from "../controllers/chat-bot/deletePrompt";
 import { executePrompt } from "../controllers/chat-bot/executePrompt";
 import { getPrompt } from "../controllers/chat-bot/getPrompt";
+import { getPromptInGroup } from "../controllers/chat-bot/getPromptInGroup";
 import { getPrompts } from "../controllers/chat-bot/getPrompts";
+import { getPromptsSelect } from "../controllers/chat-bot/getPromptsSelect";
 import { updatePrompt } from "../controllers/chat-bot/updatePrompt";
 import { verifyToken } from "../middlewares/verifyToken";
 const chatBotRouter = Router();
@@ -26,4 +28,6 @@ chatBotRouter.put(
 );
 
 chatBotRouter.post("/execute-in-group", verifyToken, executePromptInGroup);
+chatBotRouter.get("/chatbot-in-group", verifyToken, getPromptInGroup);
+chatBotRouter.get("/select", verifyToken, getPromptsSelect);
 export default chatBotRouter;

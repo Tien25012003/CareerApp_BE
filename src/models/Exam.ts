@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
-import { IExam } from "../utils/interfaces/Exam";
 import {
   EExamCategory,
   EExamStatus,
   EQuestionType,
 } from "../utils/enums/exam.enum";
+import { IExam } from "../utils/interfaces/Exam";
 
 // This is the exam of system
 
@@ -21,7 +21,12 @@ const ExamSchema = new mongoose.Schema<IExam>(
           type: String,
           required: true,
         },
-        image: String,
+        image: {
+          type: String,
+        },
+        imageKey: {
+          type: String,
+        },
         questionType: {
           type: String,
           required: true,
@@ -30,7 +35,12 @@ const ExamSchema = new mongoose.Schema<IExam>(
         },
         options: [
           {
-            image: String,
+            image: {
+              type: String,
+            },
+            imageKey: {
+              type: String,
+            },
             content: {
               type: String,
               require: true,
@@ -51,7 +61,12 @@ const ExamSchema = new mongoose.Schema<IExam>(
           type: String,
           required: true,
         },
-        image: String,
+        image: {
+          type: String,
+        },
+        imageKey: {
+          type: String,
+        },
         detail: String,
       },
     ],

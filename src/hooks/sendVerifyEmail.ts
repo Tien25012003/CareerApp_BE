@@ -13,7 +13,7 @@ export const sendVerifyEmail = async (
   id: string,
   name?: string
 ) => {
-  const actionLink = `http://192.168.0.105:3000/accounts/verify?id=${id}`;
+  const actionLink = `https://career-app-ndt9.onrender.com/accounts/verify?id=${id}`;
   const info = await transporter.sendMail({
     from: `"My Daily" <doank3442@gmail.com>`,
     to: emails.length > 1 ? emails.join(", ") : emails[0],
@@ -81,7 +81,7 @@ export const sendVerifyEmail = async (
         </p>
 
         <!-- Action Button -->
-        <a href="${actionLink}" class="button">Xác thực</a>
+        <a href="${actionLink}" target="_blank" class="button">Xác thực</a>
 
         <!-- Optional details -->
         <p>Nếu nút xác thực ở trên không hoạt động vui lòng liên hệ:</p>
@@ -108,7 +108,7 @@ export const sendVerifyChangePassword = async (
   id: string,
   newPassword: string
 ) => {
-  const actionLink = `http://192.168.0.105:3000/accounts/confirmChangePassword?id=${id}&token=${newPassword}`;
+  const actionLink = `https://career-app-ndt9.onrender.com/accounts/confirmChangePassword?id=${id}&token=${newPassword}`;
   const info = await transporter.sendMail({
     from: `"My Daily" <doank3442@gmail.com>`,
     to: emails.length > 1 ? emails.join(", ") : emails[0],
@@ -175,7 +175,7 @@ export const sendVerifyChangePassword = async (
         lòng xác nhận bằng cách nhấn vào nút bên dưới.
       </p>
       <div style="text-align: center; margin: 20px 0">
-        <a href=${actionLink} class="button"
+        <a href=${actionLink} class="button" target="_blank"
           >Xác Nhận Đổi Mật Khẩu</a
         >
       </div>

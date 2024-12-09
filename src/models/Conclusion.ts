@@ -4,7 +4,7 @@ const ConclusionSchema = new mongoose.Schema<IConclusion>(
   {
     Type: {
       type: String,
-      required: true,
+      required: false,
     },
     Holland: {
       type: String,

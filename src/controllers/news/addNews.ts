@@ -1,15 +1,15 @@
 import { Request, Response } from "express";
-import { NewsModel } from "../../models/News";
-import { INewsBodyReq } from "../../utils/interfaces/News";
 import { NewCategoryModel } from "../../models/NewCategory";
+import { NewsModel } from "../../models/News";
 import ErrorUtils from "../../utils/constant/Error";
+import { INewsBodyReq } from "../../utils/interfaces/News";
 
 export const addNews = async (req: Request, res: Response) => {
   const { categoryName, createdAt, content, title, type, image } =
     req.body as INewsBodyReq;
   //console.log(req.body);
   if (!categoryName || !content || !title || !type || !image) {
-    res.send(ErrorUtils.get("ERROR_INVALID"));
+    res.status(404).send(ErrorUtils.get("ERROR_INVALID"));
     return;
   }
   try {

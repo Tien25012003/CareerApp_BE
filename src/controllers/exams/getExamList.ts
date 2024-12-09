@@ -1,14 +1,15 @@
+import { Response } from "express";
 import { AccountModel } from "../../models/Account";
 import { ExamModel } from "../../models/Exam";
 import ErrorUtils, { IErrorData } from "../../utils/constant/Error";
 import { ERole } from "../../utils/enums/account.enum";
+import { EExamStatus } from "../../utils/enums/exam.enum";
 import { IExamList, IExamREQ } from "../../utils/interfaces";
 import {
   TPagingParams,
   TRequest,
   TResponseWithPagination,
 } from "../../utils/types/meta";
-import { Response } from "express";
 
 export const getExamList = async (
   req: TRequest<any, IExamREQ & TPagingParams>,
@@ -21,25 +22,42 @@ export const getExamList = async (
       direction = -1,
       category,
       name,
+      startDate,
+      endDate,
+      id,
       ...queries
     } = req.query;
 
     const user = await AccountModel.findById(req.userId);
     if (!user) return res.send(ErrorUtils.get("ACCOUNT_INVALID"));
-    if (user.role === ERole.ANONYMOUS || user.role === ERole.ANONYMOUS)
+    if (user.role === ERole.ANONYMOUS)
       return res.send(ErrorUtils.get("PERMISSION_DENIED"));
+
+    // Parse startDate and endDate as Date objects if provided
+    const dateRange: { $gte?: String; $lte?: String } = {};
+    if (startDate)
+      dateRange.$gte = new Date(Number(startDate))
+        ?.toISOString()
+        ?.replace("Z", "+00:00");
+    if (endDate)
+      dateRange.$lte = new Date(Number(endDate))
+        ?.toISOString()
+        ?.replace("Z", "+00:00");
 
     // Build filter query based on user role
     const filterQueries: any = {
+      status: [EExamStatus.ACTIVE, EExamStatus.UNACTIVATED],
       ...queries,
-      ...(user.role !== ERole.TEACHER && { creatorId: req.userId }),
+      ...(user.role === ERole.TEACHER && { creatorId: req.userId }),
       ...(category ? { category } : category),
       ...(name && { name: { $regex: name, $options: "i" } }),
+      ...(startDate || endDate ? { createdAt: dateRange } : {}),
+      ...(id && { _id: id }),
     };
 
     // Fetch exams with pagination and sorting
     const exams = await ExamModel.find(filterQueries)
-      .select("-questions -results -groupId -creatorId")
+      .select("-questions -results -groupId -creatorId -updator")
       .sort({ createdAt: direction === 1 ? 1 : -1 })
       .skip((+page - 1) * +size)
       .limit(+size)

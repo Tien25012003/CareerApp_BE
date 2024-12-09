@@ -1,6 +1,6 @@
-import { Response, Request } from "express";
-import ErrorUtils from "../../utils/constant/Error";
+import { Request, Response } from "express";
 import { ConclusionModel } from "../../models/Conclusion";
+import ErrorUtils from "../../utils/constant/Error";
 export const getConclusion = async (req: Request, res: Response) => {
   try {
     const { Holland = "R", IQ = "-", EQ = "-", SchoolScore = "A" } = req.body;

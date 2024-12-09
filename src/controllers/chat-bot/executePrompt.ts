@@ -1,8 +1,9 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { Response } from "express";
+import { AccountModel } from "../../models/Account";
 import { ChatBotModel } from "../../models/ChatBot";
 import ErrorUtils from "../../utils/constant/Error";
-import { EChatBotType } from "../../utils/enums/chat-bot.enum";
+import { ERole } from "../../utils/enums/account.enum";
 import { IChatBot } from "../../utils/interfaces/ChatBot";
 import { TRequest, TResponse } from "../../utils/types/meta";
 import { generateInstruction } from "./data/generateInstruction";
@@ -32,8 +33,17 @@ export const executePrompt = async (
     if (!prompt) return res.send(ErrorUtils.get("PROMT_IS_EMPTY"));
     if (isLock) return res.send(ErrorUtils.get("LOCK_AI"));
 
+    const user = await AccountModel.findById(req.userId);
+    if (!user) return res.send(ErrorUtils.get("ACCOUNT_INVALID"));
+
+    // Build filter query based on user role
+    const filterQueries: any = {
+      ...(user.role !== ERole.ADMIN && { creatorId: req.userId }), // If user role is ADMIN => Get all datas. // If user role is TEACHER => just get their data
+    };
+
     const prompts: IChatBot[] = await ChatBotModel.find({
-      type: EChatBotType.SYSTEM,
+      //type: EChatBotType.SYSTEM,
+      ...filterQueries,
     });
     if (!prompts) {
       return res.send(ErrorUtils.get("DATA_NOT_FOUND"));

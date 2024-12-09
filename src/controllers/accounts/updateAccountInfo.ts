@@ -15,7 +15,7 @@ export const updateInfoAccount = async (
     await AccountModel.findByIdAndUpdate(id, {
       ...req.body,
     }).then((value) => {
-      return res.send({ code: 200, data: value });
+      return res.send({ code: 200, data: {} });
     });
   } catch (error) {
     return res.send(ErrorUtils.get("SERVER_ERROR"));

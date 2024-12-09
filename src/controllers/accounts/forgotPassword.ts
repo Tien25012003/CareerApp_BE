@@ -7,14 +7,13 @@ import { IAccount } from "../../utils/interfaces/Account";
 import { TResponse } from "../../utils/types/meta";
 type TBody = {
   username: string;
-  oldPassword: string;
   newPassword: string;
 };
 export const forgotPassword = async (
   req: Request<any, any, TBody>,
   res: Response<TResponse<Partial<IAccount>>>
 ) => {
-  const { username, oldPassword, newPassword } = req.body;
+  const { username, newPassword } = req.body;
 
   const account = await AccountModel.findOne({
     username,
@@ -26,15 +25,9 @@ export const forgotPassword = async (
   }
 
   // Ensure account.password is defined before calling bcrypt.compare
-  const isPasswordValid =
-    account.password && (await bcrypt.compare(oldPassword, account.password));
 
-  if (isPasswordValid) {
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-    await sendVerifyChangePassword([account.email], account.id, hashedPassword);
-    return res.status(200).json(ErrorUtils.get("FORGOT_PASSWORD_SUCCESS"));
-  } else {
-    return res.status(401).json(ErrorUtils.get("INVALID_USERNAME_PASSWORD"));
-  }
+  await sendVerifyChangePassword([account.email], account.id, hashedPassword);
+  return res.status(200).json(ErrorUtils.get("FORGOT_PASSWORD_SUCCESS"));
 };
