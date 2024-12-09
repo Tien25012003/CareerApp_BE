@@ -81,7 +81,7 @@ export const sendVerifyEmail = async (
         </p>
 
         <!-- Action Button -->
-        <a href="${actionLink}" class="button">Xác thực</a>
+        <a href="${actionLink}" target="_blank" class="button">Xác thực</a>
 
         <!-- Optional details -->
         <p>Nếu nút xác thực ở trên không hoạt động vui lòng liên hệ:</p>
@@ -175,7 +175,7 @@ export const sendVerifyChangePassword = async (
         lòng xác nhận bằng cách nhấn vào nút bên dưới.
       </p>
       <div style="text-align: center; margin: 20px 0">
-        <a href=${actionLink} class="button"
+        <a href=${actionLink} class="button" target="_blank"
           >Xác Nhận Đổi Mật Khẩu</a
         >
       </div>
