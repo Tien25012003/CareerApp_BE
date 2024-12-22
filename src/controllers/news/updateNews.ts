@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { INewsBodyReq, INewsUpdateReq } from "../../utils/interfaces/News";
 import { NewsModel } from "../../models/News";
 import ErrorUtils from "../../utils/constant/Error";
+import { INewsUpdateReq } from "../../utils/interfaces/News";
 
 export const updateNews = async (req: Request, res: Response) => {
   const { id, ...data } = req.body as INewsUpdateReq;
