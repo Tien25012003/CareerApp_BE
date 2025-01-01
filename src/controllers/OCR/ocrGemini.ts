@@ -1,12 +1,11 @@
-import { Response, Request } from "express";
-import ErrorUtils from "../../utils/constant/Error";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { convertTextToArray } from "./utils/convertTextToArray";
+import { Request, Response } from "express";
+import ErrorUtils from "../../utils/constant/Error";
 import OCRDataset from "./mocks/OCRDataset";
-import axios from "axios";
+import { convertTextToArray } from "./utils/convertTextToArray";
 const API_KEY = process.env.OCR_KEY;
 const genAI = new GoogleGenerativeAI(API_KEY!);
-const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 export const ocrGemini = async (req: Request, res: Response) => {
   try {
