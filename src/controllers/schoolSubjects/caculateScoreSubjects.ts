@@ -157,7 +157,6 @@ export const caculateScoreSubjects = async (
   const keys: { title: string; description: string }[] = [];
   Unit_Score.forEach((value, key) => {
     if (value === maxValue) {
-      console.log(value, maxValue);
       if (keys.findIndex((item) => item.title.includes(key[0])) === -1)
         keys.push({
           title: key[0],
