@@ -1,15 +1,15 @@
 import { Response } from "express";
+import { Types } from "mongoose";
+import { AccountModel } from "../../models/Account";
 import { SubjectsModel } from "../../models/Subjects";
 import ErrorUtils from "../../utils/constant/Error";
+import { ERole } from "../../utils/enums/account.enum";
 import { ISubject, ISubjectREQ } from "../../utils/interfaces/SchoolSubjects";
 import {
   TPagingParams,
   TRequest,
   TResponseWithPagination,
 } from "../../utils/types/meta";
-import { AccountModel } from "../../models/Account";
-import { ERole } from "../../utils/enums/account.enum";
-import { Types } from "mongoose";
 export const getSubjects = async (
   req: TRequest<any, ISubjectREQ & TPagingParams>,
   res: Response<TResponseWithPagination<ISubject[]>>

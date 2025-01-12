@@ -1,8 +1,8 @@
+import { Response } from "express";
 import { ExamModel } from "../../models/Exam";
 import ErrorUtils from "../../utils/constant/Error";
 import { IExam } from "../../utils/interfaces";
 import { TRequest, TResponse } from "../../utils/types/meta";
-import { Response } from "express";
 
 export const getExam = async (
   req: TRequest<any, { id: number }>,
