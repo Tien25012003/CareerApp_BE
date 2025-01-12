@@ -44,6 +44,21 @@ export const getSubjects = async (
     const user = await AccountModel.findById(req.userId);
     if (!user) return res.send(ErrorUtils.get("ACCOUNT_INVALID"));
 
+    if (user?.role === ERole.STUDENT) {
+      const subjects = await SubjectsModel.find({});
+      return res.send({
+        code: 200,
+        data: subjects,
+        message: "Success!",
+        pagination: {
+          size: 10,
+          page: 1,
+          totalCounts: 6,
+          totalPages: 1,
+        },
+      });
+    }
+
     const filterQueries: any = {
       ...queries,
       ...(user.role !== ERole.ADMIN &&

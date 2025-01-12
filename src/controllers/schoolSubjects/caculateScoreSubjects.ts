@@ -16,7 +16,6 @@ export const caculateScoreSubjects = async (
   res: Response
 ) => {
   const { scores } = req.body;
-  //console.log("score", scores);
   const Unit_Score = new Map([
     [
       "A00",
