@@ -33,6 +33,78 @@ export const loginWithSocial = async (
         role: "TEACHER",
         username: name,
         status: 1,
+        permissions: [
+          {
+            code: "DASHBOARD",
+            name: "Tổng quan",
+            permission: {
+              view: true,
+              create: false,
+              delete: false,
+              edit: false,
+            },
+          },
+          {
+            code: "ACCOUNT",
+            name: "Tài khoản",
+            permission: {
+              view: true,
+              create: true,
+              delete: true,
+              edit: true,
+            },
+          },
+          {
+            code: "EXAM_SYSTEM",
+            name: "Bài kiểm tra",
+            permission: {
+              view: false,
+              create: false,
+              delete: false,
+              edit: false,
+            },
+          },
+          {
+            code: "EXAM_CUSTOM",
+            name: "Bài kiểm tra tự thiết kế",
+            permission: {
+              view: true,
+              create: true,
+              delete: true,
+              edit: true,
+            },
+          },
+          {
+            code: "NEWS",
+            name: "Tin tức",
+            permission: {
+              view: false,
+              create: false,
+              delete: false,
+              edit: false,
+            },
+          },
+          {
+            code: "CHATBOT",
+            name: "Chat bot",
+            permission: {
+              view: true,
+              create: true,
+              delete: true,
+              edit: true,
+            },
+          },
+          {
+            code: "LIBRARY",
+            name: "Từ điển",
+            permission: {
+              view: false,
+              create: false,
+              delete: false,
+              edit: false,
+            },
+          },
+        ],
         password: hashedPassword,
       });
 
