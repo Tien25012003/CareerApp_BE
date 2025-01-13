@@ -61,7 +61,7 @@ export const getListAccounts = async (
       query["$or"] = [{ status: 0 }, { status: 1 }];
     }
 
-    if (role) {
+    if (role !== "ADMIN") {
       const accounts = await AccountModel.find(query)
         .where({
           role: role || "",
