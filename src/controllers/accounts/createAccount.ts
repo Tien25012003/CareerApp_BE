@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
+import { ObjectId } from "mongodb";
 import { sendVerifyEmail } from "../../hooks/sendVerifyEmail";
 import { AccountModel } from "../../models/Account";
 import { GroupModel } from "../../models/Group";
@@ -39,6 +40,8 @@ export const createAccount = async (
           ...data,
           groups, // Assign group IDs directly
           status: 0,
+          creatorId: new ObjectId("670b721daeef041c0a8ca7d5"), // Ensure correct field name and value
+          creator: "21520112@gm.uit.edu.vn",
           password: hashedPassword,
         });
 

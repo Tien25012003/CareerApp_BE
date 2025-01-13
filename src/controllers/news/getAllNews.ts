@@ -35,6 +35,7 @@ export const getAllNews = async (
   console.log(query);
   try {
     const news = await NewsModel.find(query)
+      .sort({ createdAt: -1 })
       .skip((page - 1) * size)
       .limit(size)
       .exec();
