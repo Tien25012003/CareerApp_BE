@@ -4,7 +4,6 @@ import { AccountModel } from "../../models/Account";
 import { ChatBotModel } from "../../models/ChatBot";
 import ErrorUtils from "../../utils/constant/Error";
 import { ERole } from "../../utils/enums/account.enum";
-import { EChatBotType } from "../../utils/enums/chat-bot.enum";
 import { IChatBot } from "../../utils/interfaces/ChatBot";
 import { TRequest, TResponse } from "../../utils/types/meta";
 import { generateInstruction } from "../chat-bot/data/generateInstruction";
@@ -24,11 +23,12 @@ const model = genAI.getGenerativeModel({
 });
 
 export const executePromptInGroup = async (
-  req: TRequest<{ prompt: string; groupId: number }>,
+  req: TRequest<{ prompt: string }, { groupId: number }>,
   res: Response<TResponse<string>>
 ) => {
   try {
-    const { prompt, groupId } = req.body;
+    const { groupId } = req.query;
+    const { prompt } = req.body;
     const isLock = false;
 
     if (!prompt) return res.send(ErrorUtils.get("PROMT_IS_EMPTY"));
@@ -39,7 +39,8 @@ export const executePromptInGroup = async (
     if (user?.role === ERole.STUDENT && !groupId)
       return res.send(ErrorUtils.get("PERMISSION_DENIED"));
 
-    let filterQueries: { [key: string]: any } = { type: EChatBotType.DESIGN };
+    // let filterQueries: { [key: string]: any } = { type: EChatBotType.DESIGN };
+    let filterQueries: { [key: string]: any } = {};
 
     // Add groupId to filter queries if provided
     if (groupId) {
@@ -93,7 +94,7 @@ export const executePromptInGroup = async (
       data: result?.response?.candidates![0].content.parts[0].text,
     });
   } catch (error) {
-    console.log(error);
+    console.log("Error chat bot", error);
     return res.send(ErrorUtils.get("SERVER_ERROR"));
   }
 };

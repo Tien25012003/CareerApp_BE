@@ -48,6 +48,21 @@ export const getExams = async (
     );
     if (!user) return res.send(ErrorUtils.get("ACCOUNT_INVALID"));
 
+    if (user?.role === ERole.STUDENT) {
+      const exams = await ExamModel.find({ category: EExamCategory.SYSTEM });
+      return res.send({
+        code: 200,
+        data: exams,
+        message: "Success!",
+        pagination: {
+          size: 10,
+          page: 1,
+          totalCounts: 6,
+          totalPages: 1,
+        },
+      });
+    }
+
     // Build filter query based on user role
     const filterQueries: any = {
       ...queries,
