@@ -16,10 +16,15 @@ export const getListMemberAccount = async (
 ) => {
   try {
     const { userId } = req.query;
-
-    const accounts = await AccountModel.find({
-      creatorId: userId,
-    })
+    const account = await AccountModel.findById(userId);
+    console.log("account", userId, account?.role, account);
+    const accounts = await AccountModel.find(
+      account?.role !== "ADMIN"
+        ? {
+            creatorId: userId,
+          }
+        : {}
+    )
       .select("-password")
       .populate("groups", "_id groupName");
     console.log(accounts);

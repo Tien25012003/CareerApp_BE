@@ -25,7 +25,6 @@ export const getListAccountMember = async (
         },
       ],
     }).select(["name", "_id", "email", "role"]);
-
     return res.send({
       code: 200,
       //@ts-expect-error no check
