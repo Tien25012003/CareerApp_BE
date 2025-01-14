@@ -13,7 +13,7 @@ export const sendVerifyEmail = async (
   id: string,
   name?: string
 ) => {
-  const actionLink = `https://career-app-ndt9.onrender.com/accounts/verify?id=${id}`;
+  const actionLink = `https://career-app-fe-admin.vercel.app/verify-email?id=${id}`;
   const info = await transporter.sendMail({
     from: `"My Daily" <doank3442@gmail.com>`,
     to: emails.length > 1 ? emails.join(", ") : emails[0],
@@ -108,7 +108,7 @@ export const sendVerifyChangePassword = async (
   id: string,
   newPassword: string
 ) => {
-  const actionLink = `https://career-app-ndt9.onrender.com/accounts/confirmChangePassword?id=${id}&token=${newPassword}`;
+  const actionLink = `https://career-app-fe-admin.vercel.app/confirm-change-password?id=${id}&token=${newPassword}`;
   const info = await transporter.sendMail({
     from: `"My Daily" <doank3442@gmail.com>`,
     to: emails.length > 1 ? emails.join(", ") : emails[0],
