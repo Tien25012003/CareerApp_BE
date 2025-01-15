@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { AccountModel } from "../../models/Account";
 import { GroupModel } from "../../models/Group";
 import ErrorUtils from "../../utils/constant/Error";
 import { IGroup } from "../../utils/interfaces/Group";
@@ -21,6 +22,10 @@ export const updateGroup = async (
     }).then((value) => {
       return res.send({ code: 200, data: value });
     });
+    await AccountModel.updateMany(
+      { _id: { $in: req.body.members } },
+      { $push: { groups: id } }
+    );
   } catch (error) {
     return res.send(ErrorUtils.get("SERVER_ERROR"));
   }

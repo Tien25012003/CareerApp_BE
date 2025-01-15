@@ -21,6 +21,7 @@ export const getGroupByUserId = async (
           select: "name", // Select the 'name' field from the referenced owner
         },
       });
+    console.log(account);
     // Extract the group IDs as strings
     // console.log(account);
 

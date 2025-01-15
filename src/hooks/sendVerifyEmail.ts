@@ -15,7 +15,7 @@ export const sendVerifyEmail = async (
 ) => {
   const actionLink = `https://career-app-fe-admin.vercel.app/verify-email?id=${id}`;
   const info = await transporter.sendMail({
-    from: `"My Daily" <doank3442@gmail.com>`,
+    from: `"Career App" <doank3442@gmail.com>`,
     to: emails.length > 1 ? emails.join(", ") : emails[0],
     subject: "Xác thực tài khoản",
     html: `<!DOCTYPE html>
@@ -110,7 +110,7 @@ export const sendVerifyChangePassword = async (
 ) => {
   const actionLink = `https://career-app-fe-admin.vercel.app/confirm-change-password?id=${id}&token=${newPassword}`;
   const info = await transporter.sendMail({
-    from: `"My Daily" <doank3442@gmail.com>`,
+    from: `"Career App" <doank3442@gmail.com>`,
     to: emails.length > 1 ? emails.join(", ") : emails[0],
     subject: "Yêu Cầu Đổi Mật Khẩu",
     html: `<!DOCTYPE html>
@@ -184,7 +184,7 @@ export const sendVerifyChangePassword = async (
         hiện tại của bạn vẫn sẽ an toàn.
       </p>
       <div class="footer">
-        <p>&copy; 2024 My Daily. Bảo lưu mọi quyền.</p>
+        <p>&copy; 2024 Career App. Bảo lưu mọi quyền.</p>
       </div>
     </div>
   </body>
