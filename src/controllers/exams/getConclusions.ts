@@ -14,11 +14,12 @@ export const getConclusion = async (req: Request, res: Response) => {
     } = req.body;
     const query = ConclusionModel.where({ Holland, IQ, EQ, SchoolScore });
     const conclusion = await query.findOne();
+
     if (conclusion) {
       const reports = [
         { type: Holland, score: 0 },
-        { type: "IQ", score: IQScore || 0 },
-        { type: "EQ", score: EQScore || 0 },
+        { type: "IQ", score: IQScore === "-" ? 0 : IQScore || 0 },
+        { type: "EQ", score: EQScore === "-" ? 0 : EQScore || 0 },
         { type: SchoolScore, score: 0 },
       ]?.filter(
         (report) =>
@@ -40,6 +41,7 @@ export const getConclusion = async (req: Request, res: Response) => {
           }
         })
       );
+      console.log("conclusion", conclusion);
       return res.send({
         code: 200,
         data: conclusion,
