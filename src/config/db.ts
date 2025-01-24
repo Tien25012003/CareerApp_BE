@@ -1,15 +1,14 @@
 import mongoose from "mongoose";
 
-const URI =
-  "mongodb+srv://phuongtien:phuongtienn@cluster0.4tbfypg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
+const URI = process.env.DB_LINK;
 const connectToDb = async () => {
-  try {
-    await mongoose.connect(URI, { dbName: "Career_App" });
-    console.log("db connected...");
-  } catch (e) {
-    console.log(e);
-  }
+  if (URI)
+    try {
+      await mongoose.connect(URI, { dbName: "Career_App" });
+      console.log("db connected...");
+    } catch (e) {
+      console.log(e);
+    }
 };
 
 export { connectToDb };
