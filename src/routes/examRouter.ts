@@ -18,7 +18,7 @@ import { getExamList } from "../controllers/exams/getExamList";
 import { getExamSelect } from "../controllers/exams/getExamSelect";
 import { getListConclusion } from "../controllers/exams/getListConclusion";
 import { updateStatus } from "../controllers/exams/updateStatus";
-import upload from "../middlewares/upload";
+import { uploadImages } from "../middlewares/upload";
 import { verifyToken } from "../middlewares/verifyToken";
 const examRouter = Router();
 
@@ -30,7 +30,8 @@ examRouter.put("/updateExam", verifyToken, updateExam);
 examRouter.post(
   "/uploadConclusion",
   verifyToken,
-  upload.single("file"),
+  //upload.single("file"),
+  uploadImages.single("file"),
   uploadConclusion
 );
 examRouter.put("/status", verifyToken, updateStatus);

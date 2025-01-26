@@ -1,3 +1,4 @@
+import { Response } from "express";
 import { AccountModel } from "../../models/Account";
 import { ConclusionModel } from "../../models/Conclusion";
 import ErrorUtils, { IErrorData } from "../../utils/constant/Error";
@@ -8,7 +9,6 @@ import {
   TRequest,
   TResponseWithPagination,
 } from "../../utils/types/meta";
-import { Response } from "express";
 export const getListConclusion = async (
   req: TRequest<any, IConclusion & TPagingParams>,
   res: Response<TResponseWithPagination<IConclusion[] | IErrorData>>
@@ -38,8 +38,14 @@ export const getListConclusion = async (
       }),
     };
     // Fetch exams with pagination and sorting
+
+    // const conclusions = await ConclusionModel.find(filterQueries)
+    //   .sort({ createdAt: direction === 1 ? 1 : -1 })
+    //   .skip((+page - 1) * +size)
+    //   .limit(+size)
+    //   .exec();
     const conclusions = await ConclusionModel.find(filterQueries)
-      .sort({ createdAt: direction === 1 ? 1 : -1 })
+
       .skip((+page - 1) * +size)
       .limit(+size)
       .exec();

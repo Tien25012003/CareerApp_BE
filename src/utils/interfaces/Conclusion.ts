@@ -1,4 +1,4 @@
-import { ITracking, IResponse } from ".";
+import { IResponse, ITracking } from ".";
 
 export interface IConclusion extends ITracking {
   Type: string;

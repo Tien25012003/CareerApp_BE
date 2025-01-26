@@ -14,6 +14,7 @@ export const getConclusion = async (req: Request, res: Response) => {
     } = req.body;
     const query = ConclusionModel.where({ Holland, IQ, EQ, SchoolScore });
     const conclusion = await query.findOne();
+    console.log("conclusion", conclusion);
 
     if (conclusion) {
       const reports = [

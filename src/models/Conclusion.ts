@@ -36,11 +36,9 @@ const ConclusionSchema = new mongoose.Schema<IConclusion>(
     },
     creator: {
       type: String,
-      required: true,
     },
     updator: {
       type: String,
-      required: true,
     },
     // FOREIGN KEY
     creatorId: {
