@@ -34,6 +34,9 @@ const ConclusionSchema = new mongoose.Schema<IConclusion>(
       type: String,
       required: true,
     },
+    Schools: {
+      type: String,
+    },
     creator: {
       type: String,
     },
