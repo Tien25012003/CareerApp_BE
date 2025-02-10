@@ -35,7 +35,8 @@
     "node-cron": "^3.0.3",
     "nodemailer": "^6.9.15",
     "openai": "^4.33.1",
-    "tesseract.js": "^5.0.5"
+    "tesseract.js": "^5.0.5",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",

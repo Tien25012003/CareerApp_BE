@@ -15,6 +15,7 @@ import groupRouter from "./src/routes/groupRouter";
 import newsRouter from "./src/routes/newsRouter";
 import ocrRouter from "./src/routes/ocrRouter";
 import reportRouter from "./src/routes/reportRouter";
+import schoolDictionaryRouter from "./src/routes/schoolDictionaryRouter";
 import schoolSubjectRouter from "./src/routes/schoolSubjectRouter";
 import uploadRouter from "./src/routes/uploadRouter";
 const app = express();
@@ -39,6 +40,8 @@ app.use("/do-exam", doExamRouter);
 app.use("/chat-bot", chatBotRouter);
 app.use("/uploads", uploadRouter);
 app.use("/report", reportRouter);
+app.use("/school-dictionary", schoolDictionaryRouter);
+
 cron.schedule("0,0,1 * * * *", deleteBlacklist);
 // if (process.env.NODE_ENV !== "development") {
 //   console.log = () => {}; // Remove console.log on staging
