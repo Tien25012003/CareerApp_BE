@@ -37,3 +37,11 @@ export interface ISchoolDictionaryRaw {
 export interface ISchoolDictionaryResponse extends IResponse {
   data: ISchoolDictionary[];
 }
+
+export interface IGetListSchoolDictionaryRequest {
+  category?: string;
+  search?: string;
+}
+export interface IGetSchoolDictionaryRequest {
+  schoolId?: string;
+}
