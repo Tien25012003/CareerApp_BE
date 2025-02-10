@@ -6,7 +6,7 @@ import {
   ISchoolDictionary,
 } from "../../utils/interfaces/SchoolDictionary";
 import { TRequest, TResponse } from "../../utils/types/meta";
-export const getListSchool = async (
+export const getSchool = async (
   req: TRequest<any, IGetSchoolDictionaryRequest>,
   res: Response<TResponse<ISchoolDictionary | IErrorData>>
 ) => {
