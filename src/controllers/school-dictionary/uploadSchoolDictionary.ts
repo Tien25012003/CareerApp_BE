@@ -49,7 +49,7 @@ export const uploadSchoolDictionary = async (
                 return {
                   majorCode,
                   majorName,
-                  entryScore,
+                  entryScore: !isNaN(+entryScore) ? +entryScore : 0,
                   duration,
                   fee,
                 };

@@ -7,7 +7,7 @@ export enum ESchoolType {
 export interface ISchoolMajor {
   majorCode: string;
   majorName: string;
-  entryScore: String;
+  entryScore: number;
   duration: string;
   fee: string;
 }
@@ -41,6 +41,8 @@ export interface ISchoolDictionaryResponse extends IResponse {
 export interface IGetListSchoolDictionaryRequest {
   category?: string;
   search?: string;
+  minScore?: number;
+  provinces?: string;
 }
 export interface IGetSchoolDictionaryRequest {
   schoolId?: string;

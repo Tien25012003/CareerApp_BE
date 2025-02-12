@@ -8,7 +8,7 @@ import {
 const SchoolMajorSchema = new Schema<ISchoolMajor>({
   majorCode: { type: String, required: false },
   majorName: { type: String, required: false },
-  entryScore: { type: String, required: false },
+  entryScore: { type: Number, required: false },
   duration: { type: String, required: false },
   fee: { type: String, required: false },
 });

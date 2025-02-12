@@ -16,13 +16,34 @@ export const getListSchool = async (
   res: Response<TResponseWithPagination<ISchoolDictionary[] | IErrorData>>
 ) => {
   try {
-    const { size = 10, page = 1, category, search } = req.query;
+    const {
+      size = 10,
+      page = 1,
+      category,
+      search,
+      minScore,
+      provinces,
+    } = req.query;
 
     // Build the filter query
     const query: Record<string, any> = {};
     if (category) query.type = category;
-    if (search) query.name = { $regex: search, $options: "i" }; // Case-insensitive search
-
+    if (search) {
+      query.$or = [
+        { name: { $regex: search, $options: "i" } },
+        {
+          majors: {
+            $elemMatch: { majorName: { $regex: search, $options: "i" } },
+          },
+        },
+      ];
+    } // Case-insensitive search
+    if (minScore) {
+      query["majors.entryScore"] = { $lte: Number(minScore) };
+    }
+    if (provinces) {
+      query.city = { $regex: provinces, $options: "i" };
+    }
     // Fetch paginated data
     const schoolDictionaries = await SchoolDictionaryModel.find(query)
       .skip((+page - 1) * +size)
