@@ -42,8 +42,13 @@ export const getListSchool = async (
       query["majors.entryScore"] = { $lte: Number(minScore) };
     }
     if (provinces) {
-      query.city = { $regex: provinces, $options: "i" };
+      const provinceArray = provinces.split(",").map((p) => p.trim()); // Split and trim spaces
+
+      query.$or = provinceArray.map((province) => ({
+        city: { $regex: province, $options: "i" },
+      }));
     }
+
     // Fetch paginated data
     const schoolDictionaries = await SchoolDictionaryModel.find(query)
       .skip((+page - 1) * +size)
